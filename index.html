@@ -255,6 +255,13 @@
     box-shadow:0 1px 5px rgba(140,45,32,.3);
   }
   .hidden{display:none!important;}
+  .gz-pair{display:flex;gap:6px;}
+  .gz-pair select{
+    flex:1 1 0;min-width:0;text-align:center;text-align-last:center;
+    font-family:var(--kai);font-size:16px;font-weight:700;padding-left:4px;padding-right:4px;
+  }
+  .gz-pair select:first-child{color:var(--ink);}
+  .gz-pair select:last-child{color:var(--qing);}
   .gz-hit{display:flex;flex-wrap:wrap;gap:8px;margin-top:9px;}
   .gz-hit button{
     font-family:var(--kai);font-size:13.5px;letter-spacing:1px;cursor:pointer;
@@ -416,10 +423,14 @@
 
     <div id="pane-ganzhi" class="hidden">
       <div class="grid g4 mb8">
-        <div><label>年柱（立春換年）</label><select id="gz-year"></select></div>
-        <div><label>月支（節氣月）</label><select id="gz-month"></select></div>
-        <div><label>日柱</label><select id="gz-day"></select></div>
-        <div><label>時支</label><select id="gz-hour"></select></div>
+        <div><label>年柱（立春換年）</label>
+          <div class="gz-pair"><select id="gz-y-g"></select><select id="gz-y-z"></select></div></div>
+        <div><label>月柱（節氣月）</label>
+          <div class="gz-pair"><select id="gz-m-g"></select><select id="gz-m-z"></select></div></div>
+        <div><label>日柱</label>
+          <div class="gz-pair"><select id="gz-d-g"></select><select id="gz-d-z"></select></div></div>
+        <div><label>時柱</label>
+          <div class="gz-pair"><select id="gz-h-g"></select><select id="gz-h-z"></select></div></div>
       </div>
       <div class="flex" style="gap:10px;justify-content:flex-start;">
         <div style="flex:0 0 auto"><button class="btn-now" id="btn-gz-now" title="把四個欄位填為此刻的四柱">取現在四柱</button></div>
@@ -1006,21 +1017,15 @@ function initUI(){
     syncDiFenUI();
   };
   $('btn-run').onclick=run;
-  /* ===== 干支曆輸入 ===== */
-  var gzOpts='';
-  for(var gi2=0;gi2<60;gi2++) gzOpts+='<option value="'+GAN[gi2%10]+ZHI[gi2%12]+'">'+GAN[gi2%10]+ZHI[gi2%12]+'</option>';
-  $('gz-year').innerHTML=gzOpts;
-  $('gz-day').innerHTML=gzOpts;
-  $('gz-month').innerHTML=ZHI.split('').map(function(z){return '<option value="'+z+'">'+z+'月</option>';}).join('');
-  $('gz-hour').innerHTML=ZHI.split('').map(function(z){return '<option value="'+z+'">'+z+'時</option>';}).join('');
+  /* ===== 干支曆輸入（干、支分開選） ===== */
+  buildGzSelects();
+  bindGzEvents();
   fillGzFromDate(new Date());
-  $('gz-year').onchange=function(){ refreshGzLabels(); };
-  $('gz-day').onchange=function(){ refreshGzLabels(); };
   $('mt-solar').onclick=function(){ setInputMode('solar'); };
   $('mt-ganzhi').onclick=function(){ setInputMode('ganzhi'); };
   $('btn-gz-now').onclick=function(){
     fillGzFromDate(new Date());
-    $('gz-result').innerHTML='<span style="color:var(--ink2)">已填入此刻四柱，按「換算並起課」。</span>';
+    gzHint('已填入此刻四柱，按「換算並起課」。');
   };
   $('btn-gz-conv').onclick=gzConvert;
   run();
@@ -1037,32 +1042,72 @@ function setInputMode(m){
   $('pane-solar').classList.toggle('hidden', m!=='solar');
   $('pane-ganzhi').classList.toggle('hidden', m!=='ganzhi');
 }
+/* 干支同陰陽才可配對（10 干 × 12 支 → 60 甲子） */
+function samePolar(g,z){ return (gi(g)%2)===(zi(z)%2); }
+function buildGzSelects(){
+  var gOpt=GAN.split('').map(function(g){return '<option value="'+g+'">'+g+'</option>';}).join('');
+  var zOpt=ZHI.split('').map(function(z){return '<option value="'+z+'">'+z+'</option>';}).join('');
+  ['y','m','d','h'].forEach(function(k){
+    $('gz-'+k+'-g').innerHTML=gOpt;
+    $('gz-'+k+'-z').innerHTML=zOpt;
+  });
+}
+/* 干變→支只留同陰陽；支變→干只留同陰陽（UI 上就不可能選出無效組合） */
+function bindGzEvents(){
+  ['y','m','d','h'].forEach(function(k){
+    $('gz-'+k+'-g').onchange=function(){
+      var g=$('gz-'+k+'-g').value, zs=$('gz-'+k+'-z'), fixed=false;
+      if(!samePolar(g,zs.value)){
+        var c=ZHI.split('').filter(function(z){return samePolar(g,z);});
+        zs.value=c[0]; fixed=true;
+      }
+      if(k==='y') autoMonthGan();
+      if(k==='d') autoHourGan();
+      gzHint(fixed?'干支須同陰陽，已自動調整為 '+g+zs.value+'。':null);
+    };
+    $('gz-'+k+'-z').onchange=function(){
+      var z=$('gz-'+k+'-z').value, gs=$('gz-'+k+'-g'), fixed=false;
+      if(!samePolar(gs.value,z)){
+        var c=GAN.split('').filter(function(g){return samePolar(g,z);});
+        gs.value=c[0]; fixed=true;
+      }
+      if(k==='m') autoMonthGan();
+      if(k==='h') autoHourGan();
+      gzHint(fixed?'干支須同陰陽，已自動調整為 '+gs.value+z+'。':null);
+    };
+  });
+}
+/* 月干依年干（五虎遁）、時干依日干（五鼠遁）自動決定 */
+function autoMonthGan(){
+  var yg=$('gz-y-g').value, mz=$('gz-m-z').value;
+  $('gz-m-g').value=GAN[((gi(yg)*2+2+((zi(mz)-2+12)%12))%10+10)%10];
+}
+function autoHourGan(){
+  var dg=$('gz-d-g').value, hz=$('gz-h-z').value;
+  $('gz-h-g').value=GAN[((gi(dg)*2+zi(hz))%10+10)%10];
+}
+function gzReadPillars(){
+  return {
+    y:$('gz-y-g').value+$('gz-y-z').value,
+    m:$('gz-m-g').value+$('gz-m-z').value,
+    d:$('gz-d-g').value+$('gz-d-z').value,
+    h:$('gz-h-g').value+$('gz-h-z').value,
+    mZhi:$('gz-m-z').value, hZhi:$('gz-h-z').value
+  };
+}
+function gzHint(extra){
+  var p=gzReadPillars();
+  $('gz-result').innerHTML=(extra?'<span style="color:var(--ink2)">'+extra+'</span><br>':'')+
+    '目前四柱：<b>'+p.y+'年　'+p.m+'月　'+p.d+'日　'+p.h+'時</b>'+
+    '<br><span style="color:var(--ink2)">月干依「五虎遁」隨年干、時干依「五鼠遁」隨日干自動決定；干與支需同陰陽方成一柱。</span>';
+}
 function fillGzFromDate(dt){
   var sz=siZhu(dt);
-  refreshGzLabels(sz.yGan+sz.yZhi, sz.dGan+sz.dZhi);
-  $('gz-year').value=sz.yGan+sz.yZhi;
-  $('gz-month').value=sz.yueJian;
-  $('gz-day').value=sz.dGan+sz.dZhi;
-  $('gz-hour').value=sz.hZhi;
-}
-/* 依年干（五虎遁）更新月柱顯示、依日干（五鼠遁）更新時柱顯示 */
-function refreshGzLabels(yPillar,dPillar){
-  var yGan=(yPillar||$('gz-year').value).charAt(0);
-  var dGan=(dPillar||$('gz-day').value).charAt(0);
-  var curM=$('gz-month').value, curH=$('gz-hour').value;
-  var mo='',ho='';
-  ZHI.split('').forEach(function(z,i){
-    var mg=GAN[((gi(yGan)*2+2+((i-2+12)%12))%10+10)%10];
-    mo+='<option value="'+z+'">'+mg+z+'月</option>';
-  });
-  ZHI.split('').forEach(function(z,i){
-    var hg=GAN[((gi(dGan)*2+i)%10+10)%10];
-    ho+='<option value="'+z+'">'+hg+z+'時</option>';
-  });
-  $('gz-month').innerHTML=mo;
-  $('gz-hour').innerHTML=ho;
-  if(curM) $('gz-month').value=curM;
-  if(curH) $('gz-hour').value=curH;
+  $('gz-y-g').value=sz.yGan; $('gz-y-z').value=sz.yZhi;
+  $('gz-m-z').value=sz.yueJian;
+  $('gz-d-g').value=sz.dGan; $('gz-d-z').value=sz.dZhi;
+  $('gz-h-z').value=sz.hZhi;
+  autoMonthGan(); autoHourGan();
 }
 /* 由四柱反推公曆：先以年柱鎖定候選年（每 60 年一次），再逐日比對月支、日柱、時支 */
 function gzSearch(yPillar,mZhi,dPillar,hZhi){
@@ -1084,16 +1129,23 @@ function gzSearch(yPillar,mZhi,dPillar,hZhi){
   return hits;
 }
 function gzConvert(){
-  var yp=$('gz-year').value, mz=$('gz-month').value, dp=$('gz-day').value, hz=$('gz-hour').value;
   var box=$('gz-result');
-  var hits=gzSearch(yp,mz,dp,hz);
+  /* 月干、時干本由年干／日干決定，換算前以遁法校正 */
+  autoMonthGan(); autoHourGan();
+  var p=gzReadPillars();
+  /* 年月日三柱干支須同陰陽 */
+  ['y','m','d','h'].forEach(function(k){
+    if(!samePolar($('gz-'+k+'-g').value, $('gz-'+k+'-z').value)) console.warn('polar mismatch', k);
+  });
+  var hits=gzSearch(p.y, p.mZhi, p.d, p.hZhi);
   if(!hits.length){
-    box.innerHTML='<span style="color:var(--zhu);font-weight:700">查無此四柱</span>　1900–2100 之間沒有相符日期，請確認「年柱＋月支」與「日柱」是否搭配。';
+    box.innerHTML='<span style="color:var(--zhu);font-weight:700">查無此四柱</span>　1900–2100 之間沒有相符日期。'+
+      '<br><span style="color:var(--ink2)">常見原因：年柱與月柱不屬同一節氣年，或該月內並無此日柱（日柱 60 日一循環，一個月約 30 日，故有些組合不會出現）。</span>';
     return;
   }
   var now=Date.now(), nearIdx=0, best=Infinity;
   hits.forEach(function(t,i){ var dd=Math.abs(t.getTime()-now); if(dd<best){best=dd;nearIdx=i;} });
-  var label='<b>'+yp+'年　'+mz+'月　'+dp+'日　'+hz+'時</b>　→　符合日期 '+hits.length+' 組（同四柱每 60 年重現），以金色標示最接近今日者；點選即起課：';
+  var label='<b>'+p.y+'年　'+p.m+'月　'+p.d+'日　'+p.h+'時</b>　→　符合日期 '+hits.length+' 組（同四柱每 60 年重現），以金色標示最接近今日者；點選即起課：';
   var html=label+'<div class="gz-hit">';
   hits.forEach(function(t,i){
     html+='<button data-ts="'+t.getTime()+'" class="'+(i===nearIdx?'near':'')+'">'+fmtDT(t)+'</button>';
@@ -1101,9 +1153,9 @@ function gzConvert(){
   html+='</div>';
   box.innerHTML=html;
   box.querySelectorAll('button[data-ts]').forEach(function(b){
-    b.onclick=function(){ applyGzDate(new Date(+b.getAttribute('data-ts')), yp,mz,dp,hz); };
+    b.onclick=function(){ applyGzDate(new Date(+b.getAttribute('data-ts')), p.y,p.m,p.d,p.h); };
   });
-  if(hits.length===1) applyGzDate(hits[0], yp,mz,dp,hz);
+  if(hits.length===1) applyGzDate(hits[0], p.y,p.m,p.d,p.h);
 }
 function applyGzDate(dt,yp,mz,dp,hz){
   $('in-date').value=dt.getFullYear()+'-'+pad(dt.getMonth()+1)+'-'+pad(dt.getDate());
