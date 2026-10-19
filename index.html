@@ -240,8 +240,30 @@
   .card .ct{font-family:var(--kai);font-weight:700;color:var(--qing);margin-bottom:4px;letter-spacing:1px;}
   .card .cr{font-size:12.5px;color:var(--ink2);margin:2px 0;}
   .card .cr b{color:var(--ink);}
-  /* ===== 地分圖例 ===== */
-  .difen-legend{font-size:12.5px;color:var(--ink2);margin-top:9px;line-height:1.9;letter-spacing:.5px;}
+  /* ===== 輸入模式切換 ===== */
+  .mode-tabs{display:flex;gap:7px;margin:0 0 13px;}
+  .mode-tabs button{
+    font-family:var(--kai);font-size:14.5px;letter-spacing:2px;cursor:pointer;
+    padding:6px 18px;border:1px solid #cdbb96;border-radius:3px;
+    background:linear-gradient(#f9f3e2,#efe5cc);color:#6d5f47;
+    transition:all .15s;
+  }
+  .mode-tabs button:hover{border-color:var(--gold);}
+  .mode-tabs button.on{
+    background:linear-gradient(180deg,#b23a30,#8f2b25);color:#fff;
+    border-color:#8f2b25;font-weight:700;
+    box-shadow:0 1px 5px rgba(140,45,32,.3);
+  }
+  .hidden{display:none!important;}
+  .gz-hit{display:flex;flex-wrap:wrap;gap:8px;margin-top:9px;}
+  .gz-hit button{
+    font-family:var(--kai);font-size:13.5px;letter-spacing:1px;cursor:pointer;
+    padding:5px 13px;border:1px solid #cdbb96;border-radius:3px;
+    background:linear-gradient(#fdf8ea,#f6eeda);color:var(--ink);
+  }
+  .gz-hit button:hover{border-color:var(--zhu);color:var(--zhu);}
+  .gz-hit button.near{border-color:var(--gold);background:linear-gradient(#fdf2d8,#f8e9c4);}
+  /* ===== 地分圖例 ===== */  .difen-legend{font-size:12.5px;color:var(--ink2);margin-top:9px;line-height:1.9;letter-spacing:.5px;}
   .difen-legend i{display:inline-block;width:22px;height:0;vertical-align:middle;margin:0 5px 0 2px;}
   .difen-legend i.lg-on{border-top:3px solid var(--zhu);}
   .difen-legend i.lg-auto{border-top:3px dashed #244a67;}
@@ -377,23 +399,48 @@
 
   <div class="panel">
     <h2>一、起課輸入</h2>
-    <div class="grid g4 mb8">
-      <div><label>公曆日期</label><input type="date" id="in-date" value="2025-09-01"></div>
-      <div><label>時間</label><input type="time" id="in-time" value="09:30"></div>
+    <div class="mode-tabs">
+      <button class="mt on" id="mt-solar">公曆輸入</button>
+      <button class="mt" id="mt-ganzhi">干支曆輸入</button>
+    </div>
+
+    <div id="pane-solar">
+      <div class="grid g4 mb8">
+        <div><label>公曆日期</label><input type="date" id="in-date" value="2025-09-01"></div>
+        <div><label>時間</label><input type="time" id="in-time" value="09:30"></div>
+        <div style="display:flex;align-items:flex-end;grid-column:span 2;justify-content:flex-start;">
+          <button class="btn-now" id="btn-now" title="將日期時間設為此刻、地分取正時（仍須按「起課」起課）">現在時間</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="pane-ganzhi" class="hidden">
+      <div class="grid g4 mb8">
+        <div><label>年柱（立春換年）</label><select id="gz-year"></select></div>
+        <div><label>月支（節氣月）</label><select id="gz-month"></select></div>
+        <div><label>日柱</label><select id="gz-day"></select></div>
+        <div><label>時支</label><select id="gz-hour"></select></div>
+      </div>
+      <div class="flex" style="gap:10px;justify-content:flex-start;">
+        <div style="flex:0 0 auto"><button class="btn-now" id="btn-gz-now" title="把四個欄位填為此刻的四柱">取現在四柱</button></div>
+        <div style="flex:0 0 auto"><button class="btn-now" id="btn-gz-conv" title="依干支反推公曆並起課">換算並起課</button></div>
+      </div>
+      <div id="gz-result" class="note"></div>
+    </div>
+
+    <div class="grid g4 mb8" style="margin-top:11px;">
       <div><label>性別</label>
         <select id="in-sex"><option value="男">男</option><option value="女">女</option></select></div>
       <div><label>本命（出生年）</label><select id="in-benming"></select></div>
-    </div>
-    <div class="grid g4 mb8">
       <div><label>行年（手動指定；留空＝未指定）</label><select id="in-xingnian"></select></div>
       <div><label>所占之事</label><input type="text" id="in-matter" value="占財"></div>
-      <div class="span2"><label>地分</label>
-        <div class="zhi-btns" id="difen-btns"></div>
-        <div class="difen-legend"><i class="lg-on"></i>紅色實線 = 手動指定地分；<i class="lg-auto"></i>藍色虛線 = 正時自動決定（隨起課時刻）</div>
-      </div>
+    </div>
+    <div class="mb8">
+      <label>地分</label>
+      <div class="zhi-btns" id="difen-btns"></div>
+      <div class="difen-legend"><i class="lg-on"></i>紅色實線 = 手動指定地分；<i class="lg-auto"></i>藍色虛線 = 正時自動決定（隨起課時刻）</div>
     </div>
     <div class="flex" style="gap:10px;justify-content:flex-start;">
-      <div style="flex:0 0 auto"><button class="btn-now" id="btn-now" title="將日期時間設為此刻、地分取正時（仍須按「起課」起課）">現在時間</button></div>
       <div style="flex:0 0 auto"><button class="btn-main" id="btn-run">起 課</button></div>
     </div>
   </div>
@@ -959,12 +1006,113 @@ function initUI(){
     syncDiFenUI();
   };
   $('btn-run').onclick=run;
+  /* ===== 干支曆輸入 ===== */
+  var gzOpts='';
+  for(var gi2=0;gi2<60;gi2++) gzOpts+='<option value="'+GAN[gi2%10]+ZHI[gi2%12]+'">'+GAN[gi2%10]+ZHI[gi2%12]+'</option>';
+  $('gz-year').innerHTML=gzOpts;
+  $('gz-day').innerHTML=gzOpts;
+  $('gz-month').innerHTML=ZHI.split('').map(function(z){return '<option value="'+z+'">'+z+'月</option>';}).join('');
+  $('gz-hour').innerHTML=ZHI.split('').map(function(z){return '<option value="'+z+'">'+z+'時</option>';}).join('');
+  fillGzFromDate(new Date());
+  $('gz-year').onchange=function(){ refreshGzLabels(); };
+  $('gz-day').onchange=function(){ refreshGzLabels(); };
+  $('mt-solar').onclick=function(){ setInputMode('solar'); };
+  $('mt-ganzhi').onclick=function(){ setInputMode('ganzhi'); };
+  $('btn-gz-now').onclick=function(){
+    fillGzFromDate(new Date());
+    $('gz-result').innerHTML='<span style="color:var(--ink2)">已填入此刻四柱，按「換算並起課」。</span>';
+  };
+  $('btn-gz-conv').onclick=gzConvert;
   run();
 }
 /* 手動指定地分（選定後須按「起課」生效） */
 function setDiFen(z){
   diFenMode=z;
   syncDiFenUI();
+}
+/* ==================== 干支曆輸入 ==================== */
+function setInputMode(m){
+  $('mt-solar').classList.toggle('on', m==='solar');
+  $('mt-ganzhi').classList.toggle('on', m==='ganzhi');
+  $('pane-solar').classList.toggle('hidden', m!=='solar');
+  $('pane-ganzhi').classList.toggle('hidden', m!=='ganzhi');
+}
+function fillGzFromDate(dt){
+  var sz=siZhu(dt);
+  refreshGzLabels(sz.yGan+sz.yZhi, sz.dGan+sz.dZhi);
+  $('gz-year').value=sz.yGan+sz.yZhi;
+  $('gz-month').value=sz.yueJian;
+  $('gz-day').value=sz.dGan+sz.dZhi;
+  $('gz-hour').value=sz.hZhi;
+}
+/* 依年干（五虎遁）更新月柱顯示、依日干（五鼠遁）更新時柱顯示 */
+function refreshGzLabels(yPillar,dPillar){
+  var yGan=(yPillar||$('gz-year').value).charAt(0);
+  var dGan=(dPillar||$('gz-day').value).charAt(0);
+  var curM=$('gz-month').value, curH=$('gz-hour').value;
+  var mo='',ho='';
+  ZHI.split('').forEach(function(z,i){
+    var mg=GAN[((gi(yGan)*2+2+((i-2+12)%12))%10+10)%10];
+    mo+='<option value="'+z+'">'+mg+z+'月</option>';
+  });
+  ZHI.split('').forEach(function(z,i){
+    var hg=GAN[((gi(dGan)*2+i)%10+10)%10];
+    ho+='<option value="'+z+'">'+hg+z+'時</option>';
+  });
+  $('gz-month').innerHTML=mo;
+  $('gz-hour').innerHTML=ho;
+  if(curM) $('gz-month').value=curM;
+  if(curH) $('gz-hour').value=curH;
+}
+/* 由四柱反推公曆：先以年柱鎖定候選年（每 60 年一次），再逐日比對月支、日柱、時支 */
+function gzSearch(yPillar,mZhi,dPillar,hZhi){
+  var hi=zi(hZhi), hour=(hi===0?0:hi*2), hits=[];
+  for(var y=1900;y<=2100;y++){
+    if(ganZhiOfYear(y)!==yPillar) continue;
+    var d=new Date(y,0,25), end=new Date(y+1,2,12);
+    while(d<=end){
+      var t=new Date(d.getFullYear(),d.getMonth(),d.getDate(),hour,30,0);
+      var sz=siZhu(t);
+      if(sz.yGan+sz.yZhi===yPillar && sz.yueJian===mZhi && sz.dGan+sz.dZhi===dPillar && sz.hZhi===hZhi){
+        hits.push(t);
+        d.setDate(d.getDate()+2);   /* 日柱 60 日一循環，跳一日安全 */
+      }else{
+        d.setDate(d.getDate()+1);
+      }
+    }
+  }
+  return hits;
+}
+function gzConvert(){
+  var yp=$('gz-year').value, mz=$('gz-month').value, dp=$('gz-day').value, hz=$('gz-hour').value;
+  var box=$('gz-result');
+  var hits=gzSearch(yp,mz,dp,hz);
+  if(!hits.length){
+    box.innerHTML='<span style="color:var(--zhu);font-weight:700">查無此四柱</span>　1900–2100 之間沒有相符日期，請確認「年柱＋月支」與「日柱」是否搭配。';
+    return;
+  }
+  var now=Date.now(), nearIdx=0, best=Infinity;
+  hits.forEach(function(t,i){ var dd=Math.abs(t.getTime()-now); if(dd<best){best=dd;nearIdx=i;} });
+  var label='<b>'+yp+'年　'+mz+'月　'+dp+'日　'+hz+'時</b>　→　符合日期 '+hits.length+' 組（同四柱每 60 年重現），以金色標示最接近今日者；點選即起課：';
+  var html=label+'<div class="gz-hit">';
+  hits.forEach(function(t,i){
+    html+='<button data-ts="'+t.getTime()+'" class="'+(i===nearIdx?'near':'')+'">'+fmtDT(t)+'</button>';
+  });
+  html+='</div>';
+  box.innerHTML=html;
+  box.querySelectorAll('button[data-ts]').forEach(function(b){
+    b.onclick=function(){ applyGzDate(new Date(+b.getAttribute('data-ts')), yp,mz,dp,hz); };
+  });
+  if(hits.length===1) applyGzDate(hits[0], yp,mz,dp,hz);
+}
+function applyGzDate(dt,yp,mz,dp,hz){
+  $('in-date').value=dt.getFullYear()+'-'+pad(dt.getMonth()+1)+'-'+pad(dt.getDate());
+  $('in-time').value=pad(dt.getHours())+':'+pad(dt.getMinutes());
+  run();
+  var sz=siZhu(dt);
+  $('gz-result').innerHTML='<b>'+yp+'年 '+mz+'月 '+dp+'日 '+hz+'時</b>　→　公曆 <b>'+fmtDT(dt)+'</b>'+
+    '<br><span style="color:var(--ink2)">實際四柱：'+sz.yGan+sz.yZhi+'年　'+sz.yueGan+sz.yueJian+'月　'+
+    sz.dGan+sz.dZhi+'日　'+sz.hGan+sz.hZhi+'時　（'+sz.jieName+'後）　已起課</span>';
 }
 /* 由輸入框推正時地支（供 UI 回饋用） */
 function ke0hourFromInput(){

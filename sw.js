@@ -1,5 +1,5 @@
 /* 金口訣 起課工具 — 離線快取（cache-first，單檔應用） */
-const CACHE = 'jkj-v36';
+const CACHE = 'jkj-v37';
 const ASSETS = [
   './',
   './index.html',
