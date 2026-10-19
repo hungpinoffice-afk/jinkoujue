@@ -1,0 +1,1191 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>澹台明玉 金口訣 · 製作：SHENG</title>
+<style>
+  :root{
+    --paper:#efe7d3; --card:#fbf7ec; --ink:#231d14; --ink2:#6d5f47;
+    --line:#d5c6a5; --zhu:#9e2f28; --qing:#2c5673; --green:#2a6b4a;
+    --gold:#a8863c; --tagbg:#ece0c8;
+    /* 四層專屬色：人元石青／貴神硃砂／將神黛紫／地分赭褐 */
+    --c-ren:#2f6690; --c-gui:#a63a2e; --c-jiang:#5f3b6e; --c-di:#7d5427;
+    --serif:"Noto Serif TC","Source Han Serif TC","Songti TC","STSong","PMingLiU","MingLiU",serif;
+    --kai:"Kaiti TC","標楷體","DFKai-SB","STKaiti","KaiTi",serif;
+  }
+  *{box-sizing:border-box;}
+  html{-webkit-text-size-adjust:100%;}
+  body{
+    margin:0;color:var(--ink);
+    font-family:var(--serif);font-size:15px;line-height:1.7;
+    background-color:var(--paper);
+    background-image:
+      radial-gradient(circle at 18% 12%, rgba(255,255,255,.55), transparent 42%),
+      radial-gradient(circle at 82% 88%, rgba(170,145,100,.14), transparent 46%),
+      repeating-linear-gradient(0deg, rgba(120,100,70,.03) 0 1px, transparent 1px 5px),
+      repeating-linear-gradient(90deg, rgba(120,100,70,.022) 0 1px, transparent 1px 5px);
+    background-attachment:fixed;
+  }
+  /* ===== 頁首 ===== */
+  header{
+    position:relative;overflow:hidden;text-align:center;
+    padding:34px 26px 26px;color:#f1e4c6;
+    background:
+      radial-gradient(circle at 50% -30%, rgba(184,147,63,.28), transparent 62%),
+      linear-gradient(160deg,#252c33,#151a20 55%,#1b2229);
+    border-bottom:3px double var(--zhu);
+    box-shadow:0 8px 26px rgba(20,15,8,.35);
+  }
+  header::before{
+    content:'';position:absolute;left:0;right:0;top:0;height:5px;
+    background:linear-gradient(90deg,transparent,rgba(184,147,63,.75),transparent);
+  }
+  header::after{
+    content:'';position:absolute;left:50%;bottom:12px;transform:translateX(-50%);
+    width:220px;height:1px;
+    background:linear-gradient(90deg,transparent,rgba(184,147,63,.85),transparent);
+  }
+  header h1{margin:0;text-align:center;line-height:1.28;}
+  header h1 span{
+    display:block;font-family:var(--kai);font-weight:700;color:#f4e6c2;
+    text-shadow:0 2px 14px rgba(0,0,0,.55), 0 0 2px rgba(201,169,97,.7);
+  }
+  header h1 .h1-l1{font-size:40px;letter-spacing:14px;text-indent:14px;}
+  header h1 .h1-l2{font-size:29px;letter-spacing:17px;text-indent:17px;color:#e7cf95;margin-top:5px;}
+  header p{margin:8px 0 0;font-size:13px;color:#b9c2cb;letter-spacing:2px;}
+  header p.maker{
+    display:inline-block;margin:16px auto 0;padding:3px 14px;
+    font-family:var(--kai);font-size:15px;letter-spacing:4px;color:#e7cf95;
+    border:1px solid rgba(184,147,63,.55);border-radius:2px;
+    background:rgba(158,47,40,.18);
+  }
+  .wrap{max-width:1220px;margin:0 auto;padding:22px 20px 40px;}
+  /* ===== 面板（宣紙卡片、雙線框） ===== */
+  .panel{
+    position:relative;
+    background:linear-gradient(#fffdf6,#fbf6ea);
+    border:1px solid #c8b78f;border-radius:3px;
+    padding:20px 22px;margin-bottom:20px;
+    box-shadow:0 1px 0 #fff inset, 0 6px 20px rgba(90,70,35,.09);
+  }
+  .panel::before{
+    content:'';position:absolute;inset:5px;border:1px solid rgba(168,134,60,.24);
+    border-radius:2px;pointer-events:none;
+  }
+  .panel > *{position:relative;}
+  .panel h2{
+    display:flex;align-items:center;gap:11px;
+    margin:0 0 16px;font-family:var(--kai);font-size:20px;font-weight:700;
+    color:var(--zhu);letter-spacing:3px;
+  }
+  .panel h2::before{
+    content:'';flex:0 0 auto;width:6px;height:20px;border-radius:1px;
+    background:linear-gradient(180deg,#b23a30,#7c211c);
+    box-shadow:0 0 0 1px rgba(255,255,255,.55);
+  }
+  .panel h2::after{
+    content:'';flex:1 1 auto;height:1px;
+    background:linear-gradient(90deg,rgba(168,134,60,.55),rgba(168,134,60,0));
+  }
+  .panel h3{margin:16px 0 9px;font-family:var(--kai);font-size:15.5px;color:var(--qing);font-weight:700;letter-spacing:1px;}
+  .grid{display:grid;gap:12px;}
+  .g4{grid-template-columns:repeat(4,1fr);}
+  @media(max-width:900px){.g4{grid-template-columns:repeat(2,1fr);}}
+  label{display:block;font-size:12.5px;color:var(--ink2);margin-bottom:4px;letter-spacing:1px;}
+  input,select,button{font-family:var(--serif);font-size:14px;}
+  input[type=date],input[type=time],input[type=number],input[type=text],select{
+    width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:3px;
+    background:#fffdf7;color:var(--ink);
+    box-shadow:0 1px 2px rgba(120,100,60,.06) inset;
+    transition:border-color .18s, box-shadow .18s;
+  }
+  input:focus,select:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(168,134,60,.14);}
+  button{cursor:pointer;border:none;border-radius:3px;padding:9px 18px;font-size:14px;letter-spacing:2px;transition:transform .08s, filter .18s;}
+  .btn-main{
+    font-family:var(--kai);font-weight:700;letter-spacing:6px;color:#fff;
+    background:linear-gradient(180deg,#b23a30,#8f2b25);
+    box-shadow:0 2px 0 #6d1e19, 0 5px 14px rgba(140,45,32,.28);
+  }
+  .btn-main:hover{filter:brightness(1.06);}
+  .btn-main:active{transform:translateY(1px);box-shadow:0 1px 0 #6d1e19;}
+  .btn-sub{background:#e9dfc9;color:var(--ink);border:1px solid var(--line);}
+  .btn-sub:hover{background:#e0d4b8;}
+  .btn-now{
+    font-family:var(--kai);font-weight:700;letter-spacing:3px;color:#fff;
+    background:linear-gradient(180deg,#356a8c,#244a67);
+    box-shadow:0 2px 0 #1a3850, 0 5px 14px rgba(36,74,103,.25);
+  }
+  .btn-now:hover{filter:brightness(1.06);}
+  .btn-now.on{background:linear-gradient(180deg,#2b5c7d,#1e3f58);}
+  .btn-sub.on{background:linear-gradient(180deg,#b23a30,#8f2b25);color:#fff;font-weight:700;}
+  .btn-sub.on:hover{filter:brightness(1.06);}
+  .zhi-btns{display:flex;flex-wrap:wrap;gap:7px;}
+  .zhi-btns button{
+    background:#f4eedf;border:1px solid var(--line);color:var(--ink);
+    padding:5px 13px;border-radius:2px;font-size:14px;letter-spacing:1px;
+  }
+  .zhi-btns button:hover{border-color:var(--gold);background:#f8f2e3;}
+  .zhi-btns button.on{background:linear-gradient(180deg,#b23a30,#8f2b25);color:#fff;border-color:#8f2b25;font-weight:700;box-shadow:0 1px 4px rgba(140,45,32,.3);}
+  .zhi-btns button.auto{background:linear-gradient(180deg,#356a8c,#244a67);color:#fff;border-color:#244a67;border-style:dashed;font-weight:700;}
+  /* ===== 表格 ===== */
+  table{border-collapse:collapse;width:100%;}
+  .ke-table td,.ke-table th{padding:10px 12px;border-bottom:1px solid #e3d8c0;vertical-align:middle;}
+  .ke-table th{
+    background:linear-gradient(180deg,#f1e7d2,#e9dcc0);
+    color:#5a4a2f;font-family:var(--kai);font-size:13.5px;text-align:left;
+    letter-spacing:2px;border-bottom:2px solid #c8b78f;border-top:1px solid #ded1b6;
+  }
+  .ke-table tr:hover td{background:rgba(168,134,60,.05);}
+  .ke-layer{font-family:var(--kai);font-weight:700;color:var(--qing);white-space:nowrap;width:70px;font-size:16px;letter-spacing:1px;}
+  .gz{font-family:var(--kai);font-size:23px;font-weight:700;white-space:nowrap;color:var(--ink);}
+  .gz .gz-wrap{display:inline-grid;grid-template-columns:1.5em 1.5em auto;column-gap:0.45em;align-items:center;}
+  .gz .slot{text-align:center;}
+  .gz .slot-gan,.gz .slot-zhi{width:1.5em;}
+  .gz .slot-tj{text-align:left;font-weight:700;}
+  /* 四層文字色：整列干支與神將同色，神將略深一階以示層級 */
+  .ke-table tr.lay-ren .gz .slot{color:var(--c-ren);}
+  .ke-table tr.lay-gui .gz .slot{color:var(--c-gui);}
+  .ke-table tr.lay-jiang .gz .slot{color:var(--c-jiang);}
+  .ke-table tr.lay-di .gz .slot{color:var(--c-di);}
+  .ke-table tr.lay-ren .ke-layer{color:var(--c-ren);}
+  .ke-table tr.lay-gui .ke-layer{color:var(--c-gui);}
+  .ke-table tr.lay-jiang .ke-layer{color:var(--c-jiang);}
+  .ke-table tr.lay-di .ke-layer{color:var(--c-di);}
+  .ke-table tr.lay-ren .gz .slot-tj,
+  .ke-table tr.lay-gui .gz .slot-tj,
+  .ke-table tr.lay-jiang .gz .slot-tj{filter:brightness(.82);}
+  .gz .gz-wrap.yongrow{border-bottom:2.5px solid var(--green);padding-bottom:1px;}
+  .yong{color:var(--green);}
+  .yong-line{display:inline-block;border-bottom:2.5px solid var(--green);padding-bottom:1px;}
+  .tianjiang{color:var(--gold);font-size:14.5px;margin-left:8px;letter-spacing:1px;white-space:nowrap;}
+  .wxinfo{font-size:13.5px;color:var(--ink2);white-space:nowrap;}
+  .yy-plus{color:var(--zhu);font-weight:700;} .yy-minus{color:var(--qing);font-weight:700;}
+  .wang{color:var(--green);font-weight:700;} .xiang{color:#3f7d43;font-weight:700;}
+  .xiu{color:#8a7a3a;font-weight:700;} .qiu{color:#b06a1e;font-weight:700;}
+  .si{color:var(--zhu);font-weight:700;} .kong{color:#8a8f98;font-weight:700;}
+  .liuqin{font-family:var(--kai);font-size:13px;background:var(--tagbg);border:1px solid #dccdaa;border-radius:2px;padding:2px 9px;margin-right:6px;white-space:nowrap;}
+  .ke-table tr.hl td{background:#fbe9e5;}
+  .ke-table tr.hl2 td{background:#e8f3ea;}
+  .badge-di{display:inline-block;background:linear-gradient(180deg,#b23a30,#8f2b25);color:#fff;font-size:11px;border-radius:2px;padding:0 6px;margin-left:5px;vertical-align:middle;letter-spacing:1px;box-shadow:0 1px 2px rgba(140,45,32,.3);}
+  .badge-zhan{display:inline-block;background:linear-gradient(180deg,#2f7355,#225640);color:#fff;font-size:11px;border-radius:2px;padding:0 6px;margin-left:5px;vertical-align:middle;letter-spacing:1px;box-shadow:0 1px 2px rgba(34,86,64,.3);}
+  .yong-badge{display:inline-block;background:linear-gradient(180deg,#2f7355,#225640);color:#fff;font-size:12px;font-weight:700;border-radius:2px;padding:0 7px;margin-left:8px;vertical-align:middle;letter-spacing:2px;box-shadow:0 1px 3px rgba(34,86,64,.35);}
+  .ss-tag{display:inline-block;font-size:12.5px;border-radius:2px;padding:1px 7px;margin:1px 3px 1px 0;white-space:nowrap;}
+  .ss-ji{background:#e4f0e6;color:#256b4a;border:1px solid #b9d6c1;}
+  .ss-xiong{background:#f8e3e0;color:#9e2f28;border:1px solid #e4bcb6;}
+  .ss-ping{background:#eceef1;color:#5a6470;border:1px solid #d3d8dd;}
+  /* ===== 起課資訊 ===== */
+  .k-info{font-size:14.5px;}
+  .pill{
+    display:inline-block;border-radius:2px;padding:1px 10px;font-size:13.5px;
+    margin:2px 7px 2px 0;letter-spacing:1px;
+    background:linear-gradient(180deg,#2a323a,#1b2229);color:#f1e4c6;
+    border:1px solid rgba(168,134,60,.45);
+  }
+  .note{font-size:12.5px;color:var(--ink2);margin-top:9px;line-height:1.75;}
+  .dong{
+    background:linear-gradient(#fdf7e8,#fbf1da);
+    border:1px solid #e3d3ac;border-left:4px solid var(--gold);
+    border-radius:2px;padding:11px 15px;margin-top:12px;
+  }
+  .dong .t{font-family:var(--kai);font-weight:700;color:var(--gold);letter-spacing:2px;}
+  /* ===== 地盤九宮格 ===== */
+  .dp-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin:0;}
+  .dp-cell{
+    position:relative;text-align:left;
+    border:1px solid #cdbb96;border-radius:4px;
+    background:linear-gradient(#fffdf7,#fbf6ea);
+    padding:9px 6px;min-height:104px;
+    display:flex;flex-direction:column;justify-content:center;align-items:stretch;gap:0;
+    box-shadow:0 1px 0 #fff inset, 0 2px 7px rgba(90,70,35,.07);
+  }
+  .dp-cell::before{
+    content:'';position:absolute;inset:3px;border:1px solid rgba(168,134,60,.16);
+    border-radius:2px;pointer-events:none;
+  }
+  .dp-cell .dc-row{display:block;line-height:1.35;position:relative;}
+  .dp-cell .dc-grid{display:inline-grid;grid-template-columns:1.2em 1.2em auto;column-gap:0.18em;align-items:center;font-family:var(--kai);font-size:16px;font-weight:700;}
+  .dp-cell .slot{text-align:center;}
+  .dp-cell .slot-gan,.dp-cell .slot-zhi{width:1.2em;}
+  .dp-cell .slot-tj{text-align:left;}
+  .dp-cell .dc-ren .slot{color:var(--c-ren);}
+  .dp-cell .dc-gui .slot{color:var(--c-gui);}
+  .dp-cell .dc-jiang .slot{color:var(--c-jiang);}
+  .dp-cell .dc-di .slot{color:var(--c-di);}
+  .dp-cell .dc-gui .slot-tj,
+  .dp-cell .dc-jiang .slot-tj{filter:brightness(.82);}
+  .dp-cell.yl-ren .dc-ren .dc-grid,
+  .dp-cell.yl-gui .dc-gui .dc-grid,
+  .dp-cell.yl-jiang .dc-jiang .dc-grid,
+  .dp-cell.yl-di .dc-di .dc-grid{border-bottom:2px solid var(--green);}
+  .dp-cell.hl{border:2px solid var(--zhu);background:linear-gradient(#fdf0ec,#fae7e2);box-shadow:0 0 0 3px rgba(158,47,40,.1), 0 2px 8px rgba(140,45,32,.12);}
+  .dp-cell.hl2{border:2px solid var(--green);background:linear-gradient(#eef7ef,#e4f2e7);box-shadow:0 0 0 3px rgba(42,107,74,.1);}
+  .dp-cell .mk{position:absolute;top:2px;right:5px;font-size:11px;color:#fff;background:linear-gradient(180deg,#b23a30,#8f2b25);border-radius:2px;padding:0 5px;letter-spacing:1px;z-index:2;}
+  .dp-cell .mk2{position:absolute;top:2px;left:5px;font-size:11px;color:#fff;background:linear-gradient(180deg,#2f7355,#225640);border-radius:2px;padding:0 5px;letter-spacing:1px;z-index:2;}
+  .dp-mid{visibility:hidden;}
+  .sixrow td{padding:5px 9px;border-bottom:1px dashed var(--line);font-size:13.5px;}
+  .sixrow .l{color:var(--qing);font-weight:700;white-space:nowrap;}
+  .warn{background:#fdf5e0;border:1px solid #e6d3a2;border-left:4px solid var(--gold);color:#7a5c13;border-radius:2px;padding:9px 13px;font-size:13px;margin-top:8px;}
+  .footer{font-size:12px;color:var(--ink2);text-align:center;padding:18px 0 30px;line-height:1.8;}
+  .flex{display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end;}
+  .flex>div{flex:1;min-width:130px;}
+  .mb8{margin-bottom:9px;}
+  .ss-grp{margin-bottom:11px;}
+  .ss-grp .gt{font-family:var(--kai);font-weight:700;color:var(--ink);font-size:14px;margin-bottom:5px;letter-spacing:1px;}
+  .ss-row{font-size:13px;color:var(--ink2);line-height:2;}
+  .ss-row b{color:var(--ink);}
+  /* ===== 方格卡片 ===== */
+  .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:11px;margin-top:9px;}
+  .card{border:1px solid #d8c9a8;border-radius:3px;padding:9px 11px;background:linear-gradient(#fffdf7,#fbf6ea);font-size:13.5px;line-height:1.58;box-shadow:0 1px 3px rgba(90,70,35,.06);}
+  .card .ct{font-family:var(--kai);font-weight:700;color:var(--qing);margin-bottom:4px;letter-spacing:1px;}
+  .card .cr{font-size:12.5px;color:var(--ink2);margin:2px 0;}
+  .card .cr b{color:var(--ink);}
+  /* ===== 地分圖例 ===== */
+  .difen-legend{font-size:12.5px;color:var(--ink2);margin-top:9px;line-height:1.9;letter-spacing:.5px;}
+  .difen-legend i{display:inline-block;width:22px;height:0;vertical-align:middle;margin:0 5px 0 2px;}
+  .difen-legend i.lg-on{border-top:3px solid var(--zhu);}
+  .difen-legend i.lg-auto{border-top:3px dashed #244a67;}
+  /* ===== 旺衰：課外旺爻 ===== */
+  .wy-sum{font-size:14px;color:var(--ink);line-height:1.95;}
+  .wy-sum b{color:var(--qing);}
+  .wk-band{border:1px solid #dccdaa;border-left:4px solid var(--gold);border-radius:3px;background:linear-gradient(#fdf8ec,#faf2df);padding:11px 14px;margin-top:9px;}
+  .wk-chips{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 10px;}
+  .wk-chip{display:inline-flex;align-items:baseline;gap:7px;font-family:var(--kai);font-size:15px;font-weight:700;border:1px solid #d8c9a8;border-radius:3px;padding:4px 11px;background:linear-gradient(#fffdf7,#fbf6ea);}
+  .wk-chip i{font-style:normal;font-size:12px;font-weight:400;color:var(--ink2);letter-spacing:1px;}
+  .wk-chip .lv{font-size:15px;}
+  .wk-chip.on{border-color:var(--gold);background:linear-gradient(#fdf1d6,#f7e9c5);box-shadow:0 0 0 2px rgba(168,134,60,.18);}
+  .wk-res{font-size:13.5px;color:var(--ink2);line-height:1.85;border-top:1px dashed #e0d0ac;padding-top:9px;}
+  .wk-res b{color:var(--gold);font-family:var(--kai);font-size:16px;letter-spacing:1px;}
+  .wk-res .tag{display:inline-block;background:linear-gradient(180deg,#b8933f,#96762c);color:#fff;font-size:11.5px;font-weight:700;border-radius:2px;padding:1px 8px;margin-left:8px;letter-spacing:1px;vertical-align:middle;}
+  .ss-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:9px;margin-top:7px;}
+  .ss-card{border:1px solid #d8c9a8;border-radius:3px;padding:7px 9px;background:linear-gradient(#fffdf7,#fbf6ea);font-size:13px;line-height:1.45;}
+  .ss-card .sn{font-weight:700;}
+  .ss-card .sp{font-size:11.5px;color:var(--ink2);}
+  .panel-stack{display:grid;grid-template-columns:1fr;gap:16px;margin-top:18px;}
+  .panel-stack .panel{margin-bottom:0;}
+  .hdr-seal{
+    position:absolute;top:20px;right:26px;
+    display:flex;align-items:center;justify-content:center;
+    writing-mode:vertical-rl;text-orientation:upright;
+    width:52px;height:52px;
+    font-family:var(--kai);font-size:15px;letter-spacing:2px;
+    color:#e2604f;border:2px solid #b8402f;border-radius:3px;
+    background:rgba(158,47,40,.12);
+    box-shadow:inset 0 0 0 1px rgba(226,96,79,.35);
+    opacity:.9;
+  }
+  @media(max-width:760px){
+    .hdr-seal{display:none;}
+    header h1 .h1-l1{font-size:27px;letter-spacing:8px;text-indent:8px;}
+    header h1 .h1-l2{font-size:19px;letter-spacing:10px;text-indent:10px;margin-top:4px;}
+    .wrap{padding:14px;}
+    .panel{padding:15px;}
+  }
+  /* ===== 精緻裝飾 ===== */
+  .panel::after{
+    content:'';position:absolute;inset:6px;pointer-events:none;border-radius:2px;
+    background:
+      linear-gradient(var(--gold),var(--gold)) left top/10px 1.5px no-repeat,
+      linear-gradient(var(--gold),var(--gold)) left top/1.5px 10px no-repeat,
+      linear-gradient(var(--gold),var(--gold)) right top/10px 1.5px no-repeat,
+      linear-gradient(var(--gold),var(--gold)) right top/1.5px 10px no-repeat,
+      linear-gradient(var(--gold),var(--gold)) left bottom/10px 1.5px no-repeat,
+      linear-gradient(var(--gold),var(--gold)) left bottom/1.5px 10px no-repeat,
+      linear-gradient(var(--gold),var(--gold)) right bottom/10px 1.5px no-repeat,
+      linear-gradient(var(--gold),var(--gold)) right bottom/1.5px 10px no-repeat;
+    opacity:.5;
+  }
+  .hdr-rule{display:flex;align-items:center;justify-content:center;margin:15px auto 0;width:min(300px,70%);height:10px;}
+  .hdr-rule::before,.hdr-rule::after{content:'';flex:1;height:1px;}
+  .hdr-rule::before{background:linear-gradient(90deg,transparent,rgba(184,147,63,.75));}
+  .hdr-rule::after{background:linear-gradient(90deg,rgba(184,147,63,.75),transparent);}
+  .hdr-rule i{width:6px;height:6px;margin:0 10px;background:#c39a4a;transform:rotate(45deg);box-shadow:0 0 7px rgba(195,154,74,.9);}
+  .ke-flex{display:flex;gap:18px;align-items:flex-start;flex-wrap:wrap;}
+  .ke-left{flex:1 1 540px;min-width:0;}
+  .ke-right{flex:0 0 400px;}
+  .ke-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+  .ke-table{min-width:560px;}
+  .scroll-hint{display:none;font-size:11.5px;color:var(--ink2);text-align:center;margin-top:7px;letter-spacing:1px;}
+  @media(max-width:980px){.scroll-hint{display:block;}}
+  .span2{grid-column:span 2;}
+  /* ===== 平板：課式區上下堆疊 ===== */
+  @media(max-width:980px){
+    .ke-flex{flex-direction:column;gap:16px;}
+    .ke-left,.ke-right{flex:1 1 auto;width:100%;min-width:0;}
+    .ke-right{flex:0 0 auto;}
+  }
+  /* ===== 手機 ===== */
+  @media(max-width:700px){
+    .wrap{padding:14px 12px 28px;}
+    .panel{padding:15px 14px;margin-bottom:16px;}
+    .panel h2{font-size:18px;letter-spacing:2px;margin-bottom:13px;gap:9px;}
+    .panel h2::before{width:5px;height:17px;}
+    .g4{grid-template-columns:repeat(2,1fr);}
+    .ke-table td,.ke-table th{padding:8px 9px;}
+    .ke-table th{letter-spacing:1px;}
+    .gz{font-size:21px;}
+    header{padding:26px 18px 22px;}
+    header h1{font-size:27px;letter-spacing:7px;text-indent:7px;}
+    header p.maker{margin-top:12px;font-size:14px;letter-spacing:3px;}
+    .pill{font-size:12.5px;padding:1px 8px;}
+    .cards,.ss-cards{grid-template-columns:1fr;}
+    .panel::after{display:none;}
+    .ke-flex{gap:14px;}
+    .zhi-btns button{padding:8px 14px;font-size:15px;}
+    .btn-main,.btn-now{padding:11px 20px;font-size:15px;}
+    input[type=date],input[type=time],input[type=number],input[type=text],select{padding:10px;font-size:16px;}
+    .hdr-rule{margin-top:12px;}
+  }
+  /* ===== 窄手機 ===== */
+  @media(max-width:600px){
+    .dp-grid{grid-template-columns:repeat(4,1fr);gap:6px;}
+    .dp-cell{min-height:96px;padding:7px 3px;border-radius:3px;}
+    .dp-cell .dc-grid{font-size:14px;grid-template-columns:1.08em 1.08em auto;column-gap:0.12em;}
+    .dp-cell .slot-gan,.dp-cell .slot-zhi{width:1.08em;}
+    .dp-cell .mk,.dp-cell .mk2{font-size:10px;padding:0 3px;top:1px;}
+    .note{font-size:12px;}
+    .ke-table{min-width:540px;}
+  }
+  @media(max-width:430px){
+    .g4{grid-template-columns:1fr;}
+    .span2{grid-column:auto;}
+    .flex{flex-direction:column;align-items:stretch;gap:9px;}
+    .flex>div{min-width:0;flex:1 1 auto;}
+    .flex button{width:100%;}
+    header h1{font-size:23px;letter-spacing:5px;text-indent:5px;}
+    .panel{padding:13px 12px;}
+    .ke-table{min-width:510px;}
+    .panel h2{font-size:17px;}
+  }
+</style>
+<link rel="manifest" href="./manifest.webmanifest">
+<meta name="theme-color" content="#1b2229">
+<link rel="apple-touch-icon" href="./icon-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="金口訣">
+</head>
+<body>
+<header>
+  <div class="hdr-seal">金口訣</div>
+  <h1><span class="h1-l1">澹台明玉</span><span class="h1-l2">金口訣</span></h1>
+  <div class="hdr-rule"><i></i></div>
+  <p class="maker">製作：SHENG</p>
+</header>
+<div class="wrap">
+
+  <div class="panel">
+    <h2>一、起課輸入</h2>
+    <div class="grid g4 mb8">
+      <div><label>公曆日期</label><input type="date" id="in-date" value="2025-09-01"></div>
+      <div><label>時間</label><input type="time" id="in-time" value="09:30"></div>
+      <div><label>性別</label>
+        <select id="in-sex"><option value="男">男</option><option value="女">女</option></select></div>
+      <div><label>本命（出生年）</label><select id="in-benming"></select></div>
+    </div>
+    <div class="grid g4 mb8">
+      <div><label>行年（手動指定；留空＝未指定）</label><select id="in-xingnian"></select></div>
+      <div><label>所占之事</label><input type="text" id="in-matter" value="占財"></div>
+      <div class="span2"><label>地分</label>
+        <div class="zhi-btns" id="difen-btns"></div>
+        <div class="difen-legend"><i class="lg-on"></i>紅色實線 = 手動指定地分；<i class="lg-auto"></i>藍色虛線 = 正時自動決定（隨起課時刻）</div>
+      </div>
+    </div>
+    <div class="flex" style="gap:10px;justify-content:flex-start;">
+      <div style="flex:0 0 auto"><button class="btn-now" id="btn-now" title="將日期時間設為此刻、地分取正時（仍須按「起課」起課）">現在時間</button></div>
+      <div style="flex:0 0 auto"><button class="btn-main" id="btn-run">起 課</button></div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>二、起課資訊</h2>
+    <div id="k-info" class="k-info"></div>
+  </div>
+
+  <div class="panel">
+    <h2>三、課式</h2>
+    <div class="ke-flex">
+      <div class="ke-left">
+        <div class="ke-scroll">
+          <table class="ke-table" id="ke-table">
+            <tr><th>爻位</th><th>干支／神將</th><th>陰陽·五行·旺衰</th><th>六親</th><th>神煞</th></tr>
+          </table>
+        </div>
+        <div class="scroll-hint">← 左右滑動查看完整課式 →</div>
+        <div id="dong-box"></div>
+      </div>
+      <div class="ke-right">
+        <div class="dp-grid" id="dp-grid"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <h2>四、旺衰</h2>
+    <div id="yongshen-box"></div>
+  </div>
+
+  <div class="panel">
+    <h2>五、神煞總覽</h2>
+    <div id="shensha-box"></div>
+  </div>
+
+</div>
+
+<script>
+/* ==================== 核心數據 ==================== */
+var GAN='甲乙丙丁戊己庚辛壬癸', ZHI='子丑寅卯辰巳午未申酉戌亥';
+function gi(g){return GAN.indexOf(g);} function zi(z){return ZHI.indexOf(z);}
+var WXG={甲:'木',乙:'木',丙:'火',丁:'火',戊:'土',己:'土',庚:'金',辛:'金',壬:'水',癸:'水'};
+var WXZ={子:'水',丑:'土',寅:'木',卯:'木',辰:'土',巳:'火',午:'火',未:'土',申:'金',酉:'金',戌:'土',亥:'水'};
+var SHENG={木:'火',火:'土',土:'金',金:'水',水:'木'};
+var KE={木:'土',土:'水',水:'火',火:'金',金:'木'};
+function dunGan(dayGan,z){return GAN[(gi(dayGan)*2+zi(z))%10];}
+function isYangGan(g){return gi(g)%2===0;}
+function isYangZhi(z){return zi(z)%2===0;}
+var JIANG_NAME={子:'神后',丑:'大吉',寅:'功曹',卯:'太衝',辰:'天罡',巳:'太乙',午:'勝光',未:'小吉',申:'傳送',酉:'從魁',戌:'河魁',亥:'登明'};
+var TIANJIANG=['貴人','螣蛇','朱雀','六合','勾陳','青龍','天空','白虎','太常','玄武','太陰','天后'];
+var BENJIA={貴人:'丑',螣蛇:'巳',朱雀:'午',六合:'卯',勾陳:'辰',青龍:'寅',天空:'戌',白虎:'申',太常:'未',玄武:'亥',太陰:'酉',天后:'子'};
+var GUI_REN={甲:['丑','未'],戊:['丑','未'],庚:['丑','未'],乙:['子','申'],己:['子','申'],丙:['亥','酉'],丁:['亥','酉'],辛:['午','寅'],壬:['巳','卯'],癸:['巳','卯']};
+var SHUN_ZONE=['亥','子','丑','寅','卯','辰'];
+var JQ=['小寒','大寒','立春','雨水','驚蟄','春分','清明','穀雨','立夏','小滿','芒種','夏至','小暑','大暑','立秋','處暑','白露','秋分','寒露','霜降','立冬','小雪','大雪','冬至'];
+var JIE_YUEJIAN={立春:'寅',驚蟄:'卯',清明:'辰',立夏:'巳',芒種:'午',小暑:'未',立秋:'申',白露:'酉',寒露:'戌',立冬:'亥',大雪:'子',小寒:'丑'};
+var ZQ_YUEJIANG={雨水:'亥',春分:'戌',穀雨:'酉',小滿:'申',夏至:'未',大暑:'午',處暑:'巳',秋分:'辰',霜降:'卯',小雪:'寅',冬至:'丑',大寒:'子'};
+var ZQ_YUEJIAN={雨水:'寅',春分:'卯',穀雨:'辰',小滿:'巳',夏至:'午',大暑:'未',處暑:'申',秋分:'酉',霜降:'戌',小雪:'亥',冬至:'子',大寒:'丑'};
+
+/* ==================== 節氣表 ==================== */
+var JIEQI_B64='ABybAG90AMJ/ARX5AWn1Ab6jAhQAAmonAsD7Axh8A3B2A8jTBCFOBHnEBNHyBSm3BYDkBddkBi0lBoInBtZ3ByorB31nB9BRAB35AHDMAMPbARdQAWtSAb/7AhVgAmuBAsJeAxnYA3HcA8ovBCKzBHsfBNNWBSsTBYJGBdjABi6GBoOGBtfaByuNB37MB9G0AB9fAHIvAMVCARizAWy3AcFcAhbBAmzgAsO6Axs1A3MzA8uLBCQGBHx5BNSmBSxtBYOWBdobBi/ZBoTjBtkxByzvB4ApB9MbACC/AHOZAMajARocAW4WAcLCAhgdAm5CAsUVAxyVA3SPA8zoBCVkBH3WBNYHBS3JBYT6Bdt3BjE9BoY/BtqVBy5JB4GLB9R0ACIhAHTxAMgEARt0AW93AcQaAhl+Am+aAsZ2Ax3sA3XwA85DBCbHBH81BNdrBS8sBYZdBdzcBjKfBoejBtv0By+rB4LpB9XVAB3fAHCzAMPDARc4AWs5Ab/hAhVCAmtjAsI6Axm3A3GxA8oLBCKDBHr5BNMkBSrsBYIVBdiZBi5XBoNfBtetBytoB36iB9GTAB85AHITAMUfARiaAWyYAcFEAhajAmzHAsOcAxsYA3MUA8tpBCPnBHxUBNSHBSxFBYN4BdnyBi+6BoS6BtkSByzFB4AJB9LxACCfAHNuAMaCARnyAW33AcKYAhf+Am4ZAsT1AxxrA3RsA8y+BCU/BH2tBNXfBS2jBYTSBdtUBjEWBoYfBtpwBy4sB4FnB9RXACH9AHTUAMffARtVAW9RAcP7AhlXAm97AsZOAx3OA3XHA84jBCacBH8SBNc+BS8EBYYwBdyyBjJyBod4BtvKBy+CB4K/B9WtAB21AHCKAMOYARcOAWsMAb+0AhUVAms1AsIOAxmIA3GJA8ndBCJfBHrMBNMCBSq/BYHyBdhsBi4zBoMyBteJBys8B35+B9FnAB8VAHHmAMT7ARhsAWxwAcESAhZ2AmyRAsNrAxriA3LgA8s0BCOxBHwiBNRRBSwXBYNCBdnGBi+FBoSPBtjdByyaB3/UB9LHACBsAHNHAMZSARnMAW3GAcJyAhfMAm3vAsTAAxw+A3Q1A8yPBCUIBH18BNWsBS1wBYShBdshBjDmBoXqBto/By3zB4EzB9QdACHHAHSZAMepARsbAW8cAcPBAhkkAm9AAsYbAx2RA3WTA83kBCZoBH7VBNcNBS7NBYYBBdx/BjJGBodKBtueBy9UB4KSB9V8AB2FAHBXAMNmARbYAWrYAb99AhTfAmr+AsHWAxlRA3FNA8mlBCIeBHqTBNK/BSqIBYGyBdg4Bi33BoMCBtdRBysPB35JB9E6AB7eAHG3AMTBARg5AWwzAcDeAhY5AmxdAsMwAxqtA3KnA8r/BCN7BHvqBNQdBSvdBYMQBdmNBi9WBoRZBtizByxoB3+tB9KWACBEAHMTAMYlARmTAW2UAcIzAheVAm2sAsSGAxv6A3P8A8xNBCTPBH0+BNVzBS02BYRpBdrrBjCwBoW5BtoNBy3JB4EHB9P3ACGfAHR1AMeBARr1AW7xAcOWAhjxAm8QAsXhAx1dA3VVA82wBCYpBH6hBNbOBS6YBYXEBdxKBjILBocVBttmBy8hB4JeB9VOAB1VAHAtAMM5ARawAWqsAb9VAhSxAmrRAsGlAxkeA3EbA8luBCHuBHpbBNKSBSpRBYGHBdgEBi3OBoLPBtcoByrcB34gB9EJAB64AHGIAMSdARgMAWwQAcCxAhYVAmwtAsMGAxp5A3J2A8rHBCNEBHuzBNPjBSupBYLXBdldBi8gBoQsBth+Byw+B396B9JtACATAHLsAMX3ARlvAW1pAcITAhdsAm2OAsReAxvbA3PQA8wpBCSgBH0UBNVCBS0IBYQ3Bdq7BjCBBoWJBtnfBy2ZB4DZB9PHACFwAHREAMdSARrEAW7DAcNnAhjGAm7jAsW7Ax0xA3UyA82DBCYGBH5yBNaqBS5pBYWeBdwcBjHlBoboBttABy73B4I6B9UkAB0xAHACAMMUARaDAWqFAb8mAhSIAmqkAsF8Axj0A3DxA8lHBCHCBHo2BNJjBSorBYFVBdfbBi2aBoKmBtb1Byq0B33vB9DjAB6IAHFjAMRuARfoAWvhAcCMAhXmAmwIAsLYAxpWA3JOA8qmBCMhBHuTBNPFBSuIBYK6Bdk5Bi8BBoQEBthdBywTB39WB9JAAB/uAHK+AMXQARk/AW1AAcHgAhdBAm1ZAsQyAxulA3OmA8v2BCR6BHzoBNUgBSzjBYQZBdqbBjBjBoVqBtnABy15B4C4B9OlACFNAHQgAMctARqfAW6cAcNAAhidAm66AsWNAx0IA3UBA81bBCXVBH5NBNZ8BS5HBYV1Bdv+BjHABobMBtsdBy7aB4IUB9UFAB0JAG/gAMLoARZeAWpXAb8AAhRaAmp7AsFNAxjIA3DEA8kZBCGYBHoIBNI/BSoBBYE4Bde3Bi2DBoKHBtbiByqXB33cB9DEAB5yAHFAAMRSARe+AWu/AcBdAhW+AmvUAsKsAxoeA3IdA8ptBCLtBHtcBNOQBStVBYKHBdkOBi7UBoPiBtg3Byv3B382B9IpAB/QAHKnAMWyARkmAW0eAcHDAhcaAm03AsQFAxt/A3N0A8vOBCRFBHy8BNTrBSy1BYPlBdpsBjAzBoU+BtmUBy1RB4CSB9OCACErAHQAAMcMARp/AW55AcMcAhh2Am6QAsVjAxzYA3TVA80mBCWoBH4WBNZPBS4RBYVJBdvJBjGVBoaaBtr1By6sB4HxB9TbABzqAG+6AMLMARY6AWo7Ab7aAhQ7AmpSAsEoAxibA3CWA8joBCFjBHnVBNIEBSnNBYD7BdeEBi1HBoJVBtanBypoB32kB9CYAB4+AHEYAMQjARebAWuUAcA9AhWVAmu1AsKCAxn9A3HyA8pIBCK/BHsxBNNgBSsmBYJYBdjbBi6lBoOtBtgIByvCB38GB9HzAB+fAHJxAMWAARjwAWzuAcGOAhbsAm0DAsPZAxtLA3NJA8uYBCQZBHyFBNS8BSx+BYO1Bdo3BjACBoULBtllBy0gB4BkB9NRACD9AHPOAMbdARpMAW5JAcLpAhhGAm5gAsUzAxyqA3SjA8z6BCV0BH3pBNYXBS3iBYUOBduXBjFZBoZnBtq5By56B4G2B9SqAByvAG+IAMKRARYIAWn/Ab6nAhP+AmoeAsDtAxhoA3BhA8i3BCE0BHmlBNHZBSmcBYDRBddRBi0bBoIgBtZ6ByoxB313B9BhAB4QAHDgAMPzARdhAWtiAb//AhVfAmt0AsJKAxm6A3G5A8oHBCKIBHr2BNMrBSrwBYIkBdipBi5wBoN8BtfSByuQB37QB9HBAB9qAHJAAMVMARi/AWy6AcFdAha2AmzSAsOgAxsYA3MNA8tlBCPdBHxUBNSDBSxPBYOABdoKBi/PBoTdBtkxByzvB4AsB9MdACDCAHOYAMahARoVAW4NAcKxAhgKAm4nAsT4AxxvA3RqA8y9BCU+BH2tBNXnBS2qBYTkBdtlBjE0BoY6BtqWBy5NB4GSB9R6AByHAG9UAMJlARXQAWnQAb5tAhPNAmnjAsC6AxgtA3AqA8h7BCD5BHlqBNGdBSllBYCXBdcgBizmBoH2BtZLByoMB31KB9A9AB3jAHC6AMPCARc3AWstAb/TAhUoAmtGAsITAxmOA3GCA8nbBCJTBHrJBNL4BSrBBYH0Bdh7Bi5FBoNRBtesBytqB36tB9GdAB9HAHIaAMUmARiVAWyOAcEsAhaFAmybAsNtAxreA3LbA8srBCOuBHwcBNRXBSwbBYNWBdnZBi+oBoSxBtkPByzKB4ARB9L9ACCrAHN8AMaLARn3AW3zAcKPAhfqAm3+AsTQAxxDA3Q8A8yQBCUMBH2CBNWzBS2ABYSxBds9BjECBoYTBtpmBy4oB4FlB9RaABxfAG85AMJBARW4AWmuAb5UAhOoAmnGAsCRAxgKA2//A8hVBCDPBHlCBNF1BSk8BYBzBdb4BizGBoHPBtYsBynlB30rB9AYAB3GAHCXAMOoARcWAWsVAb+yAhUPAmsjAsH2AxlkA3FgA8msBCIrBHqXBNLOBSqSBYHKBdhQBi4dBoMrBteHBytGB36KB9F7AB8mAHH6AMUIARh4AWxyAcESAhZrAmyDAsNRAxrGA3K6A8sQBCOGBHv8BNQqBSv2BYMnBdmzBi96BoSMBtjiByylB3/kB9LZACB/AHNXAMZeARnTAW3IAcJsAhfBAm3dAsSrAxwiA3QaA8xuBCTsBH1bBNWSBS1WBYSPBdsRBjDgBoXnBtpGBy3/B4FHB9QyABxCAG8RAMIjARWOAWmNAb4pAhOHAmmaAsBwAxfgA2/dA8gsBCCqBHkZBNFNBSkTBYBGBdbNBiyVBoGjBtX6Bym7B3z7B8/vAB2YAHBwAMN7ARbwAWroAb+MAhTiAmr+AsHJAxlBA3E0A8mMBCICBHp5BNKnBSpyBYGjBdgsBi30BoMCBtdbBysaB35cB9FNAB72AHHLAMTWARhHAWw/AcDgAhY4AmxPAsMeAxqRA3KLA8raBCNbBHvKBNQEBSvIBYMFBdmIBi9ZBoRhBtjAByx5B3/AB9KqACBYAHMmAMY2ARmgAW2dAcI4AheVAm2oAsR8AxvtA3PoA8w6BCS3BH0rBNVeBS0qBYRcBdrpBjCwBoXBBtoWBy3YB4EVB9QJABwNAG7kAMHqARVfAWlTAb34AhNLAmlpAsA0AxeuA2+iA8f6BCBzBHjoBNEaBSjkBYAaBdahBixvBoF6BtXXBymUB3zZB8/GAB1yAHBDAMNQARa9AWq3Ab9TAhSsAmq/AsGQAxj/A3D7A8lIBCHJBHo1BNJvBSozBYFtBdfzBi3DBoLQBtcvByruB341B9ElAB7SAHGkAMSxARgdAWwWAcCxAhYIAmwcAsLpAxpbA3JQA8qkBCMdBHuUBNPFBSuUBYLGBdlUBi8cBoQwBtiGByxLB3+KB9KAACAlAHL+AMYEARl4AW1rAcINAhdfAm14AsRCAxu3A3OsA8wABCR8BHzvBNUmBSzuBYQpBdqvBjCABoWKBtnpBy2jB4DrB9PXABvmAG61AMHFARUxAWkuAb3IAhMkAmk1AsAIAxd0A29wA8e7BCA6BHioBNDeBSilBX/cBdZlBiwyBoFCBtWcByleB3ygB8+TAB09AHATAMMeARaQAWqIAb8pAhR/AmqXAsFiAxjXA3DIA8keBCGTBHoIBNI3BSoDBYE1BdfDBi2NBoKgBtb6Byq+B34AB9D0AB6bAHFxAMR5ARfqAWveAcB/AhXSAmvpAsK1AxooA3IfA8pvBCLtBHtcBNOWBStaBYKXBdkcBi7wBoP7BthdBywYB39iB9JOAB/+AHLMAMXbARlEAW1AAcHYAhczAm1DAsQVAxuEA3N/A8vPBCRNBHy/BNT0BSy+BYPyBdp/BjBHBoVaBtmxBy11B4C2B9OrABuyAG6KAMGSARUFAWj6Ab2cAhLuAmkJAr/SAxdKA288A8eUBCAMBHiCBNC0BSh/BX+0BdY+BiwJBoEYBtV0BykzB3x3B89oAB0UAG/oAML1ARZkAWpcAb75AhRQAmpiAsExAxifA3CYA8jkBCFlBHnSBNINBSnRBYEOBdeUBi1nBoJzBtbTByqRB33ZB9DHAB52AHFGAMRWARfBAWu8AcBWAhWvAmvAAsKOAxn+A3H0A8pFBCK/BHs1BNNoBSs3BYJrBdj8Bi7FBoPaBtgyByv2B381B9IqAB/OAHKmAMWrARkeAW0QAcGyAhcDAm0dAsPmAxtdA3NQA8umBCQgBHyVBNTLBSyWBYPRBdpaBjAsBoU5BtmaBy1WB4CdB9OJABuWAG5lAMFyARTcAWjWAb1wAhLKAmjbAr+tAxcaA28WA8diBB/iBHhPBNCIBShOBX+JBdYSBiviBoDzBtVSBykTB3xZB89LABz2AG/JAMLVARZCAWo5Ab7VAhQqAmo+AsEJAxh8A3BvA8jEBCE7BHmxBNHhBSmwBYDjBddzBi09BoJTBtauByp1B324B9CvAB5WAHEtAMQzARekAWuVAcAzAhWCAmuYAsJfAxnSA3HGA8oYBCKVBHsHBNNBBSsJBYJHBdjPBi6kBoOwBtgUByvRB38cB9IJAB+6AHKJAMWYARkBAWz7AcGRAhbqAmz3AsPHAxsxA3MrA8t4BCP4BHxoBNSgBSxrBYOjBdowBi/9BoUQBtlrBy0uB4BxB9NlABttAG5EAMFOARS/AWi0Ab1UAhKmAmi+Ar+FAxb6A27qA8c/BB+1BHgsBNBcBSgqBX9fBdXtBiu7BoDNBtUqByjtB3wxB88kABzOAG+jAMKtARYdAWoTAb6wAhQEAmoXAsDiAxhQA3BFA8iRBCEOBHl7BNG0BSl5BYC4Bdc/Bi0UBoIiBtaHBypGB32RB9CAAB4wAHD/AMQOARd3AWtxAcAIAhVgAmtvAsI9AxmpA3GgA8nuBCJpBHrbBNMOBSrcBYIRBdiiBi5tBoODBtfdByukB37lB9HcAB+CAHJaAMVfARjRAWzBAcFiAhawAmzJAsOPAxsFA3L3A8tNBCPFBHw7BNRvBSw6BYNzBdn+Bi/OBoTdBtk9Byz8B4BEB9MzABtAAG4SAMEeARSKAWiCAb0cAhJyAmiCAr9RAxa9A263A8cDBB+DBHfwBNAqBSfvBX8rBdWyBiuEBoCTBtTzByizB3v7B87rAByZAG9rAMJ5ARXlAWneAb54AhPNAmneAsCpAxgZA3AMA8heBCDWBHlMBNF+BSlNBYCBBdcSBizdBoH0BtZNByoUB31VB9BLAB3xAHDIAMPNARc+AWsuAb/OAhUcAmsyAsH4AxlqA3FcA8mvBCIrBHqeBNLYBSqjBYHiBdhsBi5CBoNRBte0BytxB367B9GnAB9VAHIiAMUwARiXAWyQAcElAhZ8AmyJAsNZAxrDA3K9A8sKBCOKBHv6BNQ0BSv/BYM7BdnIBi+ZBoStBtkLByzOB4ASB9MEABsNAG3gAMDoARRVAWhIAbzkAhI1AmhKAr8SAxaFA252A8bMBB9DBHe7BM/sBSe9BX7zBdWFBitTBoBqBtTHByiOB3vSB87HABxvAG9FAMJMARW6AWmrAb5GAhOVAmmmAsBtAxfcA2/PA8gdBCCbBHkKBNFFBSkMBYBNBdbWBiyuBoG+BtYlBynmB300B9AjAB3VAHCkAMOzARcZAWsRAb+kAhT5AmsDAsHPAxk3A3EuA8l6BCH3BHppBNKgBSpvBYGpBdg7Bi4KBoMiBtd+BytGB36KB9GBAB8pAHIBAMUHARh3AWxoAcEFAhZSAmxmAsMqAxqdA3KLA8rgBCNWBHvOBNQCBSvSBYMMBdmcBi9uBoSCBtjiByylB3/sB9LfABrrAG2+AMDJARQ2AWgsAbzGAhIZAmgpAr70AxZeA25UA8adBB8bBHeHBM/CBSeIBX7HBdVRBisnBoA4BtSdByheB3uqB86bABxLAG8bAMIqARWUAWmOAb4lAhN7AmmJAsBUAxfAA2+zA8gBBCB4BHjsBNEdBSjsBYAiBda1BiyCBoGdBtX6BynEB30IB9AAAB2nAHB/AMOEARb1AWrjAb+BAhTNAmrjAsGnAxkZA3EJA8lcBCHUBHpIBNJ+BSpKBYGHBdgUBi3qBoL7BtdgBysiB35tB9FdAB8MAHHcAMTpARhRAWxIAcDdAhYyAmw+AsMMAxp2A3JvA8q7BCM7BHupBNPkBSusBYLpBdl0Bi9HBoRZBti6Byx9B3/FB9K4ABrEAG2XAMCjARQPAWgFAbyeAhHxAmgCAr7KAxY7A24sA8aABB73BHdvBM+hBSdyBX6nBdU5BisFBoAcBtR4Byg/B3uDB856ABwiAG76AMIBARVyAWliAb3/AhNMAmlfAsAjAxeSA2+DA8fSBCBOBHi/BND5BSjDBYADBdaOBixmBoF1BtXcBymbB3zoB8/WAB2GAHBUAMNjARbKAWrDAb9WAhSsAmq2AsGCAxjqA3DhA8ksBCGrBHocBNJVBSojBYFgBdfxBi3DBoLaBtc4Byr+B35BB9E1AB7cAHGxAMS2ARgkAWwUAcCwAhX+AmwSAsLWAxpJA3I4A8qOBCMFBHt+BNOxBSuEBYK9BdlQBi8iBoQ5BtiZByxeB3+kB9KWABqfAG1xAMB3ARPjAWfUAbxtAhG9AmfNAr6WAxYCA233A8ZEBB7CBHcwBM9sBSczBX51BdT/BirYBn/pBtRRBygSB3tgB85PABwAAG7OAMHbARVBAWk4Ab3KAhMeAmkoAr/yAxdbA29QA8edBCAYBHiMBNDBBSiRBX/KBdZeBiwuBoFKBtWoByl0B3y4B8+yAB1ZAHAwAMMzARahAWqNAb8nAhRwAmqBAsFBAxiyA3CeA8jyBCFqBHniBNIZBSnpBYEoBde5Bi2PBoKkBtcJByrNB34YB9EJAB63AHGIAMSSARf7AWvuAcCCAhXTAmvcAsKlAxoMA3ICA8pMBCLMBHs7BNN4BStCBYKDBdkQBi7oBoP8BthgBywjB39uB9JfABptAG0+AMBLARO0AWeqAbxAAhGRAmeeAr5lAxXRA23BA8YRBB6HBHb9BM8vBScCBX45BdTPBiqfBn+7BtQZByfkB3soB84iABvJAG6hAMGmARUWAWkDAb2fAhLoAmj6Ar+7AxcpA28WA8dkBB/cBHhNBNCFBShQBX+RBdYfBiv5BoENBtV3Byk6B3yKB896AB0sAG/7AMMIARZuAWpkAb71AhRIAmpQAsEaAxiAA3B2A8i+BCE8BHmrBNHlBSmwBYDvBdeABi1VBoJtBtbPByqXB33gB9DVAB6AAHFUAMRcARfHAWu4AcBQAhWdAmusAsJwAxngA3HOA8oiBCKYBHsQBNNDBSsWBYJOBdjiBi6zBoPNBtgtByv1B388B9IzABo8AG0SAMAZAROHAWd2AbwQAhFdAmdtAr4xAxWdA22PA8XbBB5YBHbGBM8BBSbKBX4LBdSWBipwBn+BBtPpByeqB3r5B83pABucAG5rAMF6ARThAWjZAb1sAhK/AmjIAr+SAxb4A27sA8c3BB+zBHglBNBcBSgrBX9nBdX7BivNBoDoBtVHBykRB3xWB89OABz2AG/MAMLQARY+AWosAb7GAhQQAmohAsDiAxhSA3A+A8iSBCEJBHmBBNG3BSmKBYDIBdddBi0zBoJLBtavByp1B32+B9CwAB5bAHEsAMQzARecAWuNAcAjAhVyAmt9AsJGAxmvA3GkA8nvBCJwBHreBNMcBSrmBYIqBdi4Bi6SBoOmBtgOByvRB38eB9INABocAGzqAL/1ARNbAWdQAbviAhE0Amc+Ar4HAxVxA21kA8WzBB4tBHajBM7YBSarBX3kBdR7BipNBn9qBtPKByeXB3rcB83XABt+AG5WAMFYARTGAWixAb1KAhKQAmigAr9fAxbNA265A8cKBB+CBHf3BNAvBSf+BX8/BdXRBiurBoDCBtUsByjyB3xBB880ABzlAG+1AMLBARYmAWoZAb6pAhP4Amn+AsDFAxgoA3AdA8hlBCDkBHlUBNGSBSlfBYChBdczBi0MBoIkBtaJBypQB32bB9CPAB48AHEPAMQYAReBAWtyAcAHAhVTAmtfAsIiAxmNA3F6A8nLBCJBBHq6BNLuBSrEBYH/BdiXBi5qBoOHBtfoByuzB375B9HxABn5AGzQAL/UARNDAWcwAbvKAhEUAmcjAr3kAxVQA209A8WJBB4CBHZyBM6sBSZ3BX26BdRIBiolBn85BtOkBydoB3q4B82pABtbAG4qAME4ARSdAWiTAb0kAhJ2Amh8Ar9FAxapA26cA8bkBB9gBHfOBNAHBSfUBX8TBdWnBit9BoCZBtT9ByjJB3wSB88KAByzAG+IAMKNARX4AWnkAb57AhPEAmnSAsCSAxgAA2/rA8g+BCCzBHksBNFgBSk0BYBwBdcGBizcBoH4BtZdByonB31xB9BnAB4SAHDmAMPsARdVAWtDAb/YAhUjAmsuAsHyAxlbA3FNA8mYBCIXBHqGBNLDBSqNBYHQBdhdBi45BoNMBte2Byt5B37IB9G5ABnKAGyZAL+nARMLAWcBAbuRAhDiAmbpAr2wAxUXA20JA8VWBB3QBHZEBM57BSZNBX2IBdQfBinxBn8OBtNuByc6B3qAB816ABsiAG37AMD/ARRtAWhYAbzxAhI3AmhGAr8CAxZvA25YA8apBB8fBHeVBM/MBSeeBX7fBdVzBitNBoBmBtTOByiVB3viB87WAByEAG9UAMJeARXEAWm1Ab5HAhOUAmmbAsBgAxfDA2+3A8f+BCB9BHjsBNErBSj3BYA9BdbPBiyrBoHDBtYsBynxB30+B9AvAB3cAHCrAMO0ARcZAWsKAb+cAhTpAmrzAsG3AxkgA3EPA8lfBCHWBHpOBNKEBSpaBYGWBdgwBi4EBoMkBteGBytUB36aB9GTABmaAGxwAL9xARLeAWbHAbtfAhClAma0Ar1yAxTfA2zLA8UZBB2RBHYDBM49BSYKBX1NBdPeBim8Bn7TBtNABycGB3pYB81KABr8AG3LAMDXARQ7AWguAby8AhIKAmgNAr7UAxY1A24pA8ZwBB7uBHddBM+ZBSdmBX6oBdU9BisWBoAzBtSaByhmB3uyB86qABxWAG8qAMIwARWZAWmFAb4YAhNfAmlpAsAnAxeRA297A8fMBCBCBHi7BNDxBSjIBYAGBdagBix3BoGWBtX6BynHB30RB9AKAB2zAHCJAMOOARb5AWrlAb96AhTBAmrMAsGLAxjzA3DhA8ksBCGoBHoYBNJWBSoiBYFpBdf4Bi3XBoLtBtdZByseB35uB9FfABlxAGw/AL9NARKxAWamAbs1AhCGAmaLAr1SAxS1A2ynA8TvBB1qBHXbBM4UBSXlBX0kBdO8BimSBn6xBtMVBybkB3osB80nABrQAG2nAMCrARQXAWgCAbyZAhHeAmfrAr6nAxYTA237A8ZLBB6+BHc1BM9qBSc9BX59BdUVBirvBoANBtR2ByhCB3uQB86HABw0AG8HAMIOARV1AWljAb31AhM/AmlFAsAIAxdsA29eA8elBCAkBHiSBNDRBSidBX/jBdZ0BixSBoFqBtXWBymdB3ztB8/fAB2QAHBfAMNqARbNAWq/Ab9OAhSbAmqhAsFlAxjMA3C8A8kKBCGDBHn6BNIxBSoGBYFDBdfdBi2xBoLRBtczBysCB35JB9FEABlLAGwjAL8mARKTAWZ8AbsUAhBZAmZnAr0jAxSOA2x4A8TIBB0+BHWzBM3sBSW8BXz+BdORBiluBn6GBtLxBya4B3oIB8z7ABqsAG19AMCIARPuAWfgAbxvAhG8AmfAAr6FAxXmA23ZA8YfBB6dBHcMBM9KBScYBX5dBdTyBirOBn/qBtRTBygdB3tpB85eABwKAG7bAMHiARVHAWk1Ab3GAhMPAmkXAr/WAxc/A28qA8d6BB/wBHhqBNChBSh6BX+4BdZWBiwtBoFPBtW0BymCB3zKB8/DAB1qAHA+AMM/ARapAWqQAb8lAhRqAmp1AsEzAxidA3CKA8jXBCFSBHnEBNICBSnQBYEYBdeqBi2LBoKjBtcRByrXB34pB9EaABkrAGv3AL8CARJjAWZVAbrhAhAvAmYxArz3AxRZA2xMA8SUBB0RBHWCBM29BSWOBXzQBdNpBilDBn5jBtLKByaZB3nlB8zfABqKAG1fAMBiARPLAWezAbxFAhGIAmeQAr5JAxWyA22ZA8XpBB5eBHbXBM8NBSbkBX4kBdS/BiqaBn+7BtQlByf0B3tCB848ABvoAG69AMHCARUqAWkUAb2kAhLpAmjtAr+qAxcNA276A8dBBB++BHguBNBuBSg9BX+GBdYZBiv7BoEUBtWDBylKB3ycB8+PAB1BAHAPAMMbARZ9AWpuAb76AhRGAmpHAsEKAxhrA3BZA8ijBCEcBHmQBNHJBSmfBYDfBdd7Bi1TBoJ2BtbcByqsB331B9DwABj4AGvQAL7SARI+AWYnAbq9AhAAAmYMArzFAxQuA2wUA8RiBBzUBHVJBM1/BSVRBXyTBdMrBikJBn4mBtKUByZfB3mwB8ynABpXAG0oAMAyAROXAWeHAbwVAhFgAmdjAr4kAxWEA210A8W4BB40BHahBM7eBSaqBX3xBdSFBiplBn+BBtPwBye7B3sMB84CABuxAG6BAMGKARTtAWjbAb1oAhKxAmi1Ar91AxbaA27FA8cSBB+JBHgABNA2BSgOBX9MBdXpBivBBoDkBtVKBykcB3xlB89iAB0KAG/hAMLjARZOAWo0Ab7JAhQLAmoVAsDQAxg5A3AkA8hyBCDqBHldBNGZBSloBYCuBddBBi0gBoI5BtanBypuB33AB9CzABjFAGuUAL6gARIDAWX1AbqBAg/OAmXPAryTAxPzA2vlA8QsBByqBHUaBM1XBSUnBXxrBdMCBijeBn38BtJkByYxB3l9B8x2ABoiAGz2AL/8ARNjAWdPAbvgAhElAmcrAr3mAxVNA200A8WDBB33BHZwBM6nBSaABX3ABdReBio5Bn9cBtPEByeUB3rfB83ZABuDAG5XAMFaARTCAWirAb08AhKAAmiHAr9DAxanA26TA8bdBB9YBHfKBNAKBSfbBX8mBdW7BiueBoC5BtUpByjwB3xCB88zABzkAG+vAMK4ARYYAWoIAb6RAhPdAmneAsChAxgDA2/zA8g8BCC4BHksBNFoBSk+BYCBBdceBiz6BoIeBtaGBypXB32hB9CbABikAGt4AL55ARHhAWXIAbpaAg+cAmWlArxdAxPGA2utA8P9BBxwBHToBM0fBST1BXw4BdLTBiixBn3TBtJBByYQB3lgB8xaABoIAGzbAL/hARNGAWcwAbu9AhECAmcDAr3BAxUgA20OA8VUBB3RBHZABM6BBSZPBX2ZBdQvBioTBn8wBtOhBydsB3rAB822ABtnAG42AME/ARSgAWiNAb0WAhJdAmhcAr8aAxZ7A25mA8axBB8pBHegBM/aBSe0BX72BdWWBitxBoCYBtT/ByjTB3wdB88aABzDAG+bAMKbARYGAWnrAb5+AhO+AmnGAsB9AxfkA2/LA8gYBCCNBHkCBNE8BSkQBYBXBdbvBizRBoHuBtZeByopB318B9BwABiCAGtRAL5bARG+AWWuAbo6Ag+EAmWEArxFAxOjA2uSA8PWBBxTBHTABMz/BSTOBXwVBdKtBiiNBn2tBtIcByXqB3k7B8wzABniAGy0AL+7ARMgAWcLAbuYAhDdAmbgAr2bAxT+A2zlA8UxBB2kBHYbBM5RBSYqBX1qBdQKBinlBn8MBtN2BydLB3qYB82WABtAAG4XAMEYARSBAWhnAbz4AhI3Amg9Ar72AxZaA25DA8aNBB8GBHd4BM+2BSeGBX7QBdVlBitJBoBlBtTWByigB3v1B87oABybAG9pAMJzARXTAWnDAb5LAhOVAmmTAsBVAxezA2+kA8fqBCBnBHjYBNEWBSjpBYAuBdbIBiylBoHHBtYxByoBB31OB9BIABhUAGspAL4tARGVAWV9AboOAg9QAmVWArwOAxN0A2tZA8OnBBwaBHSSBMzIBSSgBXvhBdJ+BihbBn1+BtHpByW5B3kHB8wCABmvAGyEAL+IARLwAWbZAbtpAhCsAmavAr1qAxTLA2y2A8T7BB13BHXmBM4mBSX2BX1BBdPXBim8Bn7ZBtNLBycVB3ppB81cABsNAG3ZAMDiARRBAWgvAby3AhIAAmf+Ar6+AxYdA24KA8ZSBB7LBHdBBM98BSdVBX6aBdU7BisXBoA+BtSnByh7B3vFB87BABxoAG89AMI8ARWjAWmHAb4YAhNXAmleAsAVAxd9A29kA8ezBCAnBHifBNDYBSiuBX/0BdaPBixxBoGSBtYCBynPB30hB9AXABgmAGr2AL38ARFeAWVJAbnTAg8ZAmUYArvXAxM2A2slA8NpBBvoBHRWBMyXBSRnBXuxBdJJBigsBn1MBtG9ByWLB3jfB8vXABmIAGxXAL9fARK/AWapAbsxAhB1AmZzAr0sAxSMA2x0A8S+BB00BHWsBM3lBSXABX0DBdOlBimCBn6rBtMWBybsB3o5B804ABriAG26AMC6ARQiAWgFAbyUAhHQAmfUAr6IAxXsA23QA8YbBB6SBHcHBM9FBScaBX5mBdUABirlBoAEBtR3ByhCB3uXB86LABw9AG8LAMIUARV0AWliAb3pAhMxAmktAr/sAxdIA282A8d6BB/2BHhnBNCmBSh6BX/EBdZgBixCBoFmBtXUBymlB3z0B8/uABf6AGrNAL3RARE2AWUfAbmsAg7uAmTxAruoAxMLA2rvA8M7BBusBHQkBMxaBSQzBXt1BdIWBif1Bn0dBtGKByVfB3iuB8usABlYAGwtAL8vARKXAWZ8AbsLAhBLAmZOAr0GAxRmA2xOA8SVBB0OBHV9BM28BSWMBXzYBdNwBilYBn53BtLtBya6B3oRB80GABq6AG2GAMCQARPtAWfaAbxfAhGlAmegAr5fAxW7A22oA8XuBB5pBHbdBM8ZBSbxBX43BdTXBiq2Bn/eBtRKBygeB3tsB85qABwUAG7qAMHrARVRAWk1Ab3EAhMBAmkGAr+6AxchA28FA8dUBB/IBHhABNB5BShRBX+WBdYzBiwTBoE3BtWlByl2B3zHB8/BABfQAGqjAL2pAREOAWT3AbmDAg7GAmTGAruBAxLfA2rLA8MQBBuNBHP8BMw+BSQOBXtaBdHyBifYBnz3BtFqByU2B3iLB8uCABk0AGwDAL8MARJrAWZXAbreAhAjAmYfArzZAxQ3A2wfA8RnBBzdBHVUBM2PBSVqBXyvBdNTBikyBn5cBtLIByaeB3nrB8zqABqSAG1pAMBnARPPAWexAbxAAhF8AmeAAr4zAxWYA217A8XHBB49BHa0BM7xBSbIBX4TBdSwBiqXBn+5BtQsByf6B3tOB85DABvzAG7BAMHHARUmAWkQAb2XAhLcAmjYAr+WAxbyA27gA8ckBB+iBHgSBNBUBSgnBX9zBdYPBiv1BoEZBtWLBylcB3yvB8+nABe2AGqGAL2KARDrAWTTAblcAg6cAmSbArtSAxKzA2qYA8LjBBtWBHPOBMwGBSPhBXskBdHHBiemBnzRBtE+ByUWB3hmB8tmABkSAGvqAL7qARJRAWYzAbrBAg/8AmX8ArywAxQQA2v0A8Q8BByzBHUlBM1lBSU4BXyGBdMgBikJBn4qBtKhByZuB3nHB8y9ABpxAG0+AMBIAROlAWeQAbwUAhFYAmdQAr4MAxVkA21QA8WTBB4OBHaABM7ABSaYBX3iBdSDBipmBn+OBtP9ByfSB3shB84eABvJAG6eAMGgARUFAWjqAb12AhKzAmi1Ar9oAxbLA26tA8b5BB9rBHfjBNAbBSf1BX86BdXcBiu9BoDlBtVUBykoB3x5B891ABeCAGpWAL1ZARC/AWSlAbkyAg5yAmRyArsqAxKIA2pwA8K0BBsuBHOcBMvcBSOtBXr6BdGTBid8BnydBtETByTiB3g6B8swABjkAGuyAL67ARIYAWYDAbqHAg/LAmXEArx/AxPZA2vCA8QHBBx+BHTyBM0sBSUGBXxMBdLvBijQBn38BtJqByZDB3mSB8ySABo9AG0UAMATARN5AWdaAbvnAhEgAmcjAr3UAxU3A20ZA8VlBB3ZBHZRBM6MBSZkBX2tBdRMBiowBn9VBtPIByeYB3rsB83lABuVAG5lAMFqARTLAWizAb06AhJ8Amh3Ar8yAxaNA256A8a9BB87BHerBM/uBSfABX8OBdWpBiuQBoCyBtUlByj0B3xJB89AABdRAGogAL0nARCHAWRxAbj4Ag45AmQ1ArrtAxJKA2owA8J4BBrsBHNkBMudBSN5BXq9BdFiBidBBnxtBtDaBySyB3gAB8sAABiqAGuCAL6BARHoAWXKAbpXAg+RAmWTArxEAxOlA2uHA8PQBBxFBHS6BMz4BSTPBXwdBdK7BiikBn3IBtI/ByYNB3lkB8xZABoLAGzWAL/dARM5AWciAbulAhDoAmbgAr2cAxT0A2zhA8UkBB2hBHYSBM5VBSYsBX16BdQbBioCBn8rBtOeBydyB3rEB82/ABtrAG48AME9ARSdAWiAAb0JAhJFAmhEAr74AxZaA249A8aJBB78BHd2BM+vBSeLBX7RBdV2BitZBoCEBtT1ByjNB3weB88cABcoAGn9ALz8ARBhAWRCAbjNAg4IAmQGArq6AxIZA2n/A8JFBBq+BHMwBMtyBSNFBXqUBdEvBicbBnw+BtC3BySHB3fiB8raABiPAGtdAL5lARHBAWWqAboqAg9rAmVgArwYAxNvA2tYA8OaBBwUBHSHBMzGBSShBXvrBdKQBih1Bn2iBtITByXsB3k+B8w/ABnrAGzCAL/CARMnAWcIAbuSAhDKAmbIAr13AxTWA2y1A8UABB1yBHXsBM4nBSYDBX1NBdPxBinXBn8BBtN0BydIB3qcB82XABtGAG4ZAMEdARR/AWhkAbztAhIrAmgnAr7dAxY3A24fA8ZhBB7dBHdMBM+PBSdiBX6zBdVPBis7BoBfBtTXByioB3wAB874ABcKAGnYALzgARA+AWQoAbitAg3vAmPoArqfAxH5A2neA8IjBBqWBHMLBMtEBSMfBXplBdELBibtBnwcBtCMByRnB3e4B8q6ABhmAGs+AL49ARGkAWWEAboQAg9JAmVJArv5AxNZA2s5A8OCBBv0BHRpBMylBSR8BXvIBdJnBihRBn13BtHvByXBB3kaB8wTABnFAGyUAL+aARL3AWbfAbtiAhCjAmaaAr1TAxSrA2yWA8TYBB1VBHXFBM4IBSXdBX0rBdPKBimzBn7aBtNPBycjB3p4B81zABsjAG3zAMD3ARRXAWg8AbzCAhIAAmf7Ar6wAxYOA23yA8Y8BB6wBHcpBM9iBSc/BX6FBdUqBisKBoA3BtSlByh9B3vNB87NABbYAGmvALyvARAVAWP2AbiDAg28AmO8ArpuAxHNA2mwA8H3BBpuBHLhBMsiBSL3BXpHBdDjBibOBnvxBtBqByQ5B3eSB8qIABg8AGsJAL4RARFsAWVVAbnWAg8YAmUMArvFAxMbA2sEA8NFBBvABHQyBMx0BSRNBXubBdJABignBn1UBtHHByWeB3jwB8vtABmZAGxrAL9rARLMAWasAbs0AhBtAmZqAr0aAxR5A2xZA8SlBB0XBHWSBM3NBSWsBXz2BdOdBimDBn6vBtMjByb5B3pMB81IABrzAG3EAMDDARQkAWgFAbyMAhHGAmfCAr52AxXSA225A8X+BB55BHbqBM8vBScDBX5WBdT0BiriBoAIBtSCByhTB3utB86kABa4AGmDALyJAQ/jAWPKAbhKAg2JAmN9ArozAxGKA2lxA8G0BBorBHKgBMrdBSK5BXoCBdCpBiaOBnu+BtAwByQNB3dfB8piABgOAGrlAL3kARFIAWUmAbmuAg7jAmTfAruKAxLoA2rGA8MPBBuBBHP5BMw1BSQRBXteBdICBiftBn0YBtGQByVlB3i9B8u4ABlqAGw6AL8+ARKcAWaAAbsCAhA+AmYzArznAxQ8A2wjA8RjBBzfBHVPBM2UBSVrBXy+BdNfBilNBn52BtLvBybDB3obB80VABrHAG2VAMCaARP3AWfdAbxfAhGcAmeTAr5GAxWgA22CA8XIBB47BHayBM7sBSbKBX4SBdS7BiqfBn/PBtRBBygdB3tvB85xABZ8AGlTALxRAQ+3AWOWAbghAg1YAmNWAroFAxFiA2lCA8GIBBn8BHJvBMqtBSKEBXnTBdBzBiZgBnuIBtADByPXB3czB8osABfhAGqvAL22ARERAWT3Abl3Ag61AmSoArteAxKyA2qaA8LZBBtUBHPDBMwFBSPcBXssBdHQBie7BnzoBtFfByU4B3iPB8uOABk+AGwRAL8TARJyAWZUAbrYAhAQAmYJAry4AxQVA2v0A8Q+BByvBHUqBM1kBSVDBXyMBdM0BikZBn5IBtK7ByaVB3noB8zoABqVAG1qAMBqARPNAWetAbw1AhFsAmdoAr4YAxV0A21YA8WcBB4VBHaIBM7LBSahBX3zBdSSBiqABn+lBtQgByfxB3tMB85EABZZAGkmALwuAQ+JAWNyAbfyAg0yAmMlArnbAxEwA2kWA8FXBBnPBHJBBMqABSJbBXmoBdBPBiY1BntlBs/YByOzB3cGB8oIABe0AGqKAL2KARDtAWTNAblWAg6MAmSIArs0AxKSA2puA8K3BBsoBHOhBMvcBSO7BXsHBdGvBieZBnzHBtE+ByUVB3hrB8tnABkVAGvmAL7mARJFAWYmAbqpAg/kAmXbAryPAxPmA2vNA8QPBByKBHT7BM1BBSUYBXxtBdMOBij/Bn4oBtKkByZ4B3nSB8zKABp8AG1IAMBMAROmAWeKAbwJAhFGAmc7Ar3wAxVIA20tA8VzBB3oBHZfBM6cBSZ6BX3EBdRtBipTBn+FBtP4ByfWB3spB84sABY3AGkNALwKAQ9uAWNKAbfSAg0GAmMCArmuAxEMA2jqA8EzBBmmBHIdBMpbBSI2BXmFBdApBiYWBntABs+7ByORB3btB8noABecAGpsAL1xARDMAWSvAbktAg5oAmRYArsLAxJdA2pDA8KCBBr+BHNuBMuzBSOMBXrgBdGEBidzBnygBtEaByTyB3hMB8tJABj7AGvLAL7PARIsAWYOAbqPAg/GAmW7ArxpAxPBA2ugA8PmBBxZBHTSBM0OBSTwBXw7BdLnBijOBn4ABtJ0ByZRB3mjB8ykABpPAG0lAMAiAROFAWdjAbvqAhEfAmcaAr3HAxUiA20CA8VGBB28BHYvBM5xBSZJBX2dBdQ+BiovBn9YBtPVByepB3sFB83+ABYSAGjfALvlAQ8/AWMmAbekAgziAmLTArmIAxDaA2i/A8D9BBl1BHHlBMokBSH+BXlMBc/zBiXeBnsPBs+HByNkB3a7B8m9ABdsAGpAAL1BARChAWSAAbkEAg45AmQxArrcAxI3A2oTA8JaBBrKBHNCBMt8BSNbBXqmBdFQBic5BnxqBtDiByS+B3gUB8sUABjDAGuWAL6VARH0AWXSAbpVAg+LAmWBArwxAxOIA2trA8OtBBwnBHSYBMzeBSS1BXwKBdKrBiicBn3EBtJCByYWB3lzB8xsABohAGztAL/0ARNNAWcyAbuvAhDrAmbdAr2QAxTlA2zKA8UMBB2DBHX3BM42BSYTBX1fBdQIBinvBn8gBtOUBydxB3rEB83G';
+var JQ_DATA={};
+function b64ToBytes(b64){var s=atob(b64),a=new Uint8Array(s.length);for(var i=0;i<s.length;i++)a[i]=s.charCodeAt(i);return a;}
+function initJieqi(){
+  var bytes=b64ToBytes(JIEQI_B64);
+  for(var y=1900;y<=2100;y++){
+    var off=(y-1900)*72, arr=[], base=new Date(y,0,1).getTime();
+    for(var i=0;i<24;i++){
+      var v=(bytes[off+i*3]<<16)|(bytes[off+i*3+1]<<8)|bytes[off+i*3+2];
+      arr.push({name:JQ[i],t:new Date(base+v*60000)});
+    }
+    JQ_DATA[y]=arr;
+  }
+}
+function jieqiAround(dt){
+  var y=dt.getFullYear(), list=[];
+  [y-1,y,y+1].forEach(function(yy){ if(JQ_DATA[yy]) list=list.concat(JQ_DATA[yy]); });
+  list.sort(function(a,b){return a.t-b.t;});
+  var prev=null,next=null;
+  for(var i=0;i<list.length;i++){ if(list[i].t<=dt) prev=list[i]; }
+  for(var j=0;j<list.length;j++){ if(list[j].t>dt){ next=list[j]; break; } }
+  return {prev:prev,next:next};
+}
+function stepBack(e){
+  var y=e.t.getFullYear(), list=[];
+  [y-1,y].forEach(function(yy){ if(JQ_DATA[yy]) list=list.concat(JQ_DATA[yy]); });
+  list.sort(function(a,b){return a.t-b.t;});
+  var np=null; for(var i=0;i<list.length;i++){ if(list[i].t<e.t) np=list[i]; }
+  return np;
+}
+function prevJie(dt){
+  var p=jieqiAround(dt).prev, guard=0;
+  while(p && !JIE_YUEJIAN[p.name] && guard++<6) p=stepBack(p);
+  return p;
+}
+function prevZhongQi(dt){
+  var p=jieqiAround(dt).prev, guard=0;
+  while(p && !ZQ_YUEJIANG[p.name] && guard++<6) p=stepBack(p);
+  return p;
+}
+
+/* ==================== 四柱 ==================== */
+function siZhu(dt){
+  var y=dt.getFullYear();
+  var lichun=null;
+  [y-1,y].forEach(function(yy){
+    (JQ_DATA[yy]||[]).forEach(function(e){ if(e.name==='立春') lichun=e; });
+  });
+  var year=(lichun && dt<lichun.t)?y-1:y;
+  var yGan=GAN[((year-4)%10+10)%10], yZhi=ZHI[((year-4)%12+12)%12];
+  var pj=prevJie(dt);
+  var yueJian=pj?JIE_YUEJIAN[pj.name]:'寅';
+  var yueGan=GAN[((gi(yGan)*2+2+((zi(yueJian)-2+12)%12))%10+10)%10];
+  var days=Math.floor((Date.UTC(dt.getFullYear(),dt.getMonth(),dt.getDate())-Date.UTC(1900,0,1))/86400000);
+  var dIdx=((10+days)%60+60)%60;
+  var dGan=GAN[dIdx%10], dZhi=ZHI[dIdx%12];
+  var h=dt.getHours();
+  var hZhi=ZHI[(h>=23)?0:Math.floor((h+1)/2)];
+  var hGan=GAN[((gi(dGan)*2+zi(hZhi))%10+10)%10];
+  return {year:year,yGan:yGan,yZhi:yZhi,yueGan:yueGan,yueJian:yueJian,
+          dGan:dGan,dZhi:dZhi,hGan:hGan,hZhi:hZhi,jieName:pj?pj.name:''};
+}
+function xunInfo(dGan,dZhi){
+  var i=0; for(i=0;i<60;i++){ if(GAN[i%10]===dGan && ZHI[i%12]===dZhi) break; }
+  var xunIdx=Math.floor(i/10)*10;
+  var xunZhi=ZHI[xunIdx%12];
+  return {idx:i,xunZhi:xunZhi,kong:[ZHI[(xunIdx+10)%12],ZHI[(xunIdx+11)%12]],name:'甲'+xunZhi+'旬'};
+}
+
+/* ==================== 起課 ==================== */
+function buildKe(dt,diFen){
+  var sz=siZhu(dt);
+  var xi=xunInfo(sz.dGan,sz.dZhi);
+  var zq=prevZhongQi(dt);
+  var yueJiang=zq?ZQ_YUEJIANG[zq.name]:'巳';
+  var hourZhi=sz.hZhi;
+  var dayNight=(['卯','辰','巳','午','未','申'].indexOf(hourZhi)>=0)?'晝':'夜';
+  var jiangZhi=ZHI[((zi(yueJiang)+zi(diFen)-zi(hourZhi))%12+12)%12];
+  var jiangGan=dunGan(sz.dGan,jiangZhi);
+  var gr=dayNight==='晝'?GUI_REN[sz.dGan][0]:GUI_REN[sz.dGan][1];
+  var shun=(SHUN_ZONE.indexOf(gr)>=0);
+  var d=(zi(diFen)-zi(gr)+12)%12;
+  var tianJiang=TIANJIANG[shun?d:(12-d)%12];
+  var guiZhi=BENJIA[tianJiang];
+  var guiGan=dunGan(sz.dGan,guiZhi);
+  var renGan=dunGan(sz.dGan,diFen);
+  return {sz:sz,xi:xi,yueJiang:yueJiang,zhongqi:zq?zq.name:'',
+    hourZhi:hourZhi,dayNight:dayNight,diFen:diFen,
+    ren:{gan:renGan,zhi:null,tj:null,wx:WXG[renGan]},
+    gui:{gan:guiGan,zhi:guiZhi,tj:tianJiang,wx:WXZ[guiZhi]},
+    jiang:{gan:jiangGan,zhi:jiangZhi,tj:JIANG_NAME[jiangZhi],wx:WXZ[jiangZhi]},
+    di:{gan:null,zhi:diFen,tj:null,wx:WXZ[diFen]},
+    guiRen:gr,guiShun:shun};
+}
+function tianjiangAt(z,gr,shun){
+  var d=(zi(z)-zi(gr)+12)%12;
+  return TIANJIANG[shun?d:(12-d)%12];
+}
+function tianpanAt(z,yueJiang,hourZhi){
+  return ZHI[((zi(yueJiang)+zi(z)-zi(hourZhi))%12+12)%12];
+}
+
+/* ==================== 用爻 ==================== */
+function pickYongshen(ke){
+  var L=[
+    {k:'人元',yy:isYangGan(ke.ren.gan)},
+    {k:'貴神',yy:isYangGan(ke.gui.gan)},
+    {k:'將神',yy:isYangGan(ke.jiang.gan)},
+    {k:'地分',yy:isYangZhi(ke.di.zhi)}];
+  var nY=L.filter(function(x){return x.yy;}).length, nYin=4-nY;
+  if(nY===4) return {layer:'貴神',rule:'四爻純陽，以神為用（老陽）',L:L};
+  if(nYin===4) return {layer:'將神',rule:'四爻純陰，以將為用（老陰）',L:L};
+  if(nY===1) return {layer:L.filter(function(x){return x.yy;})[0].k,rule:'三陰一陽，以陽為用（少陽）',L:L};
+  if(nYin===1) return {layer:L.filter(function(x){return !x.yy;})[0].k,rule:'三陽一陰，以陰為用（少陰）',L:L};
+  return {layer:'將神',rule:'兩陰兩陽，以將為用（將為主，神為客）',L:L};
+}
+
+/* ==================== 課內旺爻與旺衰 ==================== */
+function findWangYao(ke){
+  var wx=[ke.ren.wx,ke.gui.wx,ke.jiang.wx,ke.di.wx];
+  var zh=[ke.gui.zhi,ke.jiang.zhi,ke.di.zhi];
+  var uniq=[]; wx.forEach(function(w){ if(uniq.indexOf(w)<0) uniq.push(w); });
+  var rule='';
+  var noKe=uniq.filter(function(x){ return !uniq.some(function(y){return KE[y]===x;}); });
+  var cand=noKe.length?noKe:uniq.slice();
+  if(noKe.length) rule='無克為旺';
+  if(cand.length>1){
+    var cnt={}; wx.forEach(function(w){cnt[w]=(cnt[w]||0)+1;});
+    var mx=Math.max.apply(null,cand.map(function(w){return cnt[w];}));
+    cand=cand.filter(function(w){return cnt[w]===mx;});
+    rule+=(rule?' → ':'')+'多為旺';
+  }
+  if(cand.length>1){
+    var HE=[['亥卯未','木'],['寅午戌','火'],['巳酉丑','金'],['申子辰','水'],
+            ['寅卯辰','木'],['巳午未','火'],['申酉戌','金'],['亥子丑','水']];
+    for(var i=0;i<HE.length;i++){
+      var n=0; for(var c of HE[i][0]){ if(zh.indexOf(c)>=0) n++; }
+      if(n>=2 && cand.indexOf(HE[i][1])>=0){ cand=[HE[i][1]]; rule+=(rule?' → ':'')+'合局為旺'; break; }
+    }
+  }
+  if(cand.length>1 && wx.every(function(w){return w===wx[0];})){ cand=[wx[0]]; rule+=(rule?' → ':'')+'一氣為旺'; }
+  if(cand.length>1) cand=[cand[0]];
+  return {wx:cand[0],rule:rule,wxList:wx};
+}
+function wangShuai(wx,wang){
+  if(wx===wang) return '旺';
+  if(SHENG[wang]===wx) return '相';
+  if(SHENG[wx]===wang) return '休';
+  if(KE[wx]===wang) return '囚';
+  return '死';
+}
+/* 課外旺衰：以月令五行為「我」判旺相休囚死
+   同我（當令）＝旺、我生＝相、生我＝休、克我＝囚、我克＝死 */
+function kewaiLevel(wx,yueJian){
+  var mw=WXZ[yueJian];
+  if(wx===mw) return '旺';
+  if(SHENG[mw]===wx) return '相';
+  if(SHENG[wx]===mw) return '休';
+  if(KE[wx]===mw) return '囚';
+  return '死';
+}
+function kewaiReason(wx,yueJian){
+  return {旺:'同月令，當令',相:'月令生我',休:'生月令',囚:'克月令',死:'月令克我'}[kewaiLevel(wx,yueJian)];
+}
+/* 課外旺爻：依序取 旺＞相＞休＞囚＞死 中最高者為旺爻 */
+function findWangYaoByMonth(ke){
+  var rows=[['人元',ke.ren.wx],['貴神',ke.gui.wx],['將神',ke.jiang.wx],['地分',ke.di.wx]];
+  var lvs=rows.map(function(r){ return kewaiLevel(r[1],ke.sz.yueJian); });
+  var order=['旺','相','休','囚','死'];
+  var ruleMap={
+    旺:'四層中有同月令之爻，得月令本氣，為真旺',
+    相:'四層無當令之爻，取月令所生者（相）為旺',
+    休:'四層無旺無相，取生月令者（休）為旺',
+    囚:'四層無旺相休，取克月令者（囚）為旺',
+    死:'四層皆被月令所克，以死中取旺'
+  };
+  for(var i=0;i<order.length;i++){
+    var lv=order[i], hit=[];
+    lvs.forEach(function(l,j){ if(l===lv) hit.push({name:rows[j][0],wx:rows[j][1]}); });
+    if(hit.length){
+      return {level:lv, rule:ruleMap[lv], rows:rows, lvs:lvs, list:hit,
+        names:hit.map(function(x){return x.name+'（'+x.wx+'）';}).join('、')};
+    }
+  }
+}
+
+/* ==================== 六親 ==================== */
+function liuQin(woWx,targetWx){
+  if(woWx===targetWx) return '兄弟';
+  if(SHENG[woWx]===targetWx) return '子孫';
+  if(SHENG[targetWx]===woWx) return '父母';
+  if(KE[woWx]===targetWx) return '妻財';
+  return '官鬼';
+}
+
+/* ==================== 五動三動 ==================== */
+function wudong(ke){
+  var out=[];
+  var g=ke.ren.wx,s=ke.gui.wx,j=ke.jiang.wx,f=ke.di.wx;
+  if(KE[j]===s) out.push({n:'財動',t:'將克神（內克外），易招財；占官不谐'});
+  if(KE[s]===g) out.push({n:'官動',t:'神克干，利升遷；常人主公府事'});
+  if(KE[f]===g) out.push({n:'鬼動',t:'方克干，利官、利治病；不利風水災禍'});
+  if(KE[g]===f) out.push({n:'妻動',t:'干克方，損財傷妻不利子孫'});
+  if(KE[s]===j) out.push({n:'賊動',t:'神克將，破財耗资、內宅不安'});
+  if(SHENG[f]===g) out.push({n:'父母動',t:'方生干，利名氣掌實權、利升官'});
+  if(f===g) out.push({n:'兄弟動',t:'干方比，牽连親朋好友，事多難成'});
+  if(SHENG[g]===f) out.push({n:'子孫動',t:'干生方，利財利子孫'});
+  return out;
+}
+</script>
+
+<script>
+/* ==================== 神煞引擎 ==================== */
+var SS_LU={甲:'寅',乙:'卯',丙:'巳',丁:'午',戊:'巳',己:'午',庚:'申',辛:'酉',壬:'亥',癸:'子'};
+var SS_DE={甲:'寅',己:'寅',乙:'申',庚:'申',丙:'巳',辛:'巳',丁:'亥',壬:'亥',戊:'巳',癸:'巳'};
+var SS_MU={木:'未',火:'戌',土:'戌',金:'丑',水:'辰'};
+var SS_YU={木:'子',火:'卯',土:'卯',金:'午',水:'酉'};
+var SS_CS={木:'亥',火:'寅',土:'寅',金:'巳',水:'申'};
+var SS_RIDAO={甲:'子',己:'子',乙:'亥',庚:'亥',丙:'卯',辛:'卯',丁:'申',壬:'申',戊:'巳',癸:'巳'};
+var SS_RIZEI={甲:'辰',己:'辰',乙:'午',庚:'午',丙:'申',辛:'申',丁:'亥',壬:'亥',戊:'寅',癸:'寅'};
+var SS_YOUDU={甲:'丑',己:'丑',乙:'子',庚:'子',丙:'寅',辛:'寅',丁:'巳',壬:'巳',戊:'申',癸:'申'};
+var SS_JINSHEN={甲:'子',乙:'子',丙:'子',丁:'子',戊:'午',己:'午',庚:'卯',辛:'卯',壬:'酉',癸:'酉'};
+var SS_RIYI={甲:'卯',乙:'亥',丙:'丑',丁:'未',戊:'巳',己:'卯',庚:'亥',辛:'丑',壬:'未',癸:'巳'};
+var SS_RIGUI={甲:'申',乙:'酉',丙:'亥',丁:'子',戊:'寅',己:'卯',庚:'巳',辛:'午',壬:'辰',癸:'未'};
+var SS_WENCHANG={甲:'巳',乙:'午',丙:'申',丁:'酉',戊:'申',己:'酉',庚:'亥',辛:'子',壬:'寅',癸:'卯'};
+/* 死符（歲干分組，課程實證 25/25；賦文「甲乙重申丙丁亥…」） */
+var SS_SIFU={甲:'申',乙:'申',丙:'亥',丁:'亥',戊:'寅',己:'寅',庚:'巳',辛:'巳',壬:'辰',癸:'辰'};
+/* 望門＝日支三合局祿；地煞＝日支三合局鬼墓（課程實證 26/26） */
+var SANHE_LU={亥:'寅',卯:'寅',未:'寅',寅:'巳',午:'巳',戌:'巳',巳:'申',酉:'申',丑:'申',申:'亥',子:'亥',辰:'亥'};
+var SANHE_GUIMU={亥:'丑',卯:'丑',未:'丑',寅:'辰',午:'辰',戌:'辰',巳:'未',酉:'未',丑:'未',申:'戌',子:'戌',辰:'戌'};
+/* 五鬼（日干實測表 25/25；甲丁無課程數據） */
+var WUGUI={甲:null,乙:'寅',丙:'子',丁:null,戊:'申',己:'午',庚:'卯',辛:'丑',壬:'亥',癸:'酉'};
+/* 旬丁＝旬中丁干所遁地支（026/036 論丁神表即此） */
+var XUNDING={甲子:'卯',甲戌:'丑',甲申:'亥',甲午:'酉',甲辰:'未',甲寅:'巳'};
+var SS_TIANDE={寅:'丁',卯:'申',辰:'壬',巳:'辛',午:'亥',未:'甲',申:'癸',酉:'丑',戌:'丙',亥:'乙',子:'巳',丑:'庚'};
+var SS_TIANDE_IS_GAN={寅:1,卯:0,辰:1,巳:1,午:0,未:1,申:1,酉:0,戌:1,亥:1,子:0,丑:1};
+var SS_YUEDE={寅:'丙',午:'丙',戌:'丙',申:'壬',子:'壬',辰:'壬',巳:'庚',酉:'庚',丑:'庚',亥:'甲',卯:'甲',未:'甲'};
+var GAN_LIUHE={甲:'己',乙:'庚',丙:'辛',丁:'壬',戊:'癸',己:'甲',庚:'乙',辛:'丙',壬:'丁',癸:'戊'};
+function tianShe(yueJian){
+  if(['寅','卯','辰'].indexOf(yueJian)>=0) return {gan:'戊',zhi:'寅'};
+  if(['巳','午','未'].indexOf(yueJian)>=0) return {gan:'甲',zhi:'午'};
+  if(['申','酉','戌'].indexOf(yueJian)>=0) return {gan:'戊',zhi:'申'};
+  return {gan:'甲',zhi:'子'};
+}var MONTH_ROWS={
+ 月破:'申酉戌亥子丑寅卯辰巳午未',
+ 生氣:'子丑寅卯辰巳午未申酉戌亥',
+ 死氣:'午未申酉戌亥子丑寅卯辰巳',
+ 死神:'巳午未申酉戌亥子丑寅卯辰',
+ 成神:'巳申亥寅巳申亥寅巳申亥寅',
+ 會神:'未戌寅亥酉子丑午巳卯申辰',
+ 天財:'辰午申戌子寅辰午申戌子寅',
+ 皇恩:'未酉亥丑卯巳未酉亥丑卯巳',
+ 天馬:'午申戌子寅辰午申戌子寅辰',
+ 月驛馬:'申巳寅亥申巳寅亥申巳寅亥',
+ 天醫:'辰巳午未申酉戌亥子丑寅卯',
+ 地醫:'戌亥子丑寅卯辰巳午未申酉',
+ 飛魂:'亥子丑寅卯辰巳午未申酉戌',
+ 信神:'酉戌亥子丑寅卯辰巳午未申',
+ 天雞:'酉申未午巳辰卯寅丑子亥戌',
+ 血支:'丑寅卯辰巳午未申酉戌亥子',
+ 血忌:'丑未寅申卯酉辰戌巳亥午子',
+ 產煞:'寅巳申亥寅巳申亥寅巳申亥',
+ 奸門:'申亥寅巳申亥寅巳申亥寅巳',
+ 懸索桃花:'卯子酉午卯子酉午卯子酉午',
+ 火光:'戌酉申未午巳辰卯寅丑子亥',
+ 月厭:'戌酉申未午巳辰卯寅丑子亥',
+ 飛廉:'戌巳午未寅卯辰亥子丑申酉',
+ 勾神:'卯戌巳子未寅酉辰亥午丑申',
+ 絞神:'酉辰亥午丑申卯戌巳子未寅',
+ 天鬼:'酉午卯子酉午卯子酉午卯子',
+ 喪魄:'未辰丑戌未辰丑戌未辰丑戌',
+ 天盜:'寅亥申巳寅亥申巳寅亥申巳',
+ 雷煞:'亥申巳寅亥申巳寅亥申巳寅',
+ 風伯:'申未午巳辰卯寅丑子亥戌酉',
+ 風煞:'寅丑子亥戌酉申未午巳辰卯',
+ 陰煞:'巳辰卯寅丑子亥戌酉申未午'
+};
+var MONTH_JX={月破:'凶',生氣:'吉',死氣:'凶',死神:'凶',成神:'平',會神:'平',天財:'吉',皇恩:'吉',
+ 天馬:'吉',月驛馬:'吉',天醫:'吉',地醫:'平',飛魂:'凶',信神:'平',天雞:'平',血支:'凶',血忌:'凶',
+ 產煞:'凶',奸門:'凶',懸索桃花:'凶',火光:'凶',月厭:'凶',飛廉:'凶',勾神:'凶',絞神:'凶',
+ 天鬼:'凶',喪魄:'凶',天盜:'凶',雷煞:'凶',風伯:'平',風煞:'平',陰煞:'凶'};
+var MONTH_MEAN={月破:'主破壞離散，憂喜不成',生氣:'解凶增吉，成就新事',死氣:'占病凶，病產最忌',
+ 死神:'占病凶，乘虎尤凶',成神:'旺相生合作事成',會神:'婚姻成，行人至',天財:'宜求財',
+ 皇恩:'官占有恩澤升遷',天馬:'官升遷，行人立至，凡占皆速',月驛馬:'主動變速',天醫:'病用，生合日干吉',
+ 地醫:'病用',飛魂:'主鬼祟夜夢不祥',信神:'主信音',天雞:'主信音',血支:'陽人血光',血忌:'血光墮胎忌针灸',
+ 產煞:'乘后陰立產，乘勾虎難產',奸門:'主淫',懸索桃花:'即桃花，主淫亂口舌',火光:'乘蛇雀克身宅焚',
+ 月厭:'凡占皆凶，宅有怪',飛廉:'非常之驚，凡占皆速',勾神:'阻滯',絞神:'羈絆',劫煞:'三煞凶速',
+ 月德:'化凶為吉',天鬼:'主病疫宅怪',喪魄:'主死喪',天盜:'主盜（正寅逆四孟）',雷煞:'雷雨',
+ 風伯:'主風',風煞:'主風',陰煞:'主暗昧'};
+var SS_ZHI={
+ 驛馬:{申:'寅',子:'寅',辰:'寅',巳:'亥',酉:'亥',丑:'亥',寅:'申',午:'申',戌:'申',亥:'巳',卯:'巳',未:'巳'},
+ 華蓋:{申:'辰',子:'辰',辰:'辰',巳:'丑',酉:'丑',丑:'丑',寅:'戌',午:'戌',戌:'戌',亥:'未',卯:'未',未:'未'},
+ 劫煞:{申:'巳',子:'巳',辰:'巳',巳:'寅',酉:'寅',丑:'寅',寅:'亥',午:'亥',戌:'亥',亥:'申',卯:'申',未:'申'},
+ 災煞:{申:'午',子:'午',辰:'午',巳:'卯',酉:'卯',丑:'卯',寅:'子',午:'子',戌:'子',亥:'酉',卯:'酉',未:'酉'},
+ 桃花:{申:'酉',子:'酉',辰:'酉',巳:'午',酉:'午',丑:'午',寅:'卯',午:'卯',戌:'卯',亥:'子',卯:'子',未:'子'},
+ 將星:{申:'子',子:'子',辰:'子',巳:'酉',酉:'酉',丑:'酉',寅:'午',午:'午',戌:'午',亥:'卯',卯:'卯',未:'卯'},
+ 亡神:{申:'亥',子:'亥',辰:'亥',巳:'申',酉:'申',丑:'申',寅:'寅',午:'寅',戌:'寅',亥:'巳',卯:'巳',未:'巳'}
+};
+var LIUHE={子:'丑',丑:'子',寅:'亥',卯:'戌',辰:'酉',巳:'申',午:'未',未:'午',申:'巳',酉:'辰',戌:'卯',亥:'寅'};
+var LIUPO={子:'酉',丑:'辰',寅:'亥',卯:'午',辰:'丑',巳:'申',午:'卯',未:'戌',申:'巳',酉:'子',戌:'未',亥:'寅'};
+var LIUHAI={子:'未',丑:'午',寅:'巳',卯:'辰',辰:'卯',巳:'寅',午:'丑',未:'子',申:'亥',酉:'戌',戌:'酉',亥:'申'};
+var ZDE={子:'巳',丑:'午',寅:'未',卯:'申',辰:'酉',巳:'戌',午:'亥',未:'子',申:'丑',酉:'寅',戌:'卯',亥:'辰'};
+function sanXing(z){
+  if(z==='寅') return ['巳','申']; if(z==='巳') return ['申','寅']; if(z==='申') return ['寅','巳'];
+  if(z==='丑') return ['戌','未']; if(z==='戌') return ['未','丑']; if(z==='未') return ['丑','戌'];
+  if(z==='子') return ['卯']; if(z==='卯') return ['子'];
+  if(z==='辰'||z==='午'||z==='酉'||z==='亥') return [z];
+  return [];
+}
+function poSui(z){
+  if(['寅','申','巳','亥'].indexOf(z)>=0) return '酉';
+  if(['子','午','卯','酉'].indexOf(z)>=0) return '巳';
+  return '丑';
+}
+function leiDian(z){ var p={子:'辰',丑:'辰',寅:'未',卯:'未',辰:'戌',巳:'戌',午:'丑',未:'丑',申:'寅',酉:'寅',戌:'卯',亥:'卯'}; return p[z]; }
+function baiYi(z){ var p={子:'酉',午:'酉',丑:'未',未:'未',寅:'巳',申:'巳',卯:'卯',酉:'卯',辰:'丑',戌:'丑',巳:'亥',亥:'亥'}; return p[z]; }
+var SUIQIAN=[['太歲',0,'平'],['太陽',1,'吉'],['喪門',2,'凶'],['歲六合',3,'吉'],['官符',4,'凶'],
+  ['小耗',5,'凶'],['歲破',6,'凶'],['歲墓',7,'凶'],['歲白虎',8,'凶'],['福德',9,'吉'],['吊客',10,'凶'],['病符',11,'凶']];
+var SUIXING={子:'卯',丑:'戌',寅:'巳',卯:'子',辰:'辰',巳:'申',午:'午',未:'丑',申:'寅',酉:'酉',戌:'未',亥:'亥'};
+function seasonOf(yueJian){
+  if(['寅','卯','辰'].indexOf(yueJian)>=0) return 0;
+  if(['巳','午','未'].indexOf(yueJian)>=0) return 1;
+  if(['申','酉','戌'].indexOf(yueJian)>=0) return 2;
+  return 3;
+}
+var SEASON_SS={
+ 天喜:[['戌','丑','辰','未'],'吉'],四丘:[['丑','辰','未','戌'],'凶'],皇書:[['寅','巳','申','亥'],'吉'],
+ 賊神:[['卯','午','酉','子'],'凶'],浴盆:[['辰','未','戌','丑'],'凶'],喝散:[['巳','申','寅','亥'],'吉'],
+ 火鬼:[['午','酉','子','卯'],'凶'],哭神:[['未','戌','丑','辰'],'凶'],煞神:[['申','亥','寅','巳'],'凶'],
+ 四廢:[['酉','子','卯','午'],'凶'],孤辰:[['巳','申','亥','寅'],'凶'],
+ 喪車:[['酉','子','卯','午'],'凶'],四墓:[['未','戌','丑','辰'],'凶']  /* 春未夏戌秋丑冬辰（032論墓） */
+};
+var SEASON_MEAN={天喜:'主喜慶恩澤',四丘:'春丑夏辰秋未冬戌，占病凶墳崩',皇書:'有诏命徵诏',賊神:'主賊',
+ 浴盆:'墮水病凶產吉',喝散:'主解散',火鬼:'乘蛇雀克身宅焚',哭神:'主哭',煞神:'凶',四廢:'凡占無成',
+ 孤辰:'忌聯姻',喪車:'春酉夏子秋卯冬午，占病凶',四墓:'春未夏戌秋丑冬辰，主讼墳塋，占病即凶'};
+var FANHUN=[[0,'亥'],[0,'子'],[1,'寅'],[1,'卯'],[2,'巳'],[2,'午'],[3,'申'],[3,'酉']];
+var GAN_MEAN={日祿:'俸祿錢財，宜旺不宜空',日德:'福佑之神，化凶為吉',羊刃:'靜吉動凶，主血光',
+ 飛刃:'血光',长生:'生發之氣',日墓:'昏昧閉塞不通',敗氣:'颓廢破損，亦主桃花',日盜:'主盜',
+ 日賊:'主賊',游都:'逢盜賊',鲁都:'漏稅，占賊去路',進神:'事宜進',退神:'事宜退',日醫:'病用',
+ 日鬼:'官鬼爻，克我之壓力',文昌:'文書功名',天德:'化凶為吉（干月）',月德:'化凶為吉（三合）',天赦:'解厄赦罪',
+ 五鬼:'主盜賊破財（課程軟件日干表）',六甲:'甲為人元，神化之氣',六丁:'丁為人元，主變動迅速',
+ 月合:'月德之合，化凶為吉',祿倒:'歲干之祿後一位，主祿祿傾覆',馬倒:'歲支驛馬後一位，主動中生阻'};
+var ZHI_MEAN={支德:'解凶增吉',六合:'和合成就',六破:'主破壞',破碎:'主破壞難成',六害:'暗相傷克',
+ 支衝:'主衝動',驛馬:'主動變速',華蓋:'主昏迷',劫煞:'三煞凶速',災煞:'凶速',桃花:'主淫亂',
+ 將星:'主兵權',亡神:'防亡失',雷電:'主雷電',白衣:'入翰林',三刑:'刑傷',三合:'和合',
+ 地網:'戌固定，主困',天羅:'辰固定，主羅網',空亡:'虛而不實',旬儀:'禮義之尊，逢凶化吉',
+ 旬三奇:'奇',旬盜:'主盜',旬丁:'旬中丁神，主變動',盜神:'主盜',響動:'響動',五亡:'凶',
+ 閉口:'言語阻滯（癸）',丁神:'主變動',望門:'三合局祿，主門宅吉利',地煞:'三合局鬼墓，主暗昧阻滯'};
+var XUN_SQ={子:'丑',戌:'丑',申:'子',午:'子',辰:'亥',寅:'亥'};
+
+function calcShensha(sz,xi){
+  var out=[];
+  function add(name,base,jx,pos,gan){ out.push({name:name,base:base,jx:jx,pos:pos,gan:gan||null}); }
+  var yGan=sz.yGan,yZhi=sz.yZhi,yueJian=sz.yueJian;
+  var dGan=sz.dGan,dZhi=sz.dZhi;
+  var yIdx=zi(yZhi), mIdx=(zi(yueJian)-2+12)%12;
+  var season=seasonOf(yueJian);
+  /* 歲煞 */
+  SUIQIAN.forEach(function(r){
+    var pos=ZHI[(yIdx+r[1]+(r[1]<=7?0:-12)+12)%12];
+    add(r[0],'歲',r[2],pos);
+  });
+  add('歲刑','歲','凶',SUIXING[yZhi]);
+  add('死符','歲干','凶',SS_SIFU[yGan]);
+  add('天庭','歲干','平',ZHI[(zi(SS_LU[yGan])-1+12)%12]);
+  add('祿倒','歲干','凶',ZHI[(zi(SS_LU[yGan])+1)%12]);      /* 歲干之祿+1（實证11/11） */
+  if('巳酉丑'.indexOf(yZhi)<0)                                 /* 巳酉丑年課程軟件不计算馬倒（實证0/8） */
+    add('馬倒','歲支','凶',ZHI[(zi(SS_ZHI.驛馬[yZhi])+1)%12]);/* 歲支驛馬+1（實证15/15） */
+  /* 季煞 */
+  for(var nm in SEASON_SS){
+    add(nm,'季',SEASON_SS[nm][1],SEASON_SS[nm][0][season]);
+  }
+  FANHUN.forEach(function(p){ if(p[0]===season) add('返魂','季','吉',p[1]); });
+  /* 月煞 */
+  for(var nm2 in MONTH_ROWS){
+    add(nm2,'月',MONTH_JX[nm2],MONTH_ROWS[nm2][mIdx]);
+  }
+  /* 滅門：陽月建-3／陰月建+3（課程實证19/19） */
+  add('滅門','月','凶',ZHI[(zi(yueJian)+(zi(yueJian)%2===0?-3:3)+12)%12]);
+  /* 日干煞（位置為支；天德/月德/天赦另有干值） */
+  add('日祿','日干','吉',SS_LU[dGan]);
+  add('日德','日干','吉',SS_DE[dGan]);
+  add('羊刃','日干','凶',ZHI[(zi(SS_LU[dGan])+1)%12]);
+  add('飛刃','日干','凶',ZHI[(zi(SS_LU[dGan])+7)%12]);
+  add('长生','日干','吉',SS_CS[WXG[dGan]]);
+  add('日墓','日干','凶',SS_MU[WXG[dGan]]);
+  add('敗氣','日干','凶',SS_YU[WXG[dGan]]);
+  add('日盜','日干','凶',SS_RIDAO[dGan]);
+  add('日賊','日干','凶',SS_RIZEI[dGan]);
+  add('游都','日干','平',SS_YOUDU[dGan]);
+  add('鲁都','日干','凶',ZHI[(zi(SS_YOUDU[dGan])+6)%12]);
+  add('進神','日干','平',SS_JINSHEN[dGan]);
+  add('退神','日干','平',ZHI[(zi(SS_JINSHEN[dGan])+6)%12]);
+  add('日醫','日干','吉',SS_RIYI[dGan]);
+  add('日鬼','日干','凶',SS_RIGUI[dGan]);
+  add('文昌','日干','吉',SS_WENCHANG[dGan]);
+  if(WUGUI[dGan]) add('五鬼','日干','凶',WUGUI[dGan]);   /* 日干實測表 */
+  var td=SS_TIANDE[yueJian];
+  if(SS_TIANDE_IS_GAN[yueJian]) add('天德','月','吉',null,td);
+  else add('天德','月','吉',td);
+  add('月德','月','吉',null,SS_YUEDE[yueJian]);
+  add('月合','月','吉',null,GAN_LIUHE[SS_YUEDE[yueJian]]);  /* 月德干之六合，只標人元 */
+  add('六甲','人元','吉',null,'甲');                        /* 人元為甲 */
+  add('六丁','人元','吉',null,'丁');                        /* 人元為丁 */
+  var ts=tianShe(yueJian);
+  add('天赦','月','吉',ts.zhi,ts.gan);
+  /* 日支煞 */
+  add('支德','日支','吉',ZDE[dZhi]);
+  add('六合','日支','吉',LIUHE[dZhi]);
+  add('六破','日支','凶',LIUPO[dZhi]);
+  add('破碎','日支','凶',poSui(dZhi));
+  add('六害','日支','凶',LIUHAI[dZhi]);
+  add('支衝','日支','凶',ZHI[(zi(dZhi)+6)%12]);
+  add('驛馬','日支','吉',SS_ZHI.驛馬[dZhi]);
+  add('華蓋','日支','平',SS_ZHI.華蓋[dZhi]);
+  add('劫煞','日支','凶',SS_ZHI.劫煞[dZhi]);
+  add('災煞','日支','凶',SS_ZHI.災煞[dZhi]);
+  add('桃花','日支','凶',SS_ZHI.桃花[dZhi]);
+  add('將星','日支','吉',SS_ZHI.將星[dZhi]);
+  add('亡神','日支','凶',SS_ZHI.亡神[dZhi]);
+  add('望門','日支','吉',SANHE_LU[dZhi]);        /* 三合局祿（實证15/15） */
+  add('地煞','日支','凶',SANHE_GUIMU[dZhi]);      /* 三合局鬼墓（實证22/22） */
+  add('地網','日支','凶','戌');  /* 戌固定（課程實证15/15，非三合墓） */
+  add('天羅','日支','凶','辰');  /* 辰固定（課程實证21/21） */
+  add('雷電','日支','平',leiDian(dZhi));
+  add('白衣','日支','吉',baiYi(dZhi));
+  sanXing(dZhi).forEach(function(z){ add('三刑','日支','凶',z); });
+  [ZHI[(zi(dZhi)+4)%12],ZHI[(zi(dZhi)+8)%12]].forEach(function(z){ add('三合','日支','吉',z); });
+  /* 旬煞 */
+  xi.kong.forEach(function(z){ add('空亡','旬','凶',z); });
+  add('旬儀','旬','吉',xi.xunZhi);
+  add('旬三奇','旬','吉',XUN_SQ[xi.xunZhi]);
+  add('旬盜','旬','凶',ZHI[(zi(xi.xunZhi)+11)%12]);
+  add('旬丁','旬遁','吉',XUNDING[xi.name.slice(0,2)]);  /* 旬中丁干所遁地支（實证26/26） */
+  for(var i=0;i<10;i++){
+    var z2=ZHI[(zi(xi.xunZhi)+i)%12];
+    var g2=GAN[i%10];
+    if(g2==='乙') add('盜神','旬遁','凶',z2);
+    if(g2==='庚') add('響動','旬遁','平',z2);
+    if(g2==='辛') add('五亡','旬遁','凶',z2);
+    if(g2==='癸') add('閉口','旬遁','凶',z2);
+  }
+  return out;
+}
+/* 課程軟體課式精選集（40名；天盜因規則無法反推暫不顯示） */
+var CURATED_SS={死符:1,驛馬:1,華蓋:1,天羅:1,日祿:1,日德:1,天赦:1,天馬:1,滅門:1,飛廉:1,
+ 喪門:1,死氣:1,四墓:1,地醫:1,生氣:1,天喜:1,劫煞:1,天醫:1,文昌:1,吊客:1,孤辰:1,望門:1,
+ 月破:1,旬丁:1,五鬼:1,四丘:1,月厭:1,地煞:1,地網:1,祿倒:1,病符:1,喪車:1,天德:1,桃花:1,
+ 月合:1,月德:1,馬倒:1,破碎:1,六甲:1,六丁:1};
+/* 支層：以支位比對；人元：以干比對（天德/月德/天赦/六甲/六丁/月合）。課式僅顯示精選集 */
+function shenshaFor(list,layer,gan,zhi,curatedOnly){
+  var r=[];
+  list.forEach(function(s){
+    if(curatedOnly && !CURATED_SS[s.name]) return;
+    if(layer==='人元'){
+      if(s.gan && s.gan===gan) r.push(s);
+    }else{
+      if(s.pos && s.pos===zhi) r.push(s);
+    }
+  });
+  return r;
+}
+</script>
+
+<script>
+/* ==================== UI ==================== */
+var diFenMode='auto';
+function pad(n){return (n<10?'0':'')+n;}
+function fmtDT(dt){return dt.getFullYear()+'-'+pad(dt.getMonth()+1)+'-'+pad(dt.getDate())+' '+pad(dt.getHours())+':'+pad(dt.getMinutes());}
+function ganZhiOfYear(y){return GAN[((y-4)%10+10)%10]+ZHI[((y-4)%12+12)%12];}
+function $(id){return document.getElementById(id);}
+function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;');}
+
+function initUI(){
+  initJieqi();
+  /* 本命年份選單 */
+  var sel=$('in-benming'), html='';
+  for(var y=2100;y>=1900;y--) html+='<option value="'+y+'"'+(y===1985?' selected':'')+'>'+y+'年（'+ganZhiOfYear(y)+'）</option>';
+  sel.innerHTML=html;
+  /* 行年選單 */
+  var xs=$('in-xingnian'), h2='<option value="">（未指定）</option>';
+  ZHI.split('').forEach(function(z){ h2+='<option value="'+z+'">'+z+'</option>'; });
+  xs.innerHTML=h2;
+  /* 地分按鈕 */
+  var db=$('difen-btns'), h3='';
+  ZHI.split('').forEach(function(z){
+    h3+='<button data-z="'+z+'" title="手動指定地分＝'+z+'">'+z+'</button>';
+  });
+  db.innerHTML=h3;
+  db.querySelectorAll('button').forEach(function(b){
+    b.onclick=function(){ setDiFen(b.getAttribute('data-z')); };
+  });
+  /* 時間／日期手動變更：僅更新地分回饋，不自動起課（須按「起課」） */
+  $('in-date').addEventListener('change', function(){ syncDiFenUI(); });
+  $('in-time').addEventListener('change', function(){ syncDiFenUI(); });
+  /* 現在時間：設為此刻＋地分取正時（不自動起課，須按「起課」） */
+  $('btn-now').onclick=function(){
+    var now=new Date();
+    $('in-date').value=now.getFullYear()+'-'+pad(now.getMonth()+1)+'-'+pad(now.getDate());
+    $('in-time').value=pad(now.getHours())+':'+pad(now.getMinutes());
+    diFenMode='auto';
+    syncDiFenUI();
+  };
+  $('btn-run').onclick=run;
+  run();
+}
+/* 手動指定地分（選定後須按「起課」生效） */
+function setDiFen(z){
+  diFenMode=z;
+  syncDiFenUI();
+}
+/* 由輸入框推正時地支（供 UI 回饋用） */
+function ke0hourFromInput(){
+  var tv=$('in-time').value||'12:00', tp=tv.split(':');
+  var h=+tp[0]||0;
+  return ZHI[(h>=23)?0:Math.floor((h+1)/2)];
+}
+/* 同步地分按鈕與「現在時間」按鈕的視覺狀態：實線＝手動、虛線＝正時自動 */
+function syncDiFenUI(){
+  var autoZhi = diFenMode==='auto' ? ke0hourFromInput() : null;
+  $('difen-btns').querySelectorAll('button').forEach(function(x){
+    var z=x.getAttribute('data-z');
+    x.classList.remove('on','auto');
+    x.title = (autoZhi===z) ? '正時自動決定（'+autoZhi+'時）' : '手動指定地分＝'+z;
+    if(diFenMode!=='auto' && z===diFenMode) x.classList.add('on');
+    else if(autoZhi===z) x.classList.add('auto');
+  });
+  $('btn-now').classList.toggle('on', diFenMode==='auto');
+  $('btn-now').title = diFenMode==='auto'
+    ? '目前為正時自動模式（地分＝'+autoZhi+'）；點擊＝將時間設為此刻'
+    : '點擊＝將時間設為此刻、地分取正時（仍須按「起課」）';
+}
+function run(){
+  var dv=$('in-date').value, tv=$('in-time').value||'12:00';
+  if(!dv){ $('k-info').innerHTML='<div class="warn">請輸入日期</div>'; return; }
+  var parts=dv.split('-'), tp=tv.split(':');
+  var dt=new Date(+parts[0],+parts[1]-1,+parts[2],+tp[0]||0,+tp[1]||0,0);
+  var y=dt.getFullYear();
+  var warn='';
+  if(y<1900||y>2100){ warn='<div class="warn">注意：節氣表僅涵蓋 1900–2100 年，超出範圍的月建／月將可能不準確。</div>'; }
+  var ke=buildKe(dt, diFenMode==='auto'?ke0hour(dt):diFenMode);
+  var sz=ke.sz;
+  var ss=calcShensha(sz,ke.xi);
+  var yong=pickYongshen(ke);
+  var wy=findWangYao(ke);
+  var dong=wudong(ke);
+  var benming=$('in-benming').value?ganZhiOfYear(+$('in-benming').value):'';
+  var xingnian=$('in-xingnian').value;
+  var sex=$('in-sex').value;
+  renderInfo(dt,ke,warn,sex,benming,xingnian);
+  renderKe(ke,yong,wy,dong,ss);
+  renderDiPan(ke,yong);
+  renderYongshen(ke,yong,wy);
+  renderShensha(ss,ke);
+  syncDiFenUI();
+}
+function ke0hour(dt){
+  var h=dt.getHours();
+  return ZHI[(h>=23)?0:Math.floor((h+1)/2)];
+}
+/* ---- 二、起課資訊 ---- */
+function renderInfo(dt,ke,warn,sex,benming,xingnian){
+  var sz=ke.sz;
+  var zqName=ke.zhongqi||'';
+  var jieInfo=sz.jieName?('節：'+sz.jieName):'';
+  var html='';
+  html+='<span class="pill">公曆 '+fmtDT(dt)+'</span>';
+  html+='<span class="pill">'+sz.yGan+sz.yZhi+'年 '+sz.yueGan+sz.yueJian+'月 '+sz.dGan+sz.dZhi+'日 '+sz.hGan+sz.hZhi+'時</span>';
+  html+='<span class="pill">'+ke.xi.name+'（'+ke.xi.kong[0]+ke.xi.kong[1]+'空）</span>';
+  html+='<span class="pill">月將 '+ke.yueJiang+'（'+JIANG_NAME[ke.yueJiang]+'）· 中氣換將（'+zqName+'後）</span>';
+  html+='<span class="pill">起課時辰：'+ke.hourZhi+'時（'+ke.dayNight+'占）</span>';
+  html+='<span class="pill">地分：'+ke.diFen+'</span>';
+  html+='<br>';
+  html+='<span style="color:var(--ink2)">年命：</span>'+sex+' · 本命：'+(benming||'—')+' · 行年：'+(xingnian||'—');
+  if($('in-matter').value) html+=' · 所占：'+esc($('in-matter').value);
+  html+=warn;
+  $('k-info').innerHTML=html;
+}
+/* ---- 三、課式 ---- */
+function wsCls(w){return {旺:'wang',相:'xiang',休:'xiu',囚:'qiu',死:'si'}[w]||'';}
+function renderKe(ke,yong,wy,dong,ss){
+  var sz=ke.sz;
+  var kong=ke.xi.kong;
+  var woWx=WXG[sz.dGan];
+  var rows=[
+   {name:'人元',gan:ke.ren.gan,zhi:null,tj:null},
+   {name:'貴神',gan:ke.gui.gan,zhi:ke.gui.zhi,tj:ke.gui.tj},
+   {name:'將神',gan:ke.jiang.gan,zhi:ke.jiang.zhi,tj:ke.jiang.tj},
+   {name:'地分',gan:null,zhi:ke.di.zhi,tj:null}
+  ];
+  var html='';
+  rows.forEach(function(r){
+    var isYong=(yong.layer===r.name);
+    var wx=r.zhi?WXZ[r.zhi]:WXG[r.gan];
+    var ws=wangShuai(wx,wy.wx);
+    var yy=r.gan?isYangGan(r.gan):isYangZhi(r.zhi);
+    var isKong=r.zhi&&kong.indexOf(r.zhi)>=0;
+    var lq=liuQin(woWx,wx);
+    var ssl=shenshaFor(ss,r.name,r.gan,r.zhi,true);
+    var sstags=ssl.map(function(s){
+      return '<span class="ss-tag ss-'+(s.jx==='吉'?'ji':s.jx==='凶'?'xiong':'ping')+'" title="'+s.base+'">'+s.name+'</span>';
+    }).join('');
+    if(!sstags) sstags='<span style="color:#b6b0a4;font-size:12.5px">—</span>';
+    var yongBadge = isYong ? '<span class="yong-badge">用</span>' : '';
+    var gzHtml='';
+    /* 三欄：干｜支｜天將。人元天干、地分地安置於中間「支」欄，與貴神／將神地支同欄對齊 */
+    var inner='';
+    if(r.name==='人元'){
+      inner='<span class="slot slot-gan" style="visibility:hidden">占</span>'+
+        '<span class="slot slot-zhi">'+r.gan+'</span>'+
+        '<span class="slot slot-tj" style="visibility:hidden">占位</span>';
+    }else if(r.name==='地分'){
+      inner='<span class="slot slot-gan" style="visibility:hidden">占</span>'+
+        '<span class="slot slot-zhi">'+r.zhi+'</span>'+
+        '<span class="slot slot-tj" style="visibility:hidden">占位</span>';
+    }else{
+      inner='<span class="slot slot-gan">'+r.gan+'</span>'+
+        '<span class="slot slot-zhi">'+r.zhi+'</span>'+
+        (r.tj?'<span class="slot slot-tj">'+r.tj+'</span>':'<span class="slot slot-tj" style="visibility:hidden">占位</span>');
+    }
+    gzHtml='<span class="gz-wrap'+(isYong?' yongrow':'')+'">'+inner+'</span>'+(isYong?yongBadge:'');
+    var layCls={'人元':'lay-ren','貴神':'lay-gui','將神':'lay-jiang','地分':'lay-di'}[r.name]||'';
+    html+='<tr class="'+layCls+(isYong?' yong-row':'')+'"><td class="ke-layer">'+r.name+'</td><td class="gz">'+gzHtml+'</td><td class="wxinfo">'+
+      '<span class="'+(yy?'yy-plus':'yy-minus')+'">'+(yy?'陽 +':'陰 −')+'</span> '+wx+' <span class="'+wsCls(ws)+'">'+ws+'</span>'+
+      (isKong?' <span class="kong">空</span>':'')+'</td><td><span class="liuqin">'+lq+'</span></td><td>'+sstags+'</td></tr>';
+  });
+  $('ke-table').innerHTML='<tr><th>爻位</th><th>干支／神將</th><th>陰陽·五行·旺衰</th><th>六親（日干為我）</th><th>神煞</th></tr>'+html;
+  /* 動爻 */
+  var dh='<div class="dong"><span class="t">動爻：</span>';
+  var wu=dong.filter(function(d){return ['財動','官動','鬼動','妻動','賊動'].indexOf(d.n)>=0;});
+  var san=dong.filter(function(d){return ['父母動','兄弟動','子孫動'].indexOf(d.n)>=0;});
+  dh+='五動：'+(wu.length?wu.map(function(d){return '<b style="color:var(--zhu)">'+d.n+'</b>';}).join('、'):'無')+
+      '；三動：'+(san.length?san.map(function(d){return '<b style="color:var(--green)">'+d.n+'</b>';}).join('、'):'無')+'<br>';
+  dong.forEach(function(d){ dh+='<span style="font-size:13px;color:var(--ink2)">'+d.n+'：'+d.t+'　</span>'; });
+  dh+='</div>';
+  $('dong-box').innerHTML=dh;
+}
+/* ---- 地盤（九宮格方陣，每格以該地支為地分，列課式四層）---- */
+function renderDiPan(ke,yong){
+  /* 4欄×4列方陣，中央2×2留空；順時針序巳午未申酉戌亥子丑寅卯辰 */
+  var order=['巳','午','未','申','辰','','','酉','卯','','','戌','寅','丑','子','亥'];
+  var dGan=ke.sz.dGan, yj=ke.yueJiang, hz=ke.hourZhi, gr=ke.guiRen, shun=ke.guiShun;
+  var yongKey = yong && yong.layer ? ({人元:'ren',貴神:'gui',將神:'jiang',地分:'di'})[yong.layer] : null;
+  var html='';
+  order.forEach(function(z){
+    if(z===''){ html+='<div class="dp-cell dp-mid"></div>'; return; }
+    var ren=dunGan(dGan,z);                       /* 人元（遁干） */
+    var tjName=tianjiangAt(z,gr,shun);            /* 貴神天將 */
+    var guiZhi=BENJIA[tjName];                    /* 貴神地支 */
+    var guiGan=dunGan(dGan,guiZhi);               /* 貴神天干 */
+    var jiangZhi=tianpanAt(z,yj,hz);              /* 將神地支（天盤） */
+    var jiangGan=dunGan(dGan,jiangZhi);           /* 將神天干 */
+    var jiangName=JIANG_NAME[jiangZhi];           /* 月將名 */
+    var isDi=(z===ke.diFen), isZhan=(z===hz);
+    var yc=(isDi && yongKey)?(' yl-'+yongKey):'';
+    html+='<div class="dp-cell'+(isDi?' hl':'')+(isZhan?' hl2':'')+yc+'">'+
+      (isDi?'<span class="mk">地分</span>':'')+(isZhan?'<span class="mk2">占時</span>':'')+
+      '<div class="dc-row dc-ren"><span class="dc-grid"><span class="slot slot-gan" style="visibility:hidden">占</span><span class="slot slot-zhi">'+ren+'</span><span class="slot slot-tj" style="visibility:hidden">占位</span></span></div>'+
+      '<div class="dc-row dc-gui"><span class="dc-grid"><span class="slot slot-gan">'+guiGan+'</span><span class="slot slot-zhi">'+guiZhi+'</span><span class="slot slot-tj">'+tjName+'</span></span></div>'+
+      '<div class="dc-row dc-jiang"><span class="dc-grid"><span class="slot slot-gan">'+jiangGan+'</span><span class="slot slot-zhi">'+jiangZhi+'</span><span class="slot slot-tj">'+jiangName+'</span></span></div>'+
+      '<div class="dc-row dc-di"><span class="dc-grid"><span class="slot slot-gan" style="visibility:hidden">占</span><span class="slot slot-zhi">'+z+'</span><span class="slot slot-tj" style="visibility:hidden">占位</span></span></div>'+
+      '</div>';
+  });
+  $('dp-grid').innerHTML=html;
+}
+/* ---- 四、用爻與旺衰 ---- */
+function renderYongshen(ke,yong,wy){
+  var mw=WXZ[ke.sz.yueJian];
+  var wm=findWangYaoByMonth(ke);
+  var rows=[['人元',ke.ren.wx],['貴神',ke.gui.wx],['將神',ke.jiang.wx],['地分',ke.di.wx]];
+  var jue={旺:'同旺爻，事情必成',相:'旺爻生，將來事成',休:'生旺爻，事情已過',囚:'克旺爻，事情難動',死:'旺爻克，事不可為'};
+
+  /* ── 課內旺爻 ── */
+  var html='<h3>課內旺爻</h3>';
+  html+='<div class="wy-sum">四層五行：人元'+ke.ren.wx+'、貴神'+ke.gui.wx+'、將神'+ke.jiang.wx+'、地分'+ke.di.wx+
+    '　→　旺爻：<b style="color:var(--green)">'+wy.wx+'</b>（'+wy.rule+'）</div>';
+  html+='<div class="cards">';
+  rows.forEach(function(r){
+    var ws=wangShuai(r[1],wy.wx);
+    var kw=kewaiLevel(r[1],ke.sz.yueJian);
+    html+='<div class="card"><div class="ct">'+r[0]+'</div>'+
+      '<div class="cr">課內旺衰：<b class="'+wsCls(ws)+'">'+ws+'</b></div>'+
+      '<div class="cr">課外旺衰（月令 '+ke.sz.yueJian+'）：<b class="'+wsCls(kw)+'">'+kw+'</b>（'+kewaiReason(r[1],ke.sz.yueJian)+'）</div>'+
+      '<div class="cr">應事訣：'+jue[ws]+'</div></div>';
+  });
+  html+='</div>';
+
+  /* ── 課外旺爻：以月令五行為我 ── */
+  html+='<h3>課外旺爻（以月令五行為我）</h3>';
+  html+='<div class="wk-band">';
+  html+='<div class="wy-sum">月令 <b>'+ke.sz.yueJian+'</b>（'+mw+'）為我　·　同我者旺、我生者相、生我者休、克我者囚、我克者死</div>';
+  html+='<div class="wk-chips">';
+  rows.forEach(function(r){
+    var lv=kewaiLevel(r[1],ke.sz.yueJian);
+    var on=(lv===wm.level && wm.list.some(function(x){return x.name===r[0];}));
+    html+='<span class="wk-chip'+(on?' on':'')+'"><i>'+r[0]+'</i>'+r[1]+
+      '<span class="lv '+wsCls(lv)+'">'+lv+'</span></span>';
+  });
+  html+='</div>';
+  html+='<div class="wk-res">課外旺爻：<b>'+wm.names+'</b><span class="tag">'+wm.level+'</span>　—　'+wm.rule+'</div>';
+  html+='</div>';
+
+  $('yongshen-box').innerHTML=html;
+}
+/* ---- 六、神煞總覽 ---- */
+function renderShensha(ss,ke){
+  var groups={};
+  ss.forEach(function(s){ (groups[s.base]=groups[s.base]||[]).push(s); });
+  var order=['歲','歲干','季','月','日干','日支','旬','旬遁'];
+  var labels={歲:'歲煞（年支）',歲干:'歲干煞',季:'季煞（四季）',月:'月煞（月建 '+ke.sz.yueJian+'）',
+    日干:'日干煞（'+ke.sz.dGan+'）',日支:'日支煞（'+ke.sz.dZhi+'）',旬:'旬煞（'+ke.xi.name+'）',旬遁:'旬遁干煞'};
+  var html='';
+  order.forEach(function(g){
+    if(!groups[g]) return;
+    html+='<div class="ss-grp"><div class="gt">'+labels[g]+'</div><div class="ss-cards">';
+    groups[g].forEach(function(s){
+      var pos=s.gan?('干 '+s.gan):(s.pos||'');
+      var mean=(g==='月'?MONTH_MEAN[s.name]:null)||GAN_MEAN[s.name]||ZHI_MEAN[s.name]||SEASON_MEAN[s.name]||'';
+      var jx=s.jx==='吉'?'ss-ji':s.jx==='凶'?'ss-xiong':'ss-ping';
+      html+='<div class="ss-card" title="'+(mean||'')+'"><span class="sn '+(s.jx==='吉'?'wang':s.jx==='凶'?'si':'')+'">'+s.name+'</span> '+
+        '<span class="sp '+jx+'">'+pos+'</span></div>';
+    });
+    html+='</div></div>';
+  });
+  $('shensha-box').innerHTML=html;
+}
+if(typeof document!=='undefined' && document.getElementById){
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initUI);
+  else initUI();
+}
+</script>
+<script>if('serviceWorker' in navigator && location.protocol === 'https:'){addEventListener('load', function(){navigator.serviceWorker.register('./sw.js').catch(function(){});});}</script>
+</body>
+</html>

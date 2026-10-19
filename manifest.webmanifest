@@ -1,0 +1,17 @@
+{
+  "name": "澹台明玉 金口訣",
+  "short_name": "金口訣",
+  "description": "金口訣起課工具（離線可用）",
+  "lang": "zh-Hant",
+  "start_url": "./?v=36",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#efe7d3",
+  "theme_color": "#1b2229",
+  "icons": [
+    { "src": "./icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "./icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "./icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
