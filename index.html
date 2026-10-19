@@ -90,15 +90,22 @@
   }
   .panel h3{margin:16px 0 9px;font-family:var(--kai);font-size:15.5px;color:var(--qing);font-weight:700;letter-spacing:1px;}
   .grid{display:grid;gap:12px;}
-  .g4{grid-template-columns:repeat(4,1fr);}
-  @media(max-width:900px){.g4{grid-template-columns:repeat(2,1fr);}}
+  /* minmax(0,1fr) 才能讓欄位縮到比內容最小寬度更窄（iOS 的 date/time 輸入有不可壓縮寬度） */
+  .g4{grid-template-columns:repeat(4,minmax(0,1fr));}
+  .grid>div{min-width:0;}
+  @media(max-width:900px){.g4{grid-template-columns:repeat(2,minmax(0,1fr));}}
   label{display:block;font-size:12.5px;color:var(--ink2);margin-bottom:4px;letter-spacing:1px;}
   input,select,button{font-family:var(--serif);font-size:14px;}
   input[type=date],input[type=time],input[type=number],input[type=text],select{
-    width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:3px;
+    width:100%;min-width:0;max-width:100%;padding:8px 10px;border:1px solid var(--line);border-radius:3px;
     background:#fffdf7;color:var(--ink);
     box-shadow:0 1px 2px rgba(120,100,60,.06) inset;
     transition:border-color .18s, box-shadow .18s;
+  }
+  /* iOS Safari：date/time 內部欄位不可壓縮，需放寬 min-width 並收窄內距 */
+  input[type=date],input[type=time]{overflow:hidden;padding-right:6px;}
+  @media(max-width:560px){
+    #pane-solar .g4{grid-template-columns:minmax(0,1fr) minmax(0,8em);}
   }
   input:focus,select:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(168,134,60,.14);}
   button{cursor:pointer;border:none;border-radius:3px;padding:9px 18px;font-size:14px;letter-spacing:2px;transition:transform .08s, filter .18s;}
