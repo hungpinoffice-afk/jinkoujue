@@ -440,21 +440,21 @@
   /* ===== 輸出：可編輯文字 ===== */
   .out-mask{position:fixed;inset:0;z-index:80;display:none;align-items:center;justify-content:center;padding:18px;background:rgba(26,22,16,.58);}
   .out-mask.on{display:flex;}
-  .out-box{width:min(780px,100%);height:min(720px,88vh);display:flex;flex-direction:column;background:var(--card);
+  .out-box{width:min(780px,100%);height:min(880px,92vh);display:flex;flex-direction:column;background:var(--card);
     border:1px solid var(--line);border-radius:4px;box-shadow:0 20px 56px rgba(0,0,0,.42);overflow:hidden;}
   .out-hd{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px 16px;
     background:linear-gradient(160deg,#252c33,#1b2229);color:#f1e4c6;}
   .out-hd b{font-family:var(--kai);font-size:16px;letter-spacing:4px;text-indent:4px;color:#e7cf95;}
   .out-hd span{font-size:12.5px;color:#b9c2cb;letter-spacing:1px;}
   .out-area{flex:1;min-height:0;width:100%;border:none;border-top:2px solid var(--gold);border-bottom:1px solid var(--line);
-    padding:14px 16px;font-size:13.5px;line-height:1.95;color:var(--ink);background:#fffdf7;
+    padding:12px 16px;font-size:13.5px;line-height:1.75;color:var(--ink);background:#fffdf7;overflow-x:auto;white-space:pre;
     font-family:var(--kai);resize:vertical;outline:none;}
   .out-ft{display:flex;gap:9px;justify-content:flex-end;padding:10px 16px;background:var(--tagbg);}
   .out-ft button{padding:7px 18px;font-size:13.5px;letter-spacing:2px;}
   @media(max-width:560px){
     .out-mask{padding:0;}
     .out-box{width:100%;height:100%;max-height:100vh;border-radius:0;border:none;}
-    .out-area{font-size:13px;padding:12px 13px;}
+    .out-area{font-size:12.5px;line-height:1.72;padding:11px 12px;}
     .out-hd span{display:none;}
   }
 </style>
@@ -960,7 +960,7 @@ function shenshaFor(list,layer,gan,zhi){
 <div class="out-mask" id="out-mask" role="dialog" aria-modal="true" aria-label="輸出">
   <div class="out-box">
     <div class="out-hd"><b>輸出</b><span id="out-hint">可直接編輯，或按「複製」使用</span></div>
-    <textarea class="out-area" id="out-area" spellcheck="false"></textarea>
+    <textarea class="out-area" id="out-area" spellcheck="false" wrap="off"></textarea>
     <div class="out-ft">
       <button class="btn-sub" id="btn-out-copy" type="button">複製</button>
       <button class="btn-main" id="btn-out-close" type="button">關閉</button>
@@ -1456,53 +1456,75 @@ function renderShensha(ss,ke){
 }
 /* ==================== 輸出：起課資訊、課式、旺衰（可編輯文字） ==================== */
 var LAST=null;
+/* 全形等寬對齊：以 CJK 全形字為一格，右補全形空格 U+3000 */
+function fpad(s,n){
+  s=String(s);
+  var p='';
+  for(var i=s.length;i<n;i++) p+='\u3000';
+  return s+p;
+}
 function buildOutText(){
   if(!LAST) return '';
   var ke=LAST.ke, sz=ke.sz, ss=LAST.ss, yong=LAST.yong, wy=LAST.wy, dong=LAST.dong;
   var kong=ke.xi.kong, woWx=WXG[sz.dGan], L=[];
-  L.push('澹台明玉 金口訣　起課單');
+  L.push('澹台明玉　金口訣　起課單');
   L.push('────────────────────────────');
+  L.push('');
   L.push('【一、起課資訊】');
-  L.push('公曆：'+fmtDT(LAST.dt));
-  L.push('四柱：'+sz.yGan+sz.yZhi+'年　'+sz.yueGan+sz.yueJian+'月　'+sz.dGan+sz.dZhi+'日　'+sz.hGan+sz.hZhi+'時'
-    +(sz.jieName?'（'+sz.jieName+'後）':''));
-  L.push('旬空：'+ke.xi.name+'（'+kong.join('、')+'空）');
-  L.push('月將：'+ke.yueJiang+'（'+JIANG_NAME[ke.yueJiang]+'）· 中氣換將'+(ke.zhongqi?'（'+ke.zhongqi+'後）':''));
-  L.push('起課時辰：'+ke.hourZhi+'時（'+ke.dayNight+'占）');
-  L.push('地分：'+ke.diFen);
-  L.push('年命：'+LAST.sex+'　·　本命：'+(LAST.benming||'—')+'　·　行年：'+(LAST.xingnian||'—')
-    +(LAST.matter?'　·　所占：'+LAST.matter:''));
+  var kv=function(k,v){ return fpad(k,4)+'：'+v; };
+  L.push(kv('公曆',fmtDT(LAST.dt)));
+  L.push(kv('四柱',sz.yGan+sz.yZhi+'年　'+sz.yueGan+sz.yueJian+'月　'+sz.dGan+sz.dZhi+'日　'+sz.hGan+sz.hZhi+'時'
+    +(sz.jieName?'（'+sz.jieName+'後）':'')));
+  L.push(kv('旬空',ke.xi.name+'（'+kong.join('、')+'空）'));
+  L.push(kv('月將',ke.yueJiang+'（'+JIANG_NAME[ke.yueJiang]+'）　中氣換將'+(ke.zhongqi?'（'+ke.zhongqi+'後）':'')));
+  L.push(kv('起課時辰',ke.hourZhi+'時（'+ke.dayNight+'占）'));
+  L.push(kv('地分',ke.diFen));
+  L.push(kv('年命',LAST.sex+'　　本命：'+(LAST.benming||'—')+'　　行年：'+(LAST.xingnian||'—')
+    +(LAST.matter?'　　所占：'+LAST.matter:'')));
   L.push('');
   L.push('【二、課式】');
   L.push('用爻：'+yong.layer+'（'+yong.rule+'）');
-  [
+  L.push('');
+  var rows=[
     {name:'人元',gan:ke.ren.gan,zhi:'',wx:ke.ren.wx,tj:''},
     {name:'貴神',gan:ke.gui.gan,zhi:ke.gui.zhi,wx:ke.gui.wx,tj:ke.gui.tj},
     {name:'將神',gan:ke.jiang.gan,zhi:ke.jiang.zhi,wx:ke.jiang.wx,tj:ke.jiang.tj},
     {name:'地分',gan:'',zhi:ke.di.zhi,wx:ke.di.wx,tj:''}
-  ].forEach(function(r){
-    var yy=r.gan?isYangGan(r.gan):isYangZhi(r.zhi);
-    var ws=wangShuai(r.wx,wy.wx);
-    var gz=(r.gan||'')+(r.zhi||'')+(r.tj?'（'+r.tj+'）':'');
-    var kk=(r.zhi&&kong.indexOf(r.zhi)>=0)?'·空':'';
-    var ssl=shenshaFor(ss,r.name,r.gan||null,r.zhi||null).map(function(s){return s.name;});
-    L.push(r.name+'：'+gz+'　｜　'+(yy?'陽':'陰')+'·'+r.wx+'·'+ws+kk
-      +'　｜　六親：'+liuQin(woWx,r.wx)+'　｜　神煞：'+(ssl.length?ssl.join('、'):'—'));
+  ];
+  rows.forEach(function(r){
+    r.yy=r.gan?isYangGan(r.gan):isYangZhi(r.zhi);
+    r.ws=wangShuai(r.wx,wy.wx);
+    r.gz=(r.gan||'')+(r.zhi||'')+(r.tj?'（'+r.tj+'）':'');
+    r.kong=!!(r.zhi&&kong.indexOf(r.zhi)>=0);
+    r.lq=liuQin(woWx,r.wx);
+    r.ss=shenshaFor(ss,r.name,r.gan||null,r.zhi||null).map(function(s){return s.name;});
   });
+  var C1=3, CW=9, CQ=3, wGz=0;
+  rows.forEach(function(r){ if(r.gz.length>wGz) wGz=r.gz.length; });
+  var CG=wGz+1;
+  L.push(fpad('支位',C1)+fpad('干／神將',CG)+fpad('陰陽、五行、旺衰',CW)+fpad('六親',CQ)+'神煞');
+  rows.forEach(function(r){
+    var ws=(r.yy?'陽':'陰')+'、'+r.wx+'、'+r.ws+(r.kong?'（空）':'');
+    L.push(fpad(r.name,C1)+fpad(r.gz,CG)+fpad(ws,CW)+fpad(r.lq,CQ)
+      +(r.ss.length?r.ss.join('、'):'—'));
+  });
+  L.push('');
   var wu=dong.filter(function(d){return ['財動','官動','鬼動','妻動','賊動'].indexOf(d.n)>=0;});
   var san=dong.filter(function(d){return ['父母動','兄弟動','子孫動'].indexOf(d.n)>=0;});
-  L.push('動爻：五動：'+(wu.length?wu.map(function(d){return d.n;}).join('、'):'無')
-    +'　；三動：'+(san.length?san.map(function(d){return d.n;}).join('、'):'無'));
-  dong.forEach(function(d){ L.push('　· '+d.n+'：'+d.t); });
+  L.push('動爻：五動 '+(wu.length?wu.map(function(d){return d.n;}).join('、'):'無')
+    +'　　三動 '+(san.length?san.map(function(d){return d.n;}).join('、'):'無'));
+  dong.forEach(function(d){ L.push('　　'+d.n+'：'+d.t); });
   L.push('');
   L.push('【三、旺衰】');
   L.push('四層五行：人元'+ke.ren.wx+'、貴神'+ke.gui.wx+'、將神'+ke.jiang.wx+'、地分'+ke.di.wx
     +'　→　旺爻：'+wy.wx+'（'+wy.rule+'）');
+  L.push('');
   var jue={旺:'同旺爻，事情必成',相:'旺爻生，將來事成',休:'生旺爻，事情已過',囚:'克旺爻，事情難動',死:'旺爻克，事不可為'};
+  L.push(fpad('支位',C1)+fpad('課內',3)+fpad('課外（'+ke.sz.yueJian+'月）',10)+'應事訣');
   [['人元',ke.ren.wx],['貴神',ke.gui.wx],['將神',ke.jiang.wx],['地分',ke.di.wx]].forEach(function(r){
     var ws=wangShuai(r[1],wy.wx), kw=kewaiLevel(r[1],ke.sz.yueJian);
-    L.push(r[0]+'：課內旺衰 '+ws+'　｜　課外旺衰（月令 '+ke.sz.yueJian+'）'+kw
-      +'（'+kewaiReason(r[1],ke.sz.yueJian)+'）　｜　應事訣：'+jue[ws]);
+    L.push(fpad(r[0],C1)+fpad(ws,3)
+      +fpad(kw+'（'+kewaiReason(r[1],ke.sz.yueJian)+'）',10)+jue[ws]);
   });
   return L.join('\n');
 }
