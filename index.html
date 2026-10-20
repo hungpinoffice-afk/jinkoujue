@@ -1463,6 +1463,12 @@ function fpad(s,n){
   for(var i=s.length;i<n;i++) p+='\u3000';
   return s+p;
 }
+function lpad(s,n){                      /* 左補全形空格：右對齊 */
+  s=String(s);
+  var p='';
+  for(var i=s.length;i<n;i++) p+='\u3000';
+  return p+s;
+}
 function buildOutText(){
   if(!LAST) return '';
   var ke=LAST.ke, sz=ke.sz, ss=LAST.ss, yong=LAST.yong, wy=LAST.wy, dong=LAST.dong;
@@ -1499,14 +1505,14 @@ function buildOutText(){
     r.lq=liuQin(woWx,r.wx);
     r.ss=shenshaFor(ss,r.name,r.gan||null,r.zhi||null).map(function(s){return s.name;});
   });
-  var C1=3, CW=9, CQ=3, wGz=0;
-  rows.forEach(function(r){ if(r.gz.length>wGz) wGz=r.gz.length; });
-  var CG=wGz+1;
-  L.push(fpad('支位',C1)+fpad('干／神將',CG)+fpad('陰陽、五行、旺衰',CW)+fpad('六親',CQ)+'神煞');
+  var C1=3, C2=3, C3=3, CW=9, CQ=3;   /* 支位／干支／神將／旺衰／六親 */
+  L.push(fpad('支位',C1)+fpad('干支',C2)+fpad('神將',C3)+fpad('陰陽、五行、旺衰',CW)+fpad('六親',CQ)+'神煞');
   rows.forEach(function(r){
+    var gz=(r.gan||'')+(r.zhi||'');              /* 干支本體，天將另欄 */
     var ws=(r.yy?'陽':'陰')+'、'+r.wx+'、'+r.ws+(r.kong?'（空）':'');
-    L.push(fpad(r.name,C1)+fpad(r.gz,CG)+fpad(ws,CW)+fpad(r.lq,CQ)
+    L.push(fpad(r.name,C1)+lpad(gz,2)+'\u3000'+fpad(r.tj||'',C3)+fpad(ws,CW)+fpad(r.lq,CQ)
       +(r.ss.length?r.ss.join('、'):'—'));
+    if(r.name===yong.layer) L.push(fpad('',C1)+'──────');   /* 用爻底線（不輸出「用」字） */
   });
   L.push('');
   var wu=dong.filter(function(d){return ['財動','官動','鬼動','妻動','賊動'].indexOf(d.n)>=0;});
