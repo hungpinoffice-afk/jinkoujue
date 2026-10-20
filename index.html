@@ -447,8 +447,9 @@
   .out-hd b{font-family:var(--kai);font-size:16px;letter-spacing:4px;text-indent:4px;color:#e7cf95;}
   .out-hd span{font-size:12.5px;color:#b9c2cb;letter-spacing:1px;}
   .out-area{flex:1;min-height:0;width:100%;border:none;border-top:2px solid var(--gold);border-bottom:1px solid var(--line);
-    padding:12px 16px;font-size:13.5px;line-height:1.75;color:var(--ink);background:#fffdf7;overflow-x:auto;white-space:pre;
-    font-family:var(--kai);resize:vertical;outline:none;}
+    padding:12px 16px;font-size:13.5px;line-height:1.75;color:var(--ink);background:#fffdf7;overflow:auto;white-space:pre;
+    font-family:var(--kai);outline:none;cursor:text;}
+  .out-area .ul{text-decoration:underline;text-decoration-thickness:1.5px;text-underline-offset:3px;}
   .out-ft{display:flex;gap:9px;justify-content:flex-end;padding:10px 16px;background:var(--tagbg);}
   .out-ft button{padding:7px 18px;font-size:13.5px;letter-spacing:2px;}
   @media(max-width:560px){
@@ -960,7 +961,7 @@ function shenshaFor(list,layer,gan,zhi){
 <div class="out-mask" id="out-mask" role="dialog" aria-modal="true" aria-label="輸出">
   <div class="out-box">
     <div class="out-hd"><b>輸出</b><span id="out-hint">可直接編輯，或按「複製」使用</span></div>
-    <textarea class="out-area" id="out-area" spellcheck="false" wrap="off"></textarea>
+    <div class="out-area" id="out-area" contenteditable="true" role="textbox" aria-multiline="true" spellcheck="false"></div>
     <div class="out-ft">
       <button class="btn-sub" id="btn-out-copy" type="button">複製</button>
       <button class="btn-main" id="btn-out-close" type="button">關閉</button>
@@ -1108,6 +1109,13 @@ function initUI(){
   $('btn-export').onclick=openExport;
   $('btn-out-close').onclick=closeExport;
   $('btn-out-copy').onclick=copyExport;
+  /* 貼上只取純文字，避免外部樣式與字型污染輸出框 */
+  $('out-area').addEventListener('paste',function(e){
+    e.preventDefault();
+    var cd=e.clipboardData||window.clipboardData;
+    var txt=cd?cd.getData('text/plain'):'';
+    document.execCommand('insertText',false,txt);
+  });
   $('out-mask').onclick=function(e){ if(e.target===this) closeExport(); };
   document.addEventListener('keydown',function(e){
     if(e.key==='Escape'&&$('out-mask').classList.contains('on')) closeExport();
@@ -1468,8 +1476,14 @@ function lpad(s,n){                      /* 左補全形空格：右對齊 */
   for(var i=s.length;i<n;i++) p+='\u3000';
   return p+s;
 }
-function underl(s){                       /* 字下加組合底線 U+0332，緊貼字緣、不佔額外行 */
-  return String(s).split('').map(function(c){ return c+'\u0332'; }).join('');
+function underl(s){                       /* 用哨兵標記待加底線的區段（U+0332 在本機字型缺字，改由 CSS 畫線） */
+  return '\u0001'+String(s)+'\u0002';
+}
+function outToHtml(t){                    /* 純文字 → 輸出框 HTML（哨兵轉成 .ul 底線 span） */
+  var esc=function(x){ return x.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); };
+  return t.split('\n').map(function(l){
+    return esc(l).replace(/\u0001/g,'<span class="ul">').replace(/\u0002/g,'</span>');
+  }).join('<br>');
 }
 function buildOutText(){
   if(!LAST) return '';
@@ -1487,8 +1501,8 @@ function buildOutText(){
   L.push(kv('月將',ke.yueJiang+'（'+JIANG_NAME[ke.yueJiang]+'）　中氣換將'+(ke.zhongqi?'（'+ke.zhongqi+'後）':'')));
   L.push(kv('起課時辰',ke.hourZhi+'時（'+ke.dayNight+'占）'));
   L.push(kv('地分',ke.diFen));
-  L.push(kv('年命',LAST.sex+'　　本命：'+(LAST.benming||'—')+'　　行年：'+(LAST.xingnian||'—')
-    +(LAST.matter?'　　所占：'+LAST.matter:'')));
+  L.push(kv('年命',LAST.sex+'　　本命：'+(LAST.benming||'—')+'　　行年：'+(LAST.xingnian||'—')));
+  if(LAST.matter) L.push(kv('所占',LAST.matter));
   L.push('');
   L.push('【二、課式】');
   L.push('用爻：'+yong.layer+'（'+yong.rule+'）');
@@ -1512,7 +1526,7 @@ function buildOutText(){
   rows.forEach(function(r){
     var gz=(r.gan||'')+(r.zhi||'');                     /* 干支本體，天將另欄 */
     var gzt=(r.name===yong.layer)?underl(gz):gz;        /* 用爻：字下加線，不另佔一行 */
-    var ws=(r.yy?'+':'−')+'\u3000'+r.wx+'\u3000'+r.ws+(r.kong?'（空）':'');
+    var ws=(r.yy?'＋':'－')+'\u3000'+r.wx+'\u3000'+r.ws+(r.kong?'（空）':'');  /* 全形加減號＝1em，半形 + 6.75px / − 10px 會造成欄位漂移 */
     L.push(fpad(r.name,C1)+lpad('',Math.max(0,2-gz.length))+gzt+'\u3000'
       +fpad(r.tj||'',C3)+fpad(ws,CW)+fpad(r.lq,CQ)
       +(r.ss.length?r.ss.join('、'):'—'));
@@ -1522,7 +1536,7 @@ function buildOutText(){
   var san=dong.filter(function(d){return ['父母動','兄弟動','子孫動'].indexOf(d.n)>=0;});
   L.push('動爻：五動 '+(wu.length?wu.map(function(d){return d.n;}).join('、'):'無')
     +'　　三動 '+(san.length?san.map(function(d){return d.n;}).join('、'):'無'));
-  dong.forEach(function(d){ L.push('　　'+d.n+'：'+d.t); });
+  dong.forEach(function(d){ L.push('　　　'+d.n+'：'+d.t); });
   L.push('');
   L.push('【三、旺衰】');
   L.push('四層五行：人元'+ke.ren.wx+'、貴神'+ke.gui.wx+'、將神'+ke.jiang.wx+'、地分'+ke.di.wx);
@@ -1541,9 +1555,16 @@ function openExport(){
   var t=buildOutText();
   if(lang==='s') t=convT(t);          /* 簡體界面下輸出一併簡體 */
   var a=$('out-area');
-  a.value=t;
+  a.innerHTML=outToHtml(t);
   $('out-mask').classList.add('on');
-  setTimeout(function(){ try{ a.focus(); a.setSelectionRange(0,0); a.scrollTop=0; }catch(e){} },40);
+  setTimeout(function(){
+    try{
+      a.focus();
+      var r=document.createRange(); r.selectNodeContents(a); r.collapse(true);
+      var sel=window.getSelection(); sel.removeAllRanges(); sel.addRange(r);
+      a.scrollTop=0;
+    }catch(e){}
+  },40);
 }
 function closeExport(){ $('out-mask').classList.remove('on'); }
 function copyExport(){
@@ -1553,9 +1574,10 @@ function copyExport(){
     h.textContent='已複製';
     setTimeout(function(){ h.textContent='可直接編輯，或按「複製」使用'; },1500);
   };
+  var plain=function(){ return (a.innerText||'').replace(/[\u0001\u0002]/g,''); };
   var fallback=function(){ try{ a.select(); document.execCommand('copy'); done(); }catch(e){} };
   if(navigator.clipboard&&navigator.clipboard.writeText){
-    navigator.clipboard.writeText(a.value).then(done,fallback);
+    navigator.clipboard.writeText(plain()).then(done,fallback);
   }else{ fallback(); }
 }
 if(typeof document!=='undefined' && document.getElementById){
