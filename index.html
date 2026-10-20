@@ -454,7 +454,7 @@
 <body>
 <header>
   <div class="hdr-seal">金口訣</div>
-  <button class="lang-btn" id="btn-lang" type="button" title="目前為繁體界面，點擊切換為簡體">繁體</button>
+  <button class="lang-btn" id="btn-lang" type="button" title="目前為繁體界面，點擊切換為簡體">界面:繁體</button>
   <h1><span class="h1-l1">澹台明玉</span><span class="h1-l2">金口訣</span></h1>
   <div class="hdr-rule"><i></i></div>
   <p class="maker">製作：SHENG</p>
@@ -1108,7 +1108,7 @@ function applyLang(){
   document.documentElement.setAttribute('data-lang',lang);
   var b=$('btn-lang');
   if(b){
-    b.textContent=(lang==='s')?'简体':'繁體';
+    b.textContent=(lang==='s')?'介面：简体':'界面:繁體';
     b.title=(lang==='s')?'目前为简体界面，点击切换为繁体':'目前為繁體界面，點擊切換為簡體';
   }
 }
