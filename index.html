@@ -299,6 +299,24 @@
   .ss-card .sp{font-size:11.5px;color:var(--ink2);}
   .panel-stack{display:grid;grid-template-columns:1fr;gap:16px;margin-top:18px;}
   .panel-stack .panel{margin-bottom:0;}
+  /* ===== 繁／簡界面切換按鈕 ===== */
+  .lang-btn{
+    position:absolute;top:21px;left:26px;z-index:6;
+    display:inline-flex;align-items:center;justify-content:center;
+    min-width:52px;padding:5px 12px;cursor:pointer;
+    font-family:var(--kai);font-size:14.5px;font-weight:700;letter-spacing:3px;
+    color:#e7cf95;
+    border:1px solid rgba(184,147,63,.6);border-radius:2px;
+    background:rgba(158,47,40,.18);
+    box-shadow:inset 0 0 0 1px rgba(226,96,79,.22);
+    transition:background .18s,color .18s,border-color .18s;
+    -webkit-appearance:none;appearance:none;
+  }
+  .lang-btn:hover{background:rgba(158,47,40,.36);color:#f6e3b0;border-color:rgba(184,147,63,.9);}
+  .lang-btn:active{transform:translateY(1px);}
+  @media(max-width:760px){
+    .lang-btn{top:13px;left:13px;min-width:46px;padding:4px 10px;font-size:13px;letter-spacing:2px;}
+  }
   .hdr-seal{
     position:absolute;top:20px;right:26px;
     display:flex;align-items:center;justify-content:center;
@@ -436,6 +454,7 @@
 <body>
 <header>
   <div class="hdr-seal">金口訣</div>
+  <button class="lang-btn" id="btn-lang" type="button" title="目前為繁體界面，點擊切換為簡體">繁體</button>
   <h1><span class="h1-l1">澹台明玉</span><span class="h1-l2">金口訣</span></h1>
   <div class="hdr-rule"><i></i></div>
   <p class="maker">製作：SHENG</p>
@@ -1017,6 +1036,88 @@ function shenshaFor(list,layer,gan,zhi,curatedOnly){
 
 <script>
 /* ==================== UI ==================== */
+/* ==================== 繁／簡界面切換 ==================== */
+var CONV_T2S={"並":"并","亂":"乱","來":"来","個":"个","傳":"传","傷":"伤","傾":"倾","僅":"仅","儀":"仪","內":"内","兩":"两","別":"别","則":"则","動":"动","勝":"胜","區":"区","厭":"厌","喪":"丧","單":"单","圍":"围","圖":"图","塋":"茔","墮":"堕","墳":"坟","壓":"压","壞":"坏","夢":"梦","孫":"孙","宮":"宫","實":"实","寬":"宽","將":"将","專":"专","對":"对","層":"层","屬":"属","廢":"废","後":"后","從":"从","徵":"征","態":"态","慶":"庆","憂":"忧","應":"应","懸":"悬","換":"换","損":"损","擊":"击","據":"据","敗":"败","數":"数","於":"于","時":"时","晝":"昼","暫":"暂","曆":"历","書":"书","會":"会","標":"标","機":"机","橫":"横","欄":"栏","權":"权","歲":"岁","氣":"气","決":"决","沒":"没","測":"测","準":"准","滅":"灭","滯":"滞","滿":"满","澤":"泽","災":"灾","為":"为","無":"无","牽":"牵","狀":"状","現":"现","環":"环","產":"产","當":"当","疊":"叠","發":"发","盜":"盗","盤":"盘","硃":"朱","確":"确","祿":"禄","禍":"祸","禮":"礼","稅":"税","種":"种","穀":"谷","節":"节","範":"范","約":"约","紅":"红","純":"纯","紙":"纸","級":"级","組":"组","絆":"绊","絞":"绞","網":"网","線":"线","緻":"致","縮":"缩","總":"总","羅":"罗","羈":"羁","義":"义","聯":"联","與":"与","華":"华","蓋":"盖","藍":"蓝","處":"处","虛":"虚","蟄":"蛰","衝":"冲","裝":"装","製":"制","見":"见","規":"规","視":"视","親":"亲","覺":"觉","覽":"览","計":"计","訊":"讯","訟":"讼","訣":"诀","設":"设","詔":"诏","該":"该","語":"语","課":"课","調":"调","請":"请","論":"论","諧":"谐","證":"证","變":"变","讓":"让","財":"财","貴":"贵","資":"资","賊":"贼","賦":"赋","車":"车","軟":"软","輸":"输","連":"连","進":"进","過":"过","遷":"迁","選":"选","醫":"医","針":"针","鈕":"钮","錢":"钱","鎖":"锁","長":"长","門":"门","閉":"闭","開":"开","間":"间","陣":"阵","陰":"阴","陳":"陈","陽":"阳","階":"阶","際":"际","隨":"随","隱":"隐","雙":"双","雞":"鸡","離":"离","難":"难","電":"电","靜":"静","響":"响","頁":"页","順":"顺","須":"须","頭":"头","頹":"颓","顯":"显","風":"风","飛":"飞","飾":"饰","饋":"馈","馬":"马","驚":"惊","驛":"驿","體":"体","魯":"鲁","點":"点","齊":"齐","龍":"龙"};
+var CONV_S2T={"与":"與","专":"專","两":"兩","丧":"喪","个":"個","为":"為","义":"義","书":"書","乱":"亂","于":"於","产":"產","亲":"親","仅":"僅","从":"從","仪":"儀","会":"會","传":"傳","伤":"傷","体":"體","倾":"傾","内":"內","冲":"衝","决":"決","准":"準","击":"擊","则":"則","别":"別","制":"製","动":"動","区":"區","医":"醫","华":"華","单":"單","历":"曆","压":"壓","厌":"厭","双":"雙","发":"發","变":"變","叠":"疊","响":"響","围":"圍","图":"圖","坏":"壞","坟":"墳","堕":"墮","处":"處","头":"頭","孙":"孫","实":"實","宫":"宮","宽":"寬","对":"對","将":"將","层":"層","属":"屬","岁":"歲","并":"並","庆":"慶","应":"應","废":"廢","开":"開","当":"當","征":"徵","忧":"憂","态":"態","总":"總","悬":"懸","惊":"驚","损":"損","换":"換","据":"據","数":"數","无":"無","时":"時","昼":"晝","显":"顯","暂":"暫","机":"機","权":"權","来":"來","标":"標","栏":"欄","梦":"夢","横":"橫","气":"氣","没":"沒","泽":"澤","测":"測","滞":"滯","满":"滿","灭":"滅","灾":"災","点":"點","牵":"牽","状":"狀","环":"環","现":"現","电":"電","盖":"蓋","盗":"盜","盘":"盤","确":"確","礼":"禮","祸":"禍","禄":"祿","离":"離","种":"種","税":"稅","红":"紅","约":"約","级":"級","纯":"純","纸":"紙","线":"線","组":"組","绊":"絆","绞":"絞","缩":"縮","网":"網","罗":"羅","羁":"羈","联":"聯","胜":"勝","致":"緻","节":"節","范":"範","茔":"塋","蓝":"藍","虚":"虛","蛰":"蟄","装":"裝","见":"見","规":"規","视":"視","览":"覽","觉":"覺","计":"計","让":"讓","讯":"訊","论":"論","讼":"訟","设":"設","诀":"訣","证":"證","诏":"詔","该":"該","语":"語","请":"請","课":"課","调":"調","谐":"諧","谷":"穀","财":"財","败":"敗","贵":"貴","贼":"賊","资":"資","赋":"賦","车":"車","软":"軟","输":"輸","迁":"遷","过":"過","进":"進","连":"連","选":"選","针":"針","钮":"鈕","钱":"錢","锁":"鎖","长":"長","门":"門","闭":"閉","间":"間","阳":"陽","阴":"陰","阵":"陣","阶":"階","际":"際","陈":"陳","随":"隨","隐":"隱","难":"難","静":"靜","页":"頁","顺":"順","须":"須","颓":"頹","风":"風","飞":"飛","饰":"飾","馈":"饋","马":"馬","驿":"驛","鲁":"魯","鸡":"雞","齐":"齊","龙":"龍"};
+var lang='t';
+var _convText=new WeakMap();
+var _convAttr=new WeakMap();
+var _convTitle=null;
+function hasCJK(x){return /[\u4e00-\u9fff]/.test(x);}
+function convStr(x,m){
+  var r='',i,c;
+  for(i=0;i<x.length;i++){
+    c=x.charAt(i);
+    r+=Object.prototype.hasOwnProperty.call(m,c)?m[c]:c;
+  }
+  return r;
+}
+function convT(x){return convStr(x,CONV_T2S);}
+function convS(x){return convStr(x,CONV_S2T);}
+/* 文字節點：以首次見到的原文為原稿；若內容被外部（重新渲染／使用者輸入）改動則自動更新原稿 */
+function convTextNode(n){
+  var t=n.nodeValue;
+  if(!t||!hasCJK(t)) return;
+  var o=_convText.get(n);
+  if(o!==undefined){
+    if(lang==='s'){ if(t!==convT(o)) o=t; }
+    else { if(t!==o&&t!==convT(o)) o=t; }
+  }
+  if(o===undefined) o=t;
+  _convText.set(n,o);
+  n.nodeValue=(lang==='s')?convT(o):o;
+}
+/* 屬性節點：title（全部元素）＋ value（僅 input，供顯示同步） */
+function convAttrNode(el){
+  var attrs=['title','value'],i,a,v,st,o,isProp;
+  if(el.id==='btn-lang') return;
+  for(i=0;i<attrs.length;i++){
+    a=attrs[i];
+    if(a==='value'&&el.nodeName!=='INPUT') continue;
+    isProp=(a==='value');
+    v=isProp?el.value:el.getAttribute(a);
+    if(!v||!hasCJK(v)) continue;
+    st=_convAttr.get(el);
+    if(!st){st={};_convAttr.set(el,st);}
+    o=st[a];
+    if(o!==undefined){
+      if(lang==='s'){ if(v!==convT(o)) o=v; }
+      else { if(v!==o&&v!==convT(o)) o=v; }
+    }
+    if(o===undefined) o=v;
+    st[a]=o;
+    if(isProp) el.value=(lang==='s')?convT(o):o;
+    else el.setAttribute(a,(lang==='s')?convT(o):o);
+  }
+}
+function applyLang(){
+  var nodes=[],nd,
+      w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT,{acceptNode:function(n){
+        if(!n.parentNode) return NodeFilter.FILTER_REJECT;
+        var t=n.parentNode.nodeName.toLowerCase();
+        if(t==='script'||t==='style'||n.parentNode.id==='btn-lang') return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }});
+  while(nd=w.nextNode()) nodes.push(nd);
+  for(var i=0;i<nodes.length;i++) convTextNode(nodes[i]);
+  var els=document.querySelectorAll('[title],[value]');
+  for(i=0;i<els.length;i++) convAttrNode(els[i]);
+  if(_convTitle===null) _convTitle=document.title;
+  document.title=(lang==='s')?convT(_convTitle):_convTitle;
+  document.documentElement.setAttribute('lang',(lang==='s')?'zh-Hans':'zh-Hant');
+  document.documentElement.setAttribute('data-lang',lang);
+  var b=$('btn-lang');
+  if(b){
+    b.textContent=(lang==='s')?'简体':'繁體';
+    b.title=(lang==='s')?'目前为简体界面，点击切换为繁体':'目前為繁體界面，點擊切換為簡體';
+  }
+}
+function setLang(l){
+  lang=(l==='s')?'s':'t';
+  try{ localStorage.setItem('jkj-lang',lang); }catch(e){}
+  applyLang();
+}
+
 var diFenMode='auto';
 function pad(n){return (n<10?'0':'')+n;}
 function fmtDT(dt){return dt.getFullYear()+'-'+pad(dt.getMonth()+1)+'-'+pad(dt.getDate())+' '+pad(dt.getHours())+':'+pad(dt.getMinutes());}
@@ -1065,7 +1166,10 @@ function initUI(){
     fillGzFromDate(new Date());
     gzHint('已填入此刻四柱，按「換算並起課」。');
   };
-  $('btn-gz-conv').onclick=gzConvert;
+  $('btn-gz-conv').onclick=function(){ gzConvert(); applyLang(); };
+  /* ===== 繁／簡界面切換初始化 ===== */
+  try{ lang=localStorage.getItem('jkj-lang')||'t'; }catch(e){}
+  $('btn-lang').onclick=function(){ setLang(lang==='s'?'t':'s'); };
   run();
 }
 /* 手動指定地分（選定後須按「起課」生效） */
@@ -1138,6 +1242,7 @@ function gzHint(extra){
   $('gz-result').innerHTML=(extra?'<span style="color:var(--ink2)">'+extra+'</span><br>':'')+
     '目前四柱：<b>'+p.y+'年　'+p.m+'月　'+p.d+'日　'+p.h+'時</b>'+
     '<br><span style="color:var(--ink2)">月干依「五虎遁」隨年干、時干依「五鼠遁」隨日干自動決定；干與支需同陰陽方成一柱。</span>';
+  applyLang();
 }
 function fillGzFromDate(dt){
   var sz=siZhu(dt);
@@ -1203,6 +1308,7 @@ function applyGzDate(dt,yp,mz,dp,hz){
   $('gz-result').innerHTML='<b>'+yp+'年 '+mz+'月 '+dp+'日 '+hz+'時</b>　→　公曆 <b>'+fmtDT(dt)+'</b>'+
     '<br><span style="color:var(--ink2)">實際四柱：'+sz.yGan+sz.yZhi+'年　'+sz.yueGan+sz.yueJian+'月　'+
     sz.dGan+sz.dZhi+'日　'+sz.hGan+sz.hZhi+'時　（'+sz.jieName+'後）　已起課</span>';
+  applyLang();
 }
 /* 由輸入框推正時地支（供 UI 回饋用） */
 function ke0hourFromInput(){
@@ -1224,6 +1330,7 @@ function syncDiFenUI(){
   $('btn-now').title = diFenMode==='auto'
     ? '目前為正時自動模式（地分＝'+autoZhi+'）；點擊＝將時間設為此刻'
     : '點擊＝將時間設為此刻、地分取正時（仍須按「起課」）';
+  applyLang();
 }
 function run(){
   var dv=$('in-date').value, tv=$('in-time').value||'12:00';
@@ -1248,6 +1355,7 @@ function run(){
   renderYongshen(ke,yong,wy);
   renderShensha(ss,ke);
   syncDiFenUI();
+  applyLang();
 }
 function ke0hour(dt){
   var h=dt.getHours();
