@@ -60,6 +60,21 @@
     border:1px solid rgba(184,147,63,.55);border-radius:2px;
     background:rgba(158,47,40,.18);
   }
+  /* 右上角：輸出按鈕（原印章位置） */
+  header .out-btn{
+    position:absolute;top:21px;right:26px;z-index:6;
+    display:inline-flex;align-items:center;justify-content:center;
+    min-width:52px;padding:5px 14px;
+    font-family:var(--kai);font-size:14.5px;font-weight:700;letter-spacing:3px;text-indent:3px;
+    color:#e7cf95;
+    border:1px solid rgba(184,147,63,.6);border-radius:2px;
+    background:rgba(158,47,40,.18);
+    box-shadow:inset 0 0 0 1px rgba(226,96,79,.22);
+    -webkit-appearance:none;appearance:none;cursor:pointer;
+    transition:background .18s,color .18s,border-color .18s;
+  }
+  header .out-btn:hover{background:rgba(158,47,40,.38);color:#f6e3b0;border-color:rgba(184,147,63,.9);}
+  header .out-btn:active{transform:translateY(1px);}
   .wrap{max-width:1220px;margin:0 auto;padding:22px 20px 40px;}
   /* ===== 面板（宣紙卡片、雙線框） ===== */
   .panel{
@@ -308,19 +323,8 @@
   @media(max-width:760px){
     .lang-btn{top:13px;left:13px;min-width:46px;padding:4px 10px;font-size:13px;letter-spacing:2px;}
   }
-  .hdr-seal{
-    position:absolute;top:20px;right:26px;
-    display:flex;align-items:center;justify-content:center;
-    writing-mode:vertical-rl;text-orientation:upright;
-    width:52px;height:52px;
-    font-family:var(--kai);font-size:15px;letter-spacing:2px;
-    color:#e2604f;border:2px solid #b8402f;border-radius:3px;
-    background:rgba(158,47,40,.12);
-    box-shadow:inset 0 0 0 1px rgba(226,96,79,.35);
-    opacity:.9;
-  }
   @media(max-width:760px){
-    .hdr-seal{display:none;}
+    header .out-btn{top:13px;right:13px;min-width:46px;padding:4px 11px;font-size:13px;letter-spacing:2px;text-indent:2px;}
     header h1 .h1-l1{font-size:27px;letter-spacing:8px;text-indent:8px;}
     header h1 .h1-l2{font-size:19px;letter-spacing:10px;text-indent:10px;margin-top:4px;}
     .wrap{padding:14px;}
@@ -433,6 +437,26 @@
     .ss-tag{font-size:11.5px;padding:0 5px;margin:1px 3px 1px 0;}
     .yong-badge{font-size:11px;padding:0 5px;margin-left:5px;letter-spacing:1px;}
   }
+  /* ===== 輸出：可編輯文字 ===== */
+  .out-mask{position:fixed;inset:0;z-index:80;display:none;align-items:center;justify-content:center;padding:18px;background:rgba(26,22,16,.58);}
+  .out-mask.on{display:flex;}
+  .out-box{width:min(780px,100%);height:min(720px,88vh);display:flex;flex-direction:column;background:var(--card);
+    border:1px solid var(--line);border-radius:4px;box-shadow:0 20px 56px rgba(0,0,0,.42);overflow:hidden;}
+  .out-hd{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px 16px;
+    background:linear-gradient(160deg,#252c33,#1b2229);color:#f1e4c6;}
+  .out-hd b{font-family:var(--kai);font-size:16px;letter-spacing:4px;text-indent:4px;color:#e7cf95;}
+  .out-hd span{font-size:12.5px;color:#b9c2cb;letter-spacing:1px;}
+  .out-area{flex:1;min-height:0;width:100%;border:none;border-top:2px solid var(--gold);border-bottom:1px solid var(--line);
+    padding:14px 16px;font-size:13.5px;line-height:1.95;color:var(--ink);background:#fffdf7;
+    font-family:var(--kai);resize:vertical;outline:none;}
+  .out-ft{display:flex;gap:9px;justify-content:flex-end;padding:10px 16px;background:var(--tagbg);}
+  .out-ft button{padding:7px 18px;font-size:13.5px;letter-spacing:2px;}
+  @media(max-width:560px){
+    .out-mask{padding:0;}
+    .out-box{width:100%;height:100%;max-height:100vh;border-radius:0;border:none;}
+    .out-area{font-size:13px;padding:12px 13px;}
+    .out-hd span{display:none;}
+  }
 </style>
 <link rel="manifest" href="./manifest.webmanifest">
 <meta name="theme-color" content="#1b2229">
@@ -444,8 +468,8 @@
 </head>
 <body>
 <header>
-  <div class="hdr-seal">金口訣</div>
   <button class="lang-btn" id="btn-lang" type="button" title="目前為繁體界面，點擊切換為簡體">界面:繁體</button>
+  <button class="out-btn" id="btn-export" type="button" title="輸出起課資訊、課式、旺衰為可編輯文字">輸出</button>
   <h1><span class="h1-l1">澹台明玉</span><span class="h1-l2">金口訣</span></h1>
   <div class="hdr-rule"><i></i></div>
   <p class="maker">製作：SHENG</p>
@@ -933,6 +957,17 @@ function shenshaFor(list,layer,gan,zhi){
 }
 </script>
 
+<div class="out-mask" id="out-mask" role="dialog" aria-modal="true" aria-label="輸出">
+  <div class="out-box">
+    <div class="out-hd"><b>輸出</b><span id="out-hint">可直接編輯，或按「複製」使用</span></div>
+    <textarea class="out-area" id="out-area" spellcheck="false"></textarea>
+    <div class="out-ft">
+      <button class="btn-sub" id="btn-out-copy" type="button">複製</button>
+      <button class="btn-main" id="btn-out-close" type="button">關閉</button>
+    </div>
+  </div>
+</div>
+
 <script>
 /* ==================== UI ==================== */
 /* ==================== 繁／簡界面切換 ==================== */
@@ -1069,6 +1104,14 @@ function initUI(){
   /* ===== 繁／簡界面切換初始化 ===== */
   try{ lang=localStorage.getItem('jkj-lang')||'t'; }catch(e){}
   $('btn-lang').onclick=function(){ setLang(lang==='s'?'t':'s'); };
+  /* ===== 輸出 ===== */
+  $('btn-export').onclick=openExport;
+  $('btn-out-close').onclick=closeExport;
+  $('btn-out-copy').onclick=copyExport;
+  $('out-mask').onclick=function(e){ if(e.target===this) closeExport(); };
+  document.addEventListener('keydown',function(e){
+    if(e.key==='Escape'&&$('out-mask').classList.contains('on')) closeExport();
+  });
   run();
 }
 /* 手動指定地分（選定後須按「起課」生效） */
@@ -1248,6 +1291,9 @@ function run(){
   var benming=$('in-benming').value?ganZhiOfYear(+$('in-benming').value):'';
   var xingnian=$('in-xingnian').value;
   var sex=$('in-sex').value;
+  /* 供「輸出」使用的最新課式狀態 */
+  LAST={dt:dt,ke:ke,ss:ss,yong:yong,wy:wy,dong:dong,sex:sex,benming:benming,
+        xingnian:xingnian,matter:$('in-matter').value};
   renderInfo(dt,ke,warn,sex,benming,xingnian);
   renderKe(ke,yong,wy,dong,ss);
   renderDiPan(ke,yong);
@@ -1407,6 +1453,80 @@ function renderShensha(ss,ke){
     html+='</div></div>';
   });
   $('shensha-box').innerHTML=html;
+}
+/* ==================== 輸出：起課資訊、課式、旺衰（可編輯文字） ==================== */
+var LAST=null;
+function buildOutText(){
+  if(!LAST) return '';
+  var ke=LAST.ke, sz=ke.sz, ss=LAST.ss, yong=LAST.yong, wy=LAST.wy, dong=LAST.dong;
+  var kong=ke.xi.kong, woWx=WXG[sz.dGan], L=[];
+  L.push('澹台明玉 金口訣　起課單');
+  L.push('────────────────────────────');
+  L.push('【一、起課資訊】');
+  L.push('公曆：'+fmtDT(LAST.dt));
+  L.push('四柱：'+sz.yGan+sz.yZhi+'年　'+sz.yueGan+sz.yueJian+'月　'+sz.dGan+sz.dZhi+'日　'+sz.hGan+sz.hZhi+'時'
+    +(sz.jieName?'（'+sz.jieName+'後）':''));
+  L.push('旬空：'+ke.xi.name+'（'+kong.join('、')+'空）');
+  L.push('月將：'+ke.yueJiang+'（'+JIANG_NAME[ke.yueJiang]+'）· 中氣換將'+(ke.zhongqi?'（'+ke.zhongqi+'後）':''));
+  L.push('起課時辰：'+ke.hourZhi+'時（'+ke.dayNight+'占）');
+  L.push('地分：'+ke.diFen);
+  L.push('年命：'+LAST.sex+'　·　本命：'+(LAST.benming||'—')+'　·　行年：'+(LAST.xingnian||'—')
+    +(LAST.matter?'　·　所占：'+LAST.matter:''));
+  L.push('');
+  L.push('【二、課式】');
+  L.push('用爻：'+yong.layer+'（'+yong.rule+'）');
+  [
+    {name:'人元',gan:ke.ren.gan,zhi:'',wx:ke.ren.wx,tj:''},
+    {name:'貴神',gan:ke.gui.gan,zhi:ke.gui.zhi,wx:ke.gui.wx,tj:ke.gui.tj},
+    {name:'將神',gan:ke.jiang.gan,zhi:ke.jiang.zhi,wx:ke.jiang.wx,tj:ke.jiang.tj},
+    {name:'地分',gan:'',zhi:ke.di.zhi,wx:ke.di.wx,tj:''}
+  ].forEach(function(r){
+    var yy=r.gan?isYangGan(r.gan):isYangZhi(r.zhi);
+    var ws=wangShuai(r.wx,wy.wx);
+    var gz=(r.gan||'')+(r.zhi||'')+(r.tj?'（'+r.tj+'）':'');
+    var kk=(r.zhi&&kong.indexOf(r.zhi)>=0)?'·空':'';
+    var ssl=shenshaFor(ss,r.name,r.gan||null,r.zhi||null).map(function(s){return s.name;});
+    L.push(r.name+'：'+gz+'　｜　'+(yy?'陽':'陰')+'·'+r.wx+'·'+ws+kk
+      +'　｜　六親：'+liuQin(woWx,r.wx)+'　｜　神煞：'+(ssl.length?ssl.join('、'):'—'));
+  });
+  var wu=dong.filter(function(d){return ['財動','官動','鬼動','妻動','賊動'].indexOf(d.n)>=0;});
+  var san=dong.filter(function(d){return ['父母動','兄弟動','子孫動'].indexOf(d.n)>=0;});
+  L.push('動爻：五動：'+(wu.length?wu.map(function(d){return d.n;}).join('、'):'無')
+    +'　；三動：'+(san.length?san.map(function(d){return d.n;}).join('、'):'無'));
+  dong.forEach(function(d){ L.push('　· '+d.n+'：'+d.t); });
+  L.push('');
+  L.push('【三、旺衰】');
+  L.push('四層五行：人元'+ke.ren.wx+'、貴神'+ke.gui.wx+'、將神'+ke.jiang.wx+'、地分'+ke.di.wx
+    +'　→　旺爻：'+wy.wx+'（'+wy.rule+'）');
+  var jue={旺:'同旺爻，事情必成',相:'旺爻生，將來事成',休:'生旺爻，事情已過',囚:'克旺爻，事情難動',死:'旺爻克，事不可為'};
+  [['人元',ke.ren.wx],['貴神',ke.gui.wx],['將神',ke.jiang.wx],['地分',ke.di.wx]].forEach(function(r){
+    var ws=wangShuai(r[1],wy.wx), kw=kewaiLevel(r[1],ke.sz.yueJian);
+    L.push(r[0]+'：課內旺衰 '+ws+'　｜　課外旺衰（月令 '+ke.sz.yueJian+'）'+kw
+      +'（'+kewaiReason(r[1],ke.sz.yueJian)+'）　｜　應事訣：'+jue[ws]);
+  });
+  return L.join('\n');
+}
+function openExport(){
+  if(!LAST) run();
+  var t=buildOutText();
+  if(lang==='s') t=convT(t);          /* 簡體界面下輸出一併簡體 */
+  var a=$('out-area');
+  a.value=t;
+  $('out-mask').classList.add('on');
+  setTimeout(function(){ try{ a.focus(); a.setSelectionRange(0,0); a.scrollTop=0; }catch(e){} },40);
+}
+function closeExport(){ $('out-mask').classList.remove('on'); }
+function copyExport(){
+  var a=$('out-area'), h=$('out-hint');
+  var done=function(){
+    if(!h) return;
+    h.textContent='已複製';
+    setTimeout(function(){ h.textContent='可直接編輯，或按「複製」使用'; },1500);
+  };
+  var fallback=function(){ try{ a.select(); document.execCommand('copy'); done(); }catch(e){} };
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(a.value).then(done,fallback);
+  }else{ fallback(); }
 }
 if(typeof document!=='undefined' && document.getElementById){
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',initUI);
