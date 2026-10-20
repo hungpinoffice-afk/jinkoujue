@@ -281,18 +281,9 @@
   .difen-legend i{display:inline-block;width:22px;height:0;vertical-align:middle;margin:0 5px 0 2px;}
   .difen-legend i.lg-on{border-top:3px solid var(--zhu);}
   .difen-legend i.lg-auto{border-top:3px dashed #244a67;}
-  /* ===== 旺衰：課外旺爻 ===== */
+  /* ===== 旺衰 ===== */
   .wy-sum{font-size:14px;color:var(--ink);line-height:1.95;}
   .wy-sum b{color:var(--qing);}
-  .wk-band{border:1px solid #dccdaa;border-left:4px solid var(--gold);border-radius:3px;background:linear-gradient(#fdf8ec,#faf2df);padding:11px 14px;margin-top:9px;}
-  .wk-chips{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 10px;}
-  .wk-chip{display:inline-flex;align-items:baseline;gap:7px;font-family:var(--kai);font-size:15px;font-weight:700;border:1px solid #d8c9a8;border-radius:3px;padding:4px 11px;background:linear-gradient(#fffdf7,#fbf6ea);}
-  .wk-chip i{font-style:normal;font-size:12px;font-weight:400;color:var(--ink2);letter-spacing:1px;}
-  .wk-chip .lv{font-size:15px;}
-  .wk-chip.on{border-color:var(--gold);background:linear-gradient(#fdf1d6,#f7e9c5);box-shadow:0 0 0 2px rgba(168,134,60,.18);}
-  .wk-res{font-size:13.5px;color:var(--ink2);line-height:1.85;border-top:1px dashed #e0d0ac;padding-top:9px;}
-  .wk-res b{color:var(--gold);font-family:var(--kai);font-size:16px;letter-spacing:1px;}
-  .wk-res .tag{display:inline-block;background:linear-gradient(180deg,#b8933f,#96762c);color:#fff;font-size:11.5px;font-weight:700;border-radius:2px;padding:1px 8px;margin-left:8px;letter-spacing:1px;vertical-align:middle;}
   .ss-cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:9px;margin-top:7px;}
   .ss-card{border:1px solid #d8c9a8;border-radius:3px;padding:7px 9px;background:linear-gradient(#fffdf7,#fbf6ea);font-size:13px;line-height:1.45;}
   .ss-card .sn{font-weight:700;}
@@ -1376,13 +1367,10 @@ function renderDiPan(ke,yong){
 }
 /* ---- 四、用爻與旺衰 ---- */
 function renderYongshen(ke,yong,wy){
-  var mw=WXZ[ke.sz.yueJian];
-  var wm=findWangYaoByMonth(ke);
   var rows=[['人元',ke.ren.wx],['貴神',ke.gui.wx],['將神',ke.jiang.wx],['地分',ke.di.wx]];
   var jue={旺:'同旺爻，事情必成',相:'旺爻生，將來事成',休:'生旺爻，事情已過',囚:'克旺爻，事情難動',死:'旺爻克，事不可為'};
 
-  /* ── 課內旺爻 ── */
-  var html='<h3>課內旺爻</h3>';
+  var html='';
   html+='<div class="wy-sum">四層五行：人元'+ke.ren.wx+'、貴神'+ke.gui.wx+'、將神'+ke.jiang.wx+'、地分'+ke.di.wx+
     '　→　旺爻：<b style="color:var(--green)">'+wy.wx+'</b>（'+wy.rule+'）</div>';
   html+='<div class="cards">';
@@ -1394,21 +1382,6 @@ function renderYongshen(ke,yong,wy){
       '<div class="cr">課外旺衰（月令 '+ke.sz.yueJian+'）：<b class="'+wsCls(kw)+'">'+kw+'</b>（'+kewaiReason(r[1],ke.sz.yueJian)+'）</div>'+
       '<div class="cr">應事訣：'+jue[ws]+'</div></div>';
   });
-  html+='</div>';
-
-  /* ── 課外旺爻：以月令五行為我 ── */
-  html+='<h3>課外旺爻（以月令五行為我）</h3>';
-  html+='<div class="wk-band">';
-  html+='<div class="wy-sum">月令 <b>'+ke.sz.yueJian+'</b>（'+mw+'）為我　·　同我者旺、我生者相、生我者休、克我者囚、我克者死</div>';
-  html+='<div class="wk-chips">';
-  rows.forEach(function(r){
-    var lv=kewaiLevel(r[1],ke.sz.yueJian);
-    var on=(lv===wm.level && wm.list.some(function(x){return x.name===r[0];}));
-    html+='<span class="wk-chip'+(on?' on':'')+'"><i>'+r[0]+'</i>'+r[1]+
-      '<span class="lv '+wsCls(lv)+'">'+lv+'</span></span>';
-  });
-  html+='</div>';
-  html+='<div class="wk-res">課外旺爻：<b>'+wm.names+'</b><span class="tag">'+wm.level+'</span>　—　'+wm.rule+'</div>';
   html+='</div>';
 
   $('yongshen-box').innerHTML=html;
