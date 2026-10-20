@@ -539,7 +539,7 @@
       <div class="ke-left">
         <div class="ke-scroll">
           <table class="ke-table" id="ke-table">
-            <tr><th>爻位</th><th>干支／神將</th><th>陰陽·五行·旺衰</th><th>六親</th><th>神煞</th></tr>
+            <tr><th>爻位</th><th>干支／神將</th><th>旺衰</th><th>六親</th><th>神煞</th></tr>
           </table>
         </div>
         <div class="scroll-hint">← 左右滑動查看完整課式 →</div>
@@ -1369,10 +1369,10 @@ function renderKe(ke,yong,wy,dong,ss){
     gzHtml='<span class="gz-wrap'+(isYong?' yongrow':'')+'">'+inner+'</span>'+(isYong?yongBadge:'');
     var layCls={'人元':'lay-ren','貴神':'lay-gui','將神':'lay-jiang','地分':'lay-di'}[r.name]||'';
     html+='<tr class="'+layCls+(isYong?' yong-row':'')+'"><td class="ke-layer">'+r.name+'</td><td class="gz">'+gzHtml+'</td><td class="wxinfo">'+
-      '<span class="'+(yy?'yy-plus':'yy-minus')+'">'+(yy?'陽 +':'陰 −')+'</span> '+wx+' <span class="'+wsCls(ws)+'">'+ws+'</span>'+
+      '<span class="'+(yy?'yy-plus':'yy-minus')+'">'+(yy?'+':'−')+'</span> '+wx+' <span class="'+wsCls(ws)+'">'+ws+'</span>'+
       (isKong?' <span class="kong">空</span>':'')+'</td><td><span class="liuqin">'+lq+'</span></td><td>'+sstags+'</td></tr>';
   });
-  $('ke-table').innerHTML='<tr><th>爻位</th><th>干支／神將</th><th>陰陽·五行·旺衰</th><th>六親（日干為我）</th><th>神煞</th></tr>'+html;
+  $('ke-table').innerHTML='<tr><th>爻位</th><th>干支／神將</th><th>旺衰</th><th>六親</th><th>神煞</th></tr>'+html;
   /* 動爻 */
   var dh='<div class="dong"><span class="t">動爻：</span>';
   var wu=dong.filter(function(d){return ['財動','官動','鬼動','妻動','賊動'].indexOf(d.n)>=0;});
