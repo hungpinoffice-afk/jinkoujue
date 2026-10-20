@@ -1469,6 +1469,9 @@ function lpad(s,n){                      /* 左補全形空格：右對齊 */
   for(var i=s.length;i<n;i++) p+='\u3000';
   return p+s;
 }
+function underl(s){                       /* 字下加組合底線 U+0332，緊貼字緣、不佔額外行 */
+  return String(s).split('').map(function(c){ return c+'\u0332'; }).join('');
+}
 function buildOutText(){
   if(!LAST) return '';
   var ke=LAST.ke, sz=ke.sz, ss=LAST.ss, yong=LAST.yong, wy=LAST.wy, dong=LAST.dong;
@@ -1508,11 +1511,12 @@ function buildOutText(){
   var C1=3, C2=3, C3=3, CW=9, CQ=3;   /* 支位／干支／神將／旺衰／六親 */
   L.push(fpad('支位',C1)+fpad('干支',C2)+fpad('神將',C3)+fpad('陰陽、五行、旺衰',CW)+fpad('六親',CQ)+'神煞');
   rows.forEach(function(r){
-    var gz=(r.gan||'')+(r.zhi||'');              /* 干支本體，天將另欄 */
+    var gz=(r.gan||'')+(r.zhi||'');                     /* 干支本體，天將另欄 */
+    var gzt=(r.name===yong.layer)?underl(gz):gz;        /* 用爻：字下加線，不另佔一行 */
     var ws=(r.yy?'陽':'陰')+'、'+r.wx+'、'+r.ws+(r.kong?'（空）':'');
-    L.push(fpad(r.name,C1)+lpad(gz,2)+'\u3000'+fpad(r.tj||'',C3)+fpad(ws,CW)+fpad(r.lq,CQ)
+    L.push(fpad(r.name,C1)+lpad('',Math.max(0,2-gz.length))+gzt+'\u3000'
+      +fpad(r.tj||'',C3)+fpad(ws,CW)+fpad(r.lq,CQ)
       +(r.ss.length?r.ss.join('、'):'—'));
-    if(r.name===yong.layer) L.push(fpad('',C1)+'──────');   /* 用爻底線（不輸出「用」字） */
   });
   L.push('');
   var wu=dong.filter(function(d){return ['財動','官動','鬼動','妻動','賊動'].indexOf(d.n)>=0;});
