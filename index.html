@@ -1417,8 +1417,7 @@ function renderYongshen(ke,yong,wy){
   var jue={旺:'同旺爻，事情必成',相:'旺爻生，將來事成',休:'生旺爻，事情已過',囚:'克旺爻，事情難動',死:'旺爻克，事不可為'};
 
   var html='';
-  html+='<div class="wy-sum">四層五行：人元'+ke.ren.wx+'、貴神'+ke.gui.wx+'、將神'+ke.jiang.wx+'、地分'+ke.di.wx+
-    '　→　旺爻：<b style="color:var(--green)">'+wy.wx+'</b>（'+wy.rule+'）</div>';
+  html+='<div class="wy-sum">四層五行：人元'+ke.ren.wx+'、貴神'+ke.gui.wx+'、將神'+ke.jiang.wx+'、地分'+ke.di.wx+'</div>';
   html+='<div class="cards">';
   rows.forEach(function(r){
     var ws=wangShuai(r[1],wy.wx);
@@ -1508,12 +1507,12 @@ function buildOutText(){
     r.lq=liuQin(woWx,r.wx);
     r.ss=shenshaFor(ss,r.name,r.gan||null,r.zhi||null).map(function(s){return s.name;});
   });
-  var C1=3, C2=3, C3=3, CW=9, CQ=3;   /* 支位／干支／神將／旺衰／六親 */
-  L.push(fpad('支位',C1)+fpad('干支',C2)+fpad('神將',C3)+fpad('陰陽、五行、旺衰',CW)+fpad('六親',CQ)+'神煞');
+  var C1=3, C2=3, C3=3, CW=8, CQ=3;   /* 支位／干支／神將／旺衰／六親（空亡時 +（空）共 7 格，留 1 格間距） */
+  L.push(fpad('支位',C1)+fpad('干支',C2)+fpad('神將',C3)+fpad('旺衰',CW)+fpad('六親',CQ)+'神煞');
   rows.forEach(function(r){
     var gz=(r.gan||'')+(r.zhi||'');                     /* 干支本體，天將另欄 */
     var gzt=(r.name===yong.layer)?underl(gz):gz;        /* 用爻：字下加線，不另佔一行 */
-    var ws=(r.yy?'陽':'陰')+'、'+r.wx+'、'+r.ws+(r.kong?'（空）':'');
+    var ws=(r.yy?'+':'−')+'\u3000'+r.wx+'\u3000'+r.ws+(r.kong?'（空）':'');
     L.push(fpad(r.name,C1)+lpad('',Math.max(0,2-gz.length))+gzt+'\u3000'
       +fpad(r.tj||'',C3)+fpad(ws,CW)+fpad(r.lq,CQ)
       +(r.ss.length?r.ss.join('、'):'—'));
@@ -1526,8 +1525,7 @@ function buildOutText(){
   dong.forEach(function(d){ L.push('　　'+d.n+'：'+d.t); });
   L.push('');
   L.push('【三、旺衰】');
-  L.push('四層五行：人元'+ke.ren.wx+'、貴神'+ke.gui.wx+'、將神'+ke.jiang.wx+'、地分'+ke.di.wx
-    +'　→　旺爻：'+wy.wx+'（'+wy.rule+'）');
+  L.push('四層五行：人元'+ke.ren.wx+'、貴神'+ke.gui.wx+'、將神'+ke.jiang.wx+'、地分'+ke.di.wx);
   L.push('');
   var jue={旺:'同旺爻，事情必成',相:'旺爻生，將來事成',休:'生旺爻，事情已過',囚:'克旺爻，事情難動',死:'旺爻克，事不可為'};
   L.push(fpad('支位',C1)+fpad('課內',3)+fpad('課外（'+ke.sz.yueJian+'月）',10)+'應事訣');
